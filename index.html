@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>WGM-Meter | Werbedruck GM</title>
-    
     <style>
         :root {
             --primary-orange: #f37021;
@@ -14,98 +13,97 @@
             --text-gray: #666666;
             --bt-blue: #007AFF;
         }
-
-        html, body {
-            height: 100%;
-            overflow: hidden;
-            background: var(--bg-light-gray);
-            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            display: flex; justify-content: center; align-items: center; margin: 0;
-        }
-
-        .card { 
-            background: var(--card-bg); padding: 25px; border-radius: 24px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); width: 88%; max-width: 360px;
-            border: 1px solid #e0e0e0;
-        }
-
-        .logo-container { text-align: center; margin-bottom: 15px; }
-        .logo-container img { max-width: 100%; height: auto; max-height: 100px; }
-
-        .divider { height: 3px; background-color: var(--primary-orange); width: 100%; margin-bottom: 20px; border-radius: 2px; }
-
-        .input-group { margin-bottom: 18px; position: relative; }
-        .label-with-icon { display: flex; align-items: center; margin-bottom: 6px; font-size: 0.75em; color: var(--text-gray); text-transform: uppercase; font-weight: 700; }
+        html, body { height: 100%; overflow: hidden; background: var(--bg-light-gray); font-family: sans-serif; display: flex; justify-content: center; align-items: center; margin: 0; }
+        .card { background: var(--card-bg); padding: 25px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); width: 88%; max-width: 360px; border: 1px solid #e0e0e0; position: relative; }
         
-        input { 
-            width: 100%; padding: 14px; border: 2px solid #eeeeee; border-radius: 12px; 
-            font-size: 16px; box-sizing: border-box; transition: border-color 0.3s;
-            background: #fff;
-        }
+        .lang-select { position: absolute; top: 15px; right: 15px; font-size: 0.7em; padding: 4px; border-radius: 8px; border: 1px solid #ddd; background: #fff; }
+
+        .logo-container { text-align: center; margin-bottom: 10px; padding-top: 10px; }
+        .logo-container img { max-width: 80%; height: auto; max-height: 80px; }
+        .divider { height: 3px; background-color: var(--primary-orange); width: 100%; margin-bottom: 20px; border-radius: 2px; }
+        .input-group { margin-bottom: 15px; }
+        .label-with-icon { display: flex; align-items: center; margin-bottom: 5px; font-size: 0.7em; color: var(--text-gray); text-transform: uppercase; font-weight: 700; }
+        input { width: 100%; padding: 12px; border: 2px solid #eeeeee; border-radius: 12px; font-size: 16px; box-sizing: border-box; }
         input:focus { outline: none; border-color: var(--primary-orange); }
-
-        .result-box { 
-            margin-top: 10px; padding: 18px; background: var(--primary-orange);
-            border-radius: 18px; text-align: center; color: white;
-            box-shadow: 0 8px 15px rgba(243, 112, 33, 0.25);
-        }
-        .result-val { font-size: 2.2em; font-weight: 800; display: block; }
-
-        .bt-button {
-            background: var(--bt-blue); color: white; border: none; border-radius: 12px;
-            padding: 12px; font-size: 0.8em; font-weight: bold; cursor: pointer;
-            display: flex; align-items: center; gap: 8px; margin-top: 25px; width: 100%; justify-content: center;
-            transition: opacity 0.2s;
-        }
-        .bt-button:active { opacity: 0.8; }
-
-        footer { margin-top: 20px; text-align: center; font-size: 0.7em; color: var(--text-gray); }
+        .result-box { margin-top: 10px; padding: 15px; background: var(--primary-orange); border-radius: 18px; text-align: center; color: white; }
+        .result-val { font-size: 2em; font-weight: 800; display: block; }
+        .bt-button { background: var(--bt-blue); color: white; border: none; border-radius: 12px; padding: 12px; font-size: 0.75em; font-weight: bold; margin-top: 20px; width: 100%; cursor: pointer; }
+        
+        footer { margin-top: 15px; text-align: center; font-size: 0.65em; color: var(--text-gray); line-height: 1.6; }
+        footer a { color: var(--text-gray); text-decoration: none; font-weight: bold; }
+        footer a:hover { text-decoration: underline; }
+        .legal-links { margin-top: 8px; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="logo-container">
-        <img src="wgm-applogo.jpg" alt="Werbedruck GM">
-    </div>
+    <select class="lang-select" id="langPicker" onchange="changeLang()">
+        <option value="de">DE</option>
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+        <option value="it">IT</option>
+        <option value="ja">JA</option>
+    </select>
 
+    <div class="logo-container"><img src="wgm-applogo.jpg" alt="Werbedruck GM"></div>
     <div class="divider"></div>
 
     <div class="input-group">
-        <div class="label-with-icon">Rollendurchmesser (mm)</div>
-        <input type="number" id="D" inputmode="decimal" placeholder="z.B. 145" oninput="calc()">
+        <div class="label-with-icon" id="lbl_D">Rollendurchmesser (mm)</div>
+        <input type="number" id="D" inputmode="decimal" placeholder="..." oninput="calc()" autofocus>
     </div>
-
     <div class="input-group">
-        <div class="label-with-icon">Kerndurchmesser (mm)</div>
+        <div class="label-with-icon" id="lbl_d">Kerndurchmesser (mm)</div>
         <input type="number" id="d" inputmode="decimal" value="84" oninput="calc()">
     </div>
-
     <div class="input-group">
-        <div class="label-with-icon">Materialstärke (mm)</div>
+        <div class="label-with-icon" id="lbl_s">Materialstärke (mm)</div>
         <input type="number" id="s" inputmode="decimal" value="0.22" step="0.01" oninput="calc()">
     </div>
 
     <div class="result-box">
-        <span style="font-size: 0.75em; text-transform: uppercase; font-weight: bold;">Material auf der Rolle</span>
+        <span id="lbl_res_text" style="font-size: 0.7em; text-transform: uppercase; font-weight: bold;">Material auf der Rolle</span>
         <span class="result-val" id="res">0.00 m</span>
     </div>
 
-    <button class="bt-button" onclick="connectBluetooth()">
-        <span>🔵</span> MESS-GERÄT VERBINDEN
-    </button>
+    <button class="bt-button" id="btn_bt" onclick="connectBluetooth()">🔵 MESS-GERÄT VERBINDEN</button>
     
     <footer>
         <strong>Werbedruck GM</strong><br>
-        Digital- und UV-Druck<br>
-        V1.6 Bluetooth Support
+        <span id="lbl_footer">V1.8.1 Multilingual & Bluetooth</span><br>
+        <div class="legal-links">
+            <a href="https://www.deine-werbewerkstatt.de/Impressum/" target="_blank" id="lbl_imp">Impressum</a> | 
+            <a href="https://www.deine-werbewerkstatt.de/datenschutz/" target="_blank" id="lbl_priv">Datenschutz</a>
+        </div>
     </footer>
 </div>
 
 <script>
+const translations = {
+    de: { D: "Rollendurchmesser (mm)", d: "Kerndurchmesser (mm)", s: "Materialstärke (mm)", res: "Material auf der Rolle", bt: "🔵 MESS-GERÄT VERBINDEN", foot: "V1.8.1 Multilingual & Bluetooth", imp: "Impressum", priv: "Datenschutz" },
+    en: { D: "Roll Diameter (mm)", d: "Core Diameter (mm)", s: "Material Thickness (mm)", res: "Material on Roll", bt: "🔵 CONNECT CALIPER", foot: "V1.8.1 Multilingual & Bluetooth", imp: "Imprint", priv: "Privacy" },
+    es: { D: "Diámetro del rollo (mm)", d: "Diámetro del núcleo (mm)", s: "Grosor del material (mm)", res: "Material en el rollo", bt: "🔵 CONECTAR CALIBRADOR", foot: "V1.8.1 Multilingüe", imp: "Aviso Legal", priv: "Privacidad" },
+    it: { D: "Diametro rotolo (mm)", d: "Diametro anima (mm)", s: "Spessore materiale (mm)", res: "Materiale sul rotolo", bt: "🔵 CONNETTI CALIBRO", foot: "V1.8.1 Multilingua", imp: "Note Legali", priv: "Privacy" },
+    ja: { D: "ロール直径 (mm)", d: "芯の直径 (mm)", s: "材料の厚さ (mm)", res: "ロール上の材料", bt: "🔵 ノギスを接続する", foot: "V1.8.1 多言語対応", imp: "インプリント", priv: "プライバシー" }
+};
+
+function changeLang() {
+    const l = document.getElementById('langPicker').value;
+    document.getElementById('lbl_D').innerText = translations[l].D;
+    document.getElementById('lbl_d').innerText = translations[l].d;
+    document.getElementById('lbl_s').innerText = translations[l].s;
+    document.getElementById('lbl_res_text').innerText = translations[l].res;
+    document.getElementById('btn_bt').innerText = translations[l].bt;
+    document.getElementById('lbl_footer').innerText = translations[l].foot;
+    document.getElementById('lbl_imp').innerText = translations[l].imp;
+    document.getElementById('lbl_priv').innerText = translations[l].priv;
+}
+
 function calc() {
-    const parse = (id) => parseFloat(document.getElementById(id).value.toString().replace(',', '.'));
-    const D = parse('D'), d = parse('d'), s = parse('s');
+    const D = parseFloat(document.getElementById('D').value.replace(',', '.'));
+    const d = parseFloat(document.getElementById('d').value.replace(',', '.'));
+    const s = parseFloat(document.getElementById('s').value.replace(',', '.'));
     if(D && d && s && D > d) {
         const L = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4000 * s);
         document.getElementById('res').innerText = L.toFixed(2) + " m";
@@ -113,19 +111,8 @@ function calc() {
 }
 
 async function connectBluetooth() {
-    if (!navigator.bluetooth) {
-        alert("Bluetooth wird von diesem Browser/Gerät leider nicht unterstützt. Nutzen Sie Chrome oder Edge.");
-        return;
-    }
-    try {
-        const device = await navigator.bluetooth.requestDevice({
-            acceptAllDevices: true,
-            optionalServices: ['generic_access', 'battery_service']
-        });
-        alert("Verbunden mit: " + device.name + "\nDer Messwert wird nun erwartet.");
-    } catch (error) {
-        console.log(error);
-    }
+    if (!navigator.bluetooth) { alert("Bluetooth not supported."); return; }
+    try { await navigator.bluetooth.requestDevice({ acceptAllDevices: true }); } catch (e) {}
 }
 </script>
 </body>
