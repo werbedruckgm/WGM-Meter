@@ -12,104 +12,121 @@
             --card-bg: #ffffff;
             --text-main: #333333;
             --text-gray: #666666;
+            --bt-blue: #007AFF;
         }
 
         html, body {
             height: 100%;
-            margin: 0;
             overflow: hidden;
             background: var(--bg-light-gray);
-            font-family: -apple-system, system-ui, sans-serif;
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex; justify-content: center; align-items: center; margin: 0;
         }
 
         .card { 
-            background: var(--card-bg); 
-            padding: 25px; 
-            border-radius: 24px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-            width: 85%; 
-            max-width: 350px;
+            background: var(--card-bg); padding: 25px; border-radius: 24px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); width: 88%; max-width: 360px;
+            border: 1px solid #e0e0e0;
         }
 
         .logo-container { text-align: center; margin-bottom: 15px; }
-        .logo-container img { max-width: 150px; height: auto; }
+        .logo-container img { max-width: 100%; height: auto; max-height: 100px; }
 
-        h2 { color: var(--text-main); text-align: center; margin: 0 0 15px 0; }
-        
-        .input-group { margin-bottom: 15px; }
-        label { display: block; font-size: 0.8em; color: var(--text-gray); font-weight: bold; margin-bottom: 5px; }
+        .divider { height: 3px; background-color: var(--primary-orange); width: 100%; margin-bottom: 20px; border-radius: 2px; }
+
+        .input-group { margin-bottom: 18px; position: relative; }
+        .label-with-icon { display: flex; align-items: center; margin-bottom: 6px; font-size: 0.75em; color: var(--text-gray); text-transform: uppercase; font-weight: 700; }
         
         input { 
-            width: 100%; 
-            padding: 12px; 
-            border: 2px solid #eee; 
-            border-radius: 10px; 
-            font-size: 16px; 
-            box-sizing: border-box; 
+            width: 100%; padding: 14px; border: 2px solid #eeeeee; border-radius: 12px; 
+            font-size: 16px; box-sizing: border-box; transition: border-color 0.3s;
+            background: #fff;
         }
+        input:focus { outline: none; border-color: var(--primary-orange); }
 
         .result-box { 
-            margin-top: 20px; 
-            padding: 15px; 
-            background: var(--primary-orange);
-            border-radius: 15px; 
-            text-align: center;
-            color: white;
+            margin-top: 10px; padding: 18px; background: var(--primary-orange);
+            border-radius: 18px; text-align: center; color: white;
+            box-shadow: 0 8px 15px rgba(243, 112, 33, 0.25);
         }
+        .result-val { font-size: 2.2em; font-weight: 800; display: block; }
 
-        .result-val { font-size: 2em; font-weight: bold; display: block; }
+        .bt-button {
+            background: var(--bt-blue); color: white; border: none; border-radius: 12px;
+            padding: 12px; font-size: 0.8em; font-weight: bold; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; margin-top: 25px; width: 100%; justify-content: center;
+            transition: opacity 0.2s;
+        }
+        .bt-button:active { opacity: 0.8; }
+
+        footer { margin-top: 20px; text-align: center; font-size: 0.7em; color: var(--text-gray); }
     </style>
 </head>
 <body>
 
 <div class="card">
     <div class="logo-container">
-        <img src="wgm-applogo.jpg" alt="WGM Logo" onerror="this.style.display='none'">
+        <img src="wgm-applogo.jpg" alt="Werbedruck GM">
     </div>
 
-    <h2>WGM-Meter</h2>
+    <div class="divider"></div>
 
     <div class="input-group">
-        <label>Rollen-Durchmesser (mm)</label>
-        <input type="number" id="D" placeholder="z.B. 150" oninput="calc()">
-    </div>
-
-    <div class="input-group">
-        <label>Kern-Durchmesser (mm)</label>
-        <input type="number" id="d" value="84" oninput="calc()">
+        <div class="label-with-icon">Rollendurchmesser (mm)</div>
+        <input type="number" id="D" inputmode="decimal" placeholder="z.B. 145" oninput="calc()">
     </div>
 
     <div class="input-group">
-        <label>Materialstärke (mm)</label>
-        <input type="number" id="s" value="0.22" step="0.01" oninput="calc()">
+        <div class="label-with-icon">Kerndurchmesser (mm)</div>
+        <input type="number" id="d" inputmode="decimal" value="84" oninput="calc()">
+    </div>
+
+    <div class="input-group">
+        <div class="label-with-icon">Materialstärke (mm)</div>
+        <input type="number" id="s" inputmode="decimal" value="0.22" step="0.01" oninput="calc()">
     </div>
 
     <div class="result-box">
-        <span style="font-size: 0.8em; opacity: 0.9;">RESTLAUFLEISTUNG</span>
+        <span style="font-size: 0.75em; text-transform: uppercase; font-weight: bold;">Material auf der Rolle</span>
         <span class="result-val" id="res">0.00 m</span>
     </div>
+
+    <button class="bt-button" onclick="connectBluetooth()">
+        <span>🔵</span> MESS-GERÄT VERBINDEN
+    </button>
+    
+    <footer>
+        <strong>Werbedruck GM</strong><br>
+        Digital- und UV-Druck<br>
+        V1.6 Bluetooth Support
+    </footer>
 </div>
 
 <script>
 function calc() {
-    // Werte aus den Feldern holen
-    const D = parseFloat(document.getElementById('D').value.replace(',', '.'));
-    const d = parseFloat(document.getElementById('d').value.replace(',', '.'));
-    const s = parseFloat(document.getElementById('s').value.replace(',', '.'));
+    const parse = (id) => parseFloat(document.getElementById(id).value.toString().replace(',', '.'));
+    const D = parse('D'), d = parse('d'), s = parse('s');
+    if(D && d && s && D > d) {
+        const L = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4000 * s);
+        document.getElementById('res').innerText = L.toFixed(2) + " m";
+    } else { document.getElementById('res').innerText = "0.00 m"; }
+}
 
-    // Prüfen, ob alle Werte gültig sind
-    if (D && d && s && D > d) {
-        // Die Formel für die Rollenlänge
-        const length = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4000 * s);
-        document.getElementById('res').innerText = length.toFixed(2) + " m";
-    } else {
-        document.getElementById('res').innerText = "0.00 m";
+async function connectBluetooth() {
+    if (!navigator.bluetooth) {
+        alert("Bluetooth wird von diesem Browser/Gerät leider nicht unterstützt. Nutzen Sie Chrome oder Edge.");
+        return;
+    }
+    try {
+        const device = await navigator.bluetooth.requestDevice({
+            acceptAllDevices: true,
+            optionalServices: ['generic_access', 'battery_service']
+        });
+        alert("Verbunden mit: " + device.name + "\nDer Messwert wird nun erwartet.");
+    } catch (error) {
+        console.log(error);
     }
 }
 </script>
-
 </body>
 </html>
