@@ -16,7 +16,7 @@
         html, body { height: 100%; overflow: hidden; background: var(--bg-light-gray); font-family: sans-serif; display: flex; justify-content: center; align-items: center; margin: 0; }
         .card { background: var(--card-bg); padding: 25px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); width: 88%; max-width: 360px; border: 1px solid #e0e0e0; position: relative; }
         
-        .lang-select { position: absolute; top: 15px; right: 15px; font-size: 0.7em; padding: 4px; border-radius: 8px; border: 1px solid #ddd; background: #fff; }
+        .lang-select { position: absolute; top: 15px; right: 15px; font-size: 0.7em; padding: 4px; border-radius: 8px; border: 1px solid #ddd; background: #fff; max-width: 80px; }
 
         .logo-container { text-align: center; margin-bottom: 10px; padding-top: 10px; }
         .logo-container img { max-width: 80%; height: auto; max-height: 80px; }
@@ -31,7 +31,6 @@
         
         footer { margin-top: 15px; text-align: center; font-size: 0.65em; color: var(--text-gray); line-height: 1.6; }
         footer a { color: var(--text-gray); text-decoration: none; font-weight: bold; }
-        footer a:hover { text-decoration: underline; }
         .legal-links { margin-top: 8px; }
     </style>
 </head>
@@ -41,8 +40,13 @@
     <select class="lang-select" id="langPicker" onchange="changeLang()">
         <option value="de">DE</option>
         <option value="en">EN</option>
+        <option value="fr">FR</option>
+        <option value="nl">NL</option>
+        <option value="pl">PL</option>
         <option value="es">ES</option>
         <option value="it">IT</option>
+        <option value="hu">HU</option>
+        <option value="ru">RU</option>
         <option value="ja">JA</option>
     </select>
 
@@ -71,7 +75,7 @@
     
     <footer>
         <strong>Werbedruck GM</strong><br>
-        <span id="lbl_footer">V1.8.1 Multilingual & Bluetooth</span><br>
+        <span id="lbl_footer">V1.9 Multilingual & Bluetooth</span><br>
         <div class="legal-links">
             <a href="https://www.deine-werbewerkstatt.de/Impressum/" target="_blank" id="lbl_imp">Impressum</a> | 
             <a href="https://www.deine-werbewerkstatt.de/datenschutz/" target="_blank" id="lbl_priv">Datenschutz</a>
@@ -81,11 +85,16 @@
 
 <script>
 const translations = {
-    de: { D: "Rollendurchmesser (mm)", d: "Kerndurchmesser (mm)", s: "Materialstärke (mm)", res: "Material auf der Rolle", bt: "🔵 MESS-GERÄT VERBINDEN", foot: "V1.8.1 Multilingual & Bluetooth", imp: "Impressum", priv: "Datenschutz" },
-    en: { D: "Roll Diameter (mm)", d: "Core Diameter (mm)", s: "Material Thickness (mm)", res: "Material on Roll", bt: "🔵 CONNECT CALIPER", foot: "V1.8.1 Multilingual & Bluetooth", imp: "Imprint", priv: "Privacy" },
-    es: { D: "Diámetro del rollo (mm)", d: "Diámetro del núcleo (mm)", s: "Grosor del material (mm)", res: "Material en el rollo", bt: "🔵 CONECTAR CALIBRADOR", foot: "V1.8.1 Multilingüe", imp: "Aviso Legal", priv: "Privacidad" },
-    it: { D: "Diametro rotolo (mm)", d: "Diametro anima (mm)", s: "Spessore materiale (mm)", res: "Materiale sul rotolo", bt: "🔵 CONNETTI CALIBRO", foot: "V1.8.1 Multilingua", imp: "Note Legali", priv: "Privacy" },
-    ja: { D: "ロール直径 (mm)", d: "芯の直径 (mm)", s: "材料の厚さ (mm)", res: "ロール上の材料", bt: "🔵 ノギスを接続する", foot: "V1.8.1 多言語対応", imp: "インプリント", priv: "プライバシー" }
+    de: { D: "Rollendurchmesser (mm)", d: "Kerndurchmesser (mm)", s: "Materialstärke (mm)", res: "Material auf der Rolle", bt: "🔵 MESS-GERÄT VERBINDEN", foot: "V1.9 Multilingual & Bluetooth", imp: "Impressum", priv: "Datenschutz" },
+    en: { D: "Roll Diameter (mm)", d: "Core Diameter (mm)", s: "Material Thickness (mm)", res: "Material on Roll", bt: "🔵 CONNECT CALIPER", foot: "V1.9 Multilingual & Bluetooth", imp: "Imprint", priv: "Privacy" },
+    fr: { D: "Diamètre du rouleau (mm)", d: "Diamètre du noyau (mm)", s: "Épaisseur du matériau (mm)", res: "Matériau sur rouleau", bt: "🔵 CONNECTER LE PIED À COULISSE", foot: "V1.9 Multilingue", imp: "Mentions légales", priv: "Confidentialité" },
+    nl: { D: "Roldiameter (mm)", d: "Kerndiameter (mm)", s: "Materiaaldikte (mm)", res: "Materiaal op rol", bt: "🔵 SCHUIFMAAT VERBINDEN", foot: "V1.9 Meertalig", imp: "Colofon", priv: "Privacy" },
+    pl: { D: "Średnica rolki (mm)", d: "Średnica rdzenia (mm)", s: "Grubość materiału (mm)", res: "Materiał na rolce", bt: "🔵 POŁĄCZ SUWMIARKĘ", foot: "V1.9 Wielojęzyczny", imp: "Nota prawna", priv: "Prywatność" },
+    hu: { D: "Tekercs átmérő (mm)", d: "Magátmérő (mm)", s: "Anyagvastagság (mm)", res: "Anyag a tekercsen", bt: "🔵 TOLÓMÉRŐ CSATLAKOZTATÁSA", foot: "V1.9 Többnyelvű", imp: "Impresszum", priv: "Adatvédelem" },
+    ru: { D: "Диаметр рулона (мм)", d: "Диаметр втулки (мм)", s: "Толщина материала (мм)", res: "Материал в рулоне", bt: "🔵 ПОДКЛЮЧИТЬ ШТАНГЕНЦИРКУЛЬ", foot: "V1.9 Мультиязычный", imp: "Выходные данные", priv: "Конфиденциальность" },
+    es: { D: "Diámetro del rollo (mm)", d: "Diámetro del núcleo (mm)", s: "Grosor del material (mm)", res: "Material en el rollo", bt: "🔵 CONECTAR CALIBRADOR", foot: "V1.9 Multilingüe", imp: "Aviso Legal", priv: "Privacidad" },
+    it: { D: "Diametro rotolo (mm)", d: "Diametro anima (mm)", s: "Spessore materiale (mm)", res: "Materiale sul rotolo", bt: "🔵 CONNETTI CALIBRO", foot: "V1.9 Multilingua", imp: "Note Legali", priv: "Privacy" },
+    ja: { D: "ロール直径 (mm)", d: "芯の直径 (mm)", s: "材料の厚さ (mm)", res: "ロール上の材料", bt: "🔵 ノギスを接続する", foot: "V1.9 多言語対応", imp: "インプリント", priv: "プライバシー" }
 };
 
 function changeLang() {
