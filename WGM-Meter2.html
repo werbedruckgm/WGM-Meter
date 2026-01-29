@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WGM-Meter | Werbedruck GM</title>
+    
+    <style>
+        :root {
+            --primary-orange: #f37021;
+            --bg-light-gray: #f2f2f2; 
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-gray: #666666;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: var(--bg-light-gray);
+            font-family: -apple-system, system-ui, sans-serif;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        .card { 
+            background: var(--card-bg); 
+            padding: 25px; 
+            border-radius: 24px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            width: 85%; 
+            max-width: 350px;
+        }
+
+        .logo-container { text-align: center; margin-bottom: 15px; }
+        .logo-container img { max-width: 150px; height: auto; }
+
+        h2 { color: var(--text-main); text-align: center; margin: 0 0 15px 0; }
+        
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.8em; color: var(--text-gray); font-weight: bold; margin-bottom: 5px; }
+        
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #eee; 
+            border-radius: 10px; 
+            font-size: 16px; 
+            box-sizing: border-box; 
+        }
+
+        .result-box { 
+            margin-top: 20px; 
+            padding: 15px; 
+            background: var(--primary-orange);
+            border-radius: 15px; 
+            text-align: center;
+            color: white;
+        }
+
+        .result-val { font-size: 2em; font-weight: bold; display: block; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="logo-container">
+        <img src="wgm-applogo.jpg" alt="WGM Logo" onerror="this.style.display='none'">
+    </div>
+
+    <h2>WGM-Meter</h2>
+
+    <div class="input-group">
+        <label>Rollen-Durchmesser (mm)</label>
+        <input type="number" id="D" placeholder="z.B. 150" oninput="calc()">
+    </div>
+
+    <div class="input-group">
+        <label>Kern-Durchmesser (mm)</label>
+        <input type="number" id="d" value="84" oninput="calc()">
+    </div>
+
+    <div class="input-group">
+        <label>Materialstärke (mm)</label>
+        <input type="number" id="s" value="0.22" step="0.01" oninput="calc()">
+    </div>
+
+    <div class="result-box">
+        <span style="font-size: 0.8em; opacity: 0.9;">RESTLAUFLEISTUNG</span>
+        <span class="result-val" id="res">0.00 m</span>
+    </div>
+</div>
+
+<script>
+function calc() {
+    // Werte aus den Feldern holen
+    const D = parseFloat(document.getElementById('D').value.replace(',', '.'));
+    const d = parseFloat(document.getElementById('d').value.replace(',', '.'));
+    const s = parseFloat(document.getElementById('s').value.replace(',', '.'));
+
+    // Prüfen, ob alle Werte gültig sind
+    if (D && d && s && D > d) {
+        // Die Formel für die Rollenlänge
+        const length = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4000 * s);
+        document.getElementById('res').innerText = length.toFixed(2) + " m";
+    } else {
+        document.getElementById('res').innerText = "0.00 m";
+    }
+}
+</script>
+
+</body>
+</html>
