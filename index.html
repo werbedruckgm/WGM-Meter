@@ -35,7 +35,7 @@
         select { background: white; border: 1px solid #ddd; padding: 3px 8px; border-radius: 6px; font-weight: 800; font-size: 0.65rem; color: var(--wd-dark); outline: none; cursor: pointer; }
         
         .logo-area { text-align: center; padding: 10px 20px; }
-        .logo-area img { max-width: 140px; height: auto; cursor: pointer; margin-bottom: 5px; }
+        .logo-area img { max-width: 150px; height: auto; cursor: pointer; margin-bottom: 5px; }
         .logo-area .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; margin: 10px 0; }
         .logo-area h1 { font-size: 0.8rem; letter-spacing: 0.5px; margin: 0; font-weight: 800; text-transform: uppercase; color: #555; }
         
@@ -45,14 +45,14 @@
         .card { background: white; border-radius: 18px; padding: 12px 15px; display: flex; align-items: center; gap: 12px; cursor: pointer; color: var(--wd-dark); margin-bottom: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.1s; border: 1px solid #eee; }
         .card:active { transform: scale(0.97); }
         .icon { width: 36px; height: 36px; background: #f8f9fa; color: var(--wd-blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid #eee; }
-        .card-text h2 { margin: 0; font-size: 0.9rem; font-weight: 800; text-transform: uppercase; }
+        .card-text h2 { margin: 0; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; }
         .card-text p { margin: 0; font-size: 0.6rem; color: #888; font-weight: 600; }
 
-        .input-box { margin-bottom: 10px; }
+        .input-box { margin-bottom: 8px; }
         .label { font-size: 0.6rem; color: #666; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; display: block; }
         input, select.in-view { width: 100%; padding: 10px; border-radius: 12px; border: 1px solid #ddd; font-size: 0.9rem; font-weight: 700; color: var(--wd-dark); background: #fff; outline: none; box-sizing: border-box; }
 
-        .res-card { background: var(--wd-orange); padding: 15px; border-radius: 20px; text-align: center; margin: 15px 0; color: white; box-shadow: 0 10px 20px rgba(230, 126, 34, 0.2); }
+        .res-card { background: var(--wd-orange); padding: 15px; border-radius: 20px; text-align: center; margin: 12px 0; color: white; box-shadow: 0 10px 20px rgba(230, 126, 34, 0.2); }
         .res-num { font-size: 2.2rem; font-weight: 900; display: block; line-height: 1; margin-bottom: 4px; }
         .res-info { font-size: 0.65rem; font-weight: 800; display: block; text-transform: uppercase; opacity: 0.9; }
 
@@ -82,7 +82,7 @@
     </div>
 
     <div class="logo-area">
-        <img src="logo.png" id="logo-trigger" alt="WERBEDRUCK GM">
+        <img src="wgm-applogo.jpg" id="logo-trigger" alt="WERBEDRUCK GM">
         <div class="divider"></div>
         <h1 data-t="mainH">Werbetechniker-Tools</h1>
     </div>
@@ -100,16 +100,13 @@
         <div class="input-box"><span class="label" data-t="r_d1" data-u>Rollendurchmesser</span><input type="number" id="rD" placeholder="..." oninput="calcR()"></div>
         <div class="input-box"><span class="label" data-t="r_d2" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" oninput="calcR()"></div>
         <div class="input-box"><span class="label" data-t="r_s" data-u>Materialstärke</span><input type="number" id="rs" value="0.22" step="0.01" oninput="calcR()"></div>
-        <div class="res-card">
-            <span class="res-info" data-t="res_l">Material auf der Rolle</span>
-            <span id="resR" class="res-num">0.00 m</span>
-        </div>
+        <div class="res-card"><span class="res-info" data-t="res_l">Material auf der Rolle</span><span id="resR" class="res-num">0.00 m</span></div>
         <button class="bt-btn" onclick="alert('BT Search...')"><i data-lucide="bluetooth"></i> <span data-t="bt">MESS-GERÄT VERBINDEN</span></button>
     </div>
 
     <footer>
         <strong>Werbedruck GM</strong>
-        <div class="ver">V2.1.1 | Multi-Unit & Bluetooth</div>
+        <div class="ver">V2.1.2 | Multi-Unit & Bluetooth</div>
         <div class="footer-links">
             <a href="https://www.deine-werbewerkstatt.de/Impressum/" target="_blank">Impressum</a> | 
             <a href="https://www.deine-werbewerkstatt.de/datenschutz/" target="_blank">Datenschutz</a>
@@ -119,8 +116,8 @@
 
 <script>
     const i18n = {
-        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Mess-Gerät verbinden", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Materialstärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", w_h: "Windlast-Prüfer", w_p: "Statik-Check", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage" },
-        en: { mainH: "Signmaker Tools", back: "BACK", bt: "Connect Device", r_h: "Roll Meter", r_p: "Calculate", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", n_h: "Nesting", n_p: "Layouts", g_h: "Weight Detector", g_p: "Material Mass", w_h: "Wind Load", w_p: "Static check", h_h: "Hem Pro", h_p: "Banner Allowance" }
+        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Mess-Gerät verbinden", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Materialstärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Optimierer", n_p: "Schnittpläne", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", w_h: "Windlast-Prüfer", w_p: "Statik & Sicherheit", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage" },
+        en: { mainH: "Signmaker Tools", back: "BACK", bt: "Connect Device", r_h: "Roll Meter", r_p: "Calculate", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", n_h: "Nesting", n_p: "Layouts", g_h: "Weight Detector", g_p: "Material Mass", w_h: "Wind Load", w_p: "Statics & Safety", h_h: "Hem Pro", h_p: "Banner Allowance" }
     };
     ["fr", "es", "it", "nl", "pl", "da", "no", "ru", "ja"].forEach(l => { if(!i18n[l]) i18n[l] = i18n.en; });
 
