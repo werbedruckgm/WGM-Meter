@@ -8,19 +8,21 @@
     <style>
         :root {
             --wd-orange: #e67e22; --wd-blue: #3b82f6; --wd-dark: #333333;
-            --bg-app: #ffffff; --bg-body: #ffffff; --app-width: 320px;
+            --bg-app: #ffffff; --bg-body: #f0f2f5; --app-width: 320px;
         }
+        /* Abgedunkelter Background für maximale Abhebung der App-Shell */
         html, body { 
             height: 100%; margin: 0; padding: 0; background: var(--bg-body); 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
+        /* Schwebende, reinweiße App-Shell mit tiefem Schatten */
         .app-shell {
             width: var(--app-width); height: 95vh; max-height: 780px;
             background: var(--bg-app); color: var(--wd-dark);
             display: flex; flex-direction: column; overflow: hidden;
             border-radius: 40px; position: relative; 
-            box-shadow: 0 20px 60px rgba(0,0,0,0.12); 
+            box-shadow: 0 40px 80px rgba(0,0,0,0.15); 
         }
         @media (max-width: 380px) { .app-shell { width: 92vw; height: 96vh; } }
 
@@ -48,7 +50,7 @@
         .label { font-size: 0.6rem; color: #666; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; display: block; }
         input, select.in-view { width: 100%; padding: 10px; border-radius: 12px; border: 1px solid #ddd; font-size: 0.9rem; font-weight: 700; color: var(--wd-dark); background: #fff; outline: none; box-sizing: border-box; }
 
-        .res-card { background: var(--wd-orange); padding: 15px; border-radius: 20px; text-align: center; margin: 15px 0; color: white; box-shadow: 0 10px 20px rgba(230, 126, 34, 0.2); }
+        .res-card { background: var(--wd-orange); padding: 15px; border-radius: 20px; text-align: center; margin: 12px 0; color: white; box-shadow: 0 10px 20px rgba(230, 126, 34, 0.2); }
         .res-num { font-size: 2.2rem; font-weight: 900; display: block; line-height: 1; margin-bottom: 4px; }
         .res-info { font-size: 0.65rem; font-weight: 800; display: block; text-transform: uppercase; opacity: 0.9; }
 
@@ -85,7 +87,7 @@
 
     <main id="main" class="view active">
         <div class="card" onclick="go('rollen')"><div class="icon"><i data-lucide="ruler"></i></div><div class="card-text"><h2 data-t="r_h">Rollen-Meter</h2><p data-t="r_p">Längen berechnen</p></div></div>
-        <div class="card" onclick="go('nutzen')"><div class="icon"><i data-lucide="layout-grid"></i></div><div class="card-text"><h2 data-t="n_h">Nutzen-Rechner</h2><p data-t="n_p">Schnittpläne</p></div></div>
+        <div class="card" onclick="go('nutzen')"><div class="icon"><i data-lucide="layout-grid"></i></div><div class="card-text"><h2 data-t="n_h">Nutzen-Optimierer</h2><p data-t="n_p">Schnittpläne</p></div></div>
         <div class="card" onclick="go('gew')"><div class="icon"><i data-lucide="weight"></i></div><div class="card-text"><h2 data-t="g_h">Gewichts-Detektor</h2><p data-t="g_p">Materialgewicht</p></div></div>
         <div class="card" onclick="go('wind')"><div class="icon"><i data-lucide="wind"></i></div><div class="card-text"><h2 data-t="w_h">Windlast-Prüfer</h2><p data-t="w_p">Statik & Sicherheit</p></div></div>
         <div class="card" onclick="go('hohl')"><div class="icon"><i data-lucide="maximize"></i></div><div class="card-text"><h2 data-t="h_h">Hohlsaum-Profi</h2><p data-t="h_p">Banner-Zulage</p></div></div>
@@ -131,7 +133,7 @@
 
     <footer>
         <strong>Werbedruck GM</strong>
-        <div class="ver">V2.0.4 | Multi-Unit & Bluetooth</div>
+        <div class="ver">V2.0.5 | Multi-Unit & Bluetooth</div>
         <div class="footer-links">
             <a href="https://www.deine-werbewerkstatt.de/Impressum/" target="_blank">Impressum</a> | 
             <a href="https://www.deine-werbewerkstatt.de/datenschutz/" target="_blank">Datenschutz</a>
@@ -155,28 +157,21 @@
     };
 
     function getT(l, k) { return (i18n[l] && i18n[l][k]) ? i18n[l][k] : (i18n['en'][k] || k); }
-
     function updateAllUnits() {
         const u = document.getElementById('uG').value, l = document.getElementById('lG').value;
         document.querySelectorAll('[data-u]').forEach(el => { el.innerText = `${getT(l, el.getAttribute('data-t'))} (${u})`; });
         calcR(); calcN(); calcG(); calcW(); calcH();
     }
-
     function changeLang() {
         const l = document.getElementById('lG').value;
         document.querySelectorAll('[data-t]').forEach(el => { if(!el.hasAttribute('data-u')) el.innerText = getT(l, el.getAttribute('data-t')); });
         updateAllUnits(); lucide.createIcons();
     }
-
     function calcR() { let D=parseFloat(document.getElementById('rD').value||0), d=parseFloat(document.getElementById('rd').value||0), s=parseFloat(document.getElementById('rs').value||0); if(D&&d&&s) document.getElementById('resR').innerText = ((Math.PI*(Math.pow(D,2)-Math.pow(d,2)))/(4000*s)).toFixed(2) + " m"; }
-    function calcN() {
-        let pW=parseFloat(document.getElementById('pW').value), pH=parseFloat(document.getElementById('pH').value), sW=parseFloat(document.getElementById('sW').value), sH=parseFloat(document.getElementById('sH').value), gap=parseFloat(document.getElementById('cut').value)||0;
-        if(pW&&pH&&sW&&sH){ let t = Math.floor((pW+gap)/(sW+gap)) * Math.floor((pH+gap)/(sH+gap)); document.getElementById('resN').innerText = t; }
-    }
+    function calcN() { let pW=parseFloat(document.getElementById('pW').value), pH=parseFloat(document.getElementById('pH').value), sW=parseFloat(document.getElementById('sW').value), sH=parseFloat(document.getElementById('sH').value), gap=parseFloat(document.getElementById('cut').value)||0; if(pW&&pH&&sW&&sH){ let t = Math.floor((pW+gap)/(sW+gap)) * Math.floor((pH+gap)/(sH+gap)); document.getElementById('resN').innerText = t; } }
     function calcG() { let b=parseFloat(document.getElementById('gb').value), h=parseFloat(document.getElementById('gh').value), s=parseFloat(document.getElementById('gs').value), d=parseFloat(document.getElementById('gMat').value); if(b&&h&&s) document.getElementById('resG').innerText = (((b*h)/1000000) * s * d).toFixed(2) + " kg"; }
     function calcW() { let b=parseFloat(document.getElementById('wb').value), h=parseFloat(document.getElementById('wh').value); if(b&&h) document.getElementById('resW').innerText = Math.round(((b*h)/1000000) * 500) + " N"; }
     function calcH() { let d=parseFloat(document.getElementById('hd').value), s=parseFloat(document.getElementById('hs').value); if(d) document.getElementById('resH').innerText = ((Math.PI * d) + (2 * s) + 10).toFixed(1) + " mm"; }
-
     function go(v) { document.querySelectorAll('.view').forEach(e => e.classList.remove('active')); document.getElementById(v === 'main' ? 'main' : 'view-' + v).classList.add('active'); lucide.createIcons(); }
     
     let clks = 0, tmr;
