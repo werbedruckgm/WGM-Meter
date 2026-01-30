@@ -1,1 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Werbetechniker-Tools | WERBEDRUCK GM</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --wd-orange: #e67e22;
+            --wd-blue: #3b82f6;
+            --wd-dark: #333333;
+            --bg-app: #ffffff;
+            --bg-body: #f4f4f4;
+            --app-width: 320px;
+        }
+        /* Schwebender Effekt auf hellem Grund */
+        html, body { 
+            height: 100%; margin: 0; padding: 0; background: var(--bg-body); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
+        }
+        .app-shell {
+            width: var(--app-width); height: 95vh; max-height: 780px;
+            background: var(--bg-app); color: var(--wd-dark);
+            display: flex; flex-direction: column; overflow: hidden;
+            border-radius: 40px; position: relative; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
+        }
+        @media (max-width: 380px) { .app-shell { width: 92vw; height: 96vh; } }
 
+        /* Easter Egg */
+        #egg-popup { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }
+        .egg-content { border: 2px solid var(--wd-orange); padding: 30px; border-radius: 25px; text-align: center; color: var(--wd-dark); }
+
+        /* Header & Logo */
+        .top-nav { display: flex; justify-content: space-between; padding: 30px 20px 5px; }
+        select { background: white; border: 1px solid #ddd; padding: 3px 8px; border-radius: 6px; font-weight: 800; font-size: 0.65rem; color: var(--wd-dark); outline: none; }
+        
+        .logo-area { text-align: center; padding: 10px 20px; }
+        .logo-area .logo-text { font-size: 1.4rem; font-weight: 900; line-height: 1; letter-spacing: -1px; color: var(--wd-dark); cursor: pointer; }
+        .logo-area .logo-sub { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: #777; margin-bottom: 5px; }
+        .logo-area .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; margin: 10px 0; }
+        .logo-area h1 { font-size: 0.8rem; letter-spacing: 0.5px; margin: 0; font-weight: 800; text-transform: uppercase; color: #555; }
+        
+        .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
+        .view.active { display: flex; }
+        
+        /* Menü-Karten im neuen Style */
+        .card { background: white; border-radius: 18px; padding: 12px 15px; display: flex; align-items: center; gap: 12px; cursor: pointer; color: var(--wd-dark); margin-bottom: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.1s; border: 1px solid #eee; }
+        .card:active { transform: scale(0.97); background: #fafafa; }
+        .icon { width: 36px; height: 36px; background: #f8f9fa; color: var(--wd-blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid #eee; }
+        .icon i { width: 18px; height: 18px; }
+        .card-text h2 { margin: 0; font-size: 0.9rem; font-weight: 800; text-transform: uppercase; }
+        .card-text p { margin: 0; font-size: 0.6rem; color: #888; font-weight: 600; }
+
+        /* Eingabefelder */
+        .input-box { margin-bottom: 10px; }
+        .label { font-size: 0.6rem; color: #666; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; display: block; }
+        input, select.in-view { width: 100%; padding: 10px; border-radius: 12px; border: 1px solid #ddd; font-size: 0.9rem; font-weight: 700; color: var(--wd-dark); background: #fff; outline: none; box-sizing: border-box; }
+        input:focus { border-color: var(--wd-orange); }
+
+        /* Ergebnis-Box (Orange) */
+        .res-card { background: var(--wd-orange); padding: 15px; border-radius: 20px; text-align: center; margin: 15px 0; color: white; box-shadow: 0 10px 20px rgba(230, 126, 34, 0.2); }
+        .res-num { font-size: 2.2rem; font-weight: 900; display: block; line-height: 1; margin-bottom: 4px; }
+        .res-info { font-size: 0.65rem; font-weight: 800; display: block; text-transform: uppercase; opacity: 0.9; }
+
+        /* Buttons (Blau) */
+        .bt-btn, .action-btn { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; text-transform: uppercase; width: 100%; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); }
+        .back-btn { color: #555; display: flex; align-items: center; gap: 4px; cursor: pointer; padding-bottom: 15px; font-weight: 800; font-size: 0.75rem; }
+
+        /* Footer */
+        footer { text-align: center; padding: 10px 20px 25px; font-size: 0.6rem; color: #888; margin-top: auto; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 2px !important; }
+        footer strong { color: #555; display: block !important; font-size: 0.7rem; margin-bottom: 2px; width: 100%; }
+        footer .ver { display: block !important; margin-bottom: 5px; width: 100%; }
+        .footer-links { margin-top: 5px; font-weight: 700; color: #777; }
+    </style>
+</head>
+<body>
+
+<div class="app-shell">
+    <div id="egg-popup"><div class="egg-content">Powered by<br><strong style="color:var(--wd-orange); font-size:1.4rem;">Werbedruck-GM</strong><br><br>DER MEISTER</div></div>
+
+    <div class="top-nav">
+        <select id="uG" onchange="updateAllUnits()"><option value="mm">mm</option><option value="inc">inc</option></select>
+        <select id="lG" onchange="changeLang()">
+            <option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option>
+        </select>
+    </div>
+
+    <div class="logo-area">
+        <div class="logo-text" id="logo-trigger">WERBEDRUCK GM</div>
+        <div class="logo-sub">Digital- und UV-Druck</div>
+        <div class="divider"></div>
+        <h1 data-t="mainH">Werbetechniker-Tools</h1>
+    </div>
+
+    <main id="main" class="view active">
+        <div class="card" onclick="go('rollen')"><div class="icon"><i data-lucide="ruler"></i></div><div class="card-text"><h2 data-t="r_h">Rollen-Meter</h2><p data-t="r_p">Längen berechnen</p></div></div>
+        <div class="card" onclick="go('nutzen')"><div class="icon"><i data-lucide="layout-grid"></i></div><div class="card-text"><h2 data-t="n_h">Nutzen-Optimierer</h2><p data-t="n_p">Schnittpläne</p></div></div>
+        <div class="card" onclick="go('gew')"><div class="icon"><i data-lucide="weight"></i></div><div class="card-text"><h2 data-t="g_h">Gewichts-Detektor</h2><p data-t="g_p">Materialgewicht</p></div></div>
+        <div class="card" onclick="go('wind')"><div class="icon"><i data-lucide="wind"></i></div><div class="card-text"><h2 data-t="w_h">Windlast-Prüfer</h2><p data-t="w_p">Statik & Sicherheit</p></div></div>
+        <div class="card" onclick="go('hohl')"><div class="icon"><i data-lucide="maximize"></i></div><div class="card-text"><h2 data-t="h_h">Hohlsaum-Profi</h2><p data-t="h_p">Banner-Zulage</p></div></div>
+    </main>
+
+    <div id="view-rollen" class="view">
+        <div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div>
+        <div class="input-box"><span class="label" data-t="r_d1" data-u>Rollendurchmesser</span><input type="number" id="rD" placeholder="..." oninput="calcR()"></div>
+        <div class="input-box"><span class="label" data-t="r_d2" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" oninput="calcR()"></div>
+        <div class="input-box"><span class="label" data-t="r_s" data-u>Materialstärke</span><input type="number" id="rs" value="0.22" step="0.01" oninput="calcR()"></div>
+        <div class="res-card">
+            <span class="res-info" data-t="res_l">Material auf der Rolle</span>
+            <span id="resR" class="res-num">0.00 m</span>
+        </div>
+        <button class="bt-btn" onclick="alert('BT Search...')"><i data-lucide="bluetooth"></i> <span data-t="bt">MESS-GERÄT VERBINDEN</span></button>
+    </div>
+
+    <footer id="footer-content"></footer>
+</div>
+
+<script>
+    const i18n = {
+        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Verbinden", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Materialstärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", w_h: "Windlast-Prüfer", w_p: "Statik-Check", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage", imp: "Impressum", priv: "Datenschutz" }
+    };
+    function getT(l, k) { return i18n['de'][k] || k; }
+    function updateAllUnits() {
+        const u = document.getElementById('uG').value, l = 'de';
+        document.querySelectorAll('[data-u]').forEach(el => { el.innerText = `${getT(l, el.getAttribute('data-t'))} (${u})`; });
+        calcR();
+    }
+    function changeLang() { updateAllUnits(); updateFooterLinks('de'); lucide.createIcons(); }
+    function updateFooterLinks(l) {
+        document.getElementById('footer-content').innerHTML = `
+            <strong>Werbedruck GM</strong>
+            <div class="ver">V2.0.0 | Multi-Unit & Bluetooth</div>
+            <div class="footer-links">Impressum | Datenschutz</div>`;
+    }
+    function calcR() {
+        let D=parseFloat(document.getElementById('rD').value||0), d=parseFloat(document.getElementById('rd').value||0), s=parseFloat(document.getElementById('rs').value||0);
+        if(D&&d&&s) document.getElementById('resR').innerText = ((Math.PI*(Math.pow(D,2)-Math.pow(d,2)))/(4000*s)).toFixed(2) + " m";
+    }
+    function go(v) { document.querySelectorAll('.view').forEach(e => e.classList.remove('active')); document.getElementById(v === 'main' ? 'main' : 'view-' + v).classList.add('active'); lucide.createIcons(); }
+    
+    let clks = 0, tmr;
+    document.getElementById('logo-trigger').addEventListener('click', () => {
+        clks++; clearTimeout(tmr);
+        if (clks === 5) { document.getElementById('egg-popup').style.display='flex'; setTimeout(()=>document.getElementById('egg-popup').style.display='none',3000); clks=0; }
+        tmr = setTimeout(()=>clks=0, 1000);
+    });
+
+    function initApp() { changeLang(); }
+    initApp();
+</script>
+</body>
+</html>
