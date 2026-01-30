@@ -10,13 +10,11 @@
             --wd-orange: #e67e22; --wd-blue: #3b82f6; --wd-dark: #333333;
             --bg-app: #ffffff; --bg-body: #f0f2f5; --app-width: 320px;
         }
-        /* Abgedunkelter Background für maximale Abhebung der App-Shell */
         html, body { 
             height: 100%; margin: 0; padding: 0; background: var(--bg-body); 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
-        /* Schwebende, reinweiße App-Shell mit tiefem Schatten */
         .app-shell {
             width: var(--app-width); height: 95vh; max-height: 780px;
             background: var(--bg-app); color: var(--wd-dark);
@@ -99,7 +97,7 @@
         <div class="input-box"><span class="label" data-t="r_d2" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" oninput="calcR()"></div>
         <div class="input-box"><span class="label" data-t="r_s" data-u>Materialstärke</span><input type="number" id="rs" value="0.22" step="0.01" oninput="calcR()"></div>
         <div class="res-card"><span class="res-info" data-t="res_l">Material auf der Rolle</span><span id="resR" class="res-num">0.00 m</span></div>
-        <button class="bt-btn" onclick="alert('BT Search...')"><i data-lucide="bluetooth"></i> <span data-t="bt">VERBINDEN</span></button>
+        <button class="bt-btn" onclick="alert('BT Search...')"><i data-lucide="bluetooth"></i> <span data-t="bt">MESS-GERÄT VERBINDEN</span></button>
     </div>
 
     <div id="view-nutzen" class="view">
@@ -133,7 +131,7 @@
 
     <footer>
         <strong>Werbedruck GM</strong>
-        <div class="ver">V2.0.5 | Multi-Unit & Bluetooth</div>
+        <div class="ver">V2.0.6 | Multi-Unit & Bluetooth</div>
         <div class="footer-links">
             <a href="https://www.deine-werbewerkstatt.de/Impressum/" target="_blank">Impressum</a> | 
             <a href="https://www.deine-werbewerkstatt.de/datenschutz/" target="_blank">Datenschutz</a>
@@ -144,30 +142,34 @@
 <script>
     const i18n = {
         de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Mess-Gerät verbinden", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Materialstärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", w_h: "Windlast-Prüfer", w_p: "Statik & Sicherheit", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage", mat: "Material", g_res: "Gesamtgewicht", n_pb: "Platte B", n_ph: "Platte H", n_sb: "Schild B", n_sh: "Schild H", n_cut: "Schnittbreite", h_d: "Stangendurchmesser" },
-        en: { mainH: "Signmaker Tools", back: "BACK", bt: "Connect Device", r_h: "Roll Meter", r_p: "Calculate", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", n_h: "Nesting Pro", n_p: "Layouts", g_h: "Weight Detector", g_p: "Material Mass", w_h: "Wind Load", w_p: "Statics & Safety", h_h: "Hem Pro", h_p: "Banner Allowance", mat: "Material", g_res: "Total Weight", n_pb: "Sheet W", n_ph: "Sheet H", n_sb: "Sign W", n_sh: "Sign H", n_cut: "Cut Width", h_d: "Pole Diameter" },
-        fr: { mainH: "Outils de signalétique", back: "RETOUR", bt: "Connecter l'appareil", r_h: "Mètre à rouleau", r_p: "Calculer", r_d1: "Diamètre du rouleau", r_d2: "Diamètre du noyau", r_s: "Épaisseur", res_l: "Matériel sur rouleau", n_h: "Nesting Pro", n_p: "Mises en page", g_h: "Détecteur de poids", g_p: "Masse du matériel", w_h: "Charge du vent", w_p: "Statique et sécurité", h_h: "Pro Ourlet", h_p: "Marge de bannière", mat: "Matériel", g_res: "Poids total", n_pb: "Plaque L", n_ph: "Plaque H", n_sb: "Signe L", n_sh: "Signe H", n_cut: "Largeur de coupe", h_d: "Diamètre du poteau" },
-        es: { mainH: "Herramientas de rotulación", back: "VOLVER", bt: "Conectar dispositivo", r_h: "Metros de rollo", r_p: "Calcular", r_d1: "Diámetro del rollo", r_d2: "Diámetro del núcleo", r_s: "Espesor", res_l: "Material en el rollo", n_h: "Nesting Pro", n_p: "Diseños", g_h: "Detector de peso", g_p: "Masa del material", w_h: "Carga de viento", w_p: "Estática y seguridad", h_h: "Dobladillo Pro", h_p: "Margen de pancarta", mat: "Material", g_res: "Peso total", n_pb: "Placa An", n_ph: "Placa Al", n_sb: "Signo An", n_sh: "Signo Al", n_cut: "Ancho de corte", h_d: "Diámetro del poste" },
-        it: { mainH: "Strumenti per insegne", back: "INDIETRO", bt: "Connetti dispositivo", r_h: "Metri rotolo", r_p: "Calcola", r_d1: "Diametro rotolo", r_d2: "Diametro nucleo", r_s: "Spessore", res_l: "Materiale sul rotolo", n_h: "Nesting Pro", n_p: "Layout", g_h: "Rilevatore di peso", g_p: "Massa del materiale", w_h: "Carico del vento", w_p: "Statica e sicurezza", h_h: "Bordo Pro", h_p: "Margine banner", mat: "Materiale", g_res: "Peso totale", n_pb: "Piastra L", n_ph: "Piastra A", n_sb: "Segno L", n_sh: "Segno A", n_cut: "Larghezza taglio", h_d: "Diametro palo" },
-        nl: { mainH: "Reclame Tools", back: "TERUG", bt: "Apparaat verbinden", r_h: "Rolmeter", r_p: "Berekenen", r_d1: "Roldiameter", r_d2: "Kerndiameter", r_s: "Dikte", res_l: "Materiaal op rol", n_h: "Nesting Pro", n_p: "Layouts", g_h: "Gewichtsdetector", g_p: "Materiaalmassa", w_h: "Windbelasting", w_p: "Statica & veiligheid", h_h: "Zoom Pro", h_p: "Bannermarge", mat: "Materiaal", g_res: "Totaal gewicht", n_pb: "Plaat B", n_ph: "Plaat H", n_sb: "Bord B", n_sh: "Bord H", n_cut: "Snijbreedte", h_d: "Paaldiameter" },
-        pl: { mainH: "Narzędzia reklamowe", back: "POWRÓT", bt: "Połącz urządzenie", r_h: "Licznik rolek", r_p: "Oblicz", r_d1: "Średnica rolki", r_d2: "Średnica rdzenia", r_s: "Grubość", res_l: "Materiał na rolce", n_h: "Nesting Pro", n_p: "Układy", g_h: "Detektor wagi", g_p: "Masa materiału", w_h: "Obciążenie wiatrem", w_p: "Statyka i bezpieczeństwo", h_h: "Rąbek Pro", h_p: "Naddatek banera", mat: "Materiał", g_res: "Waga całkowita", n_pb: "Płyta SZ", n_ph: "Płyta W", n_sb: "Znak SZ", n_sh: "Znak W", n_cut: "Szerokość cięcia", h_d: "Średnica bieguna" },
-        ru: { mainH: "Инструменты рекламщика", back: "НАЗАД", bt: "Подключить устройство", r_h: "Счетчик рулонов", r_p: "Рассчитать", r_d1: "Диаметр рулона", r_d2: "Диаметр сердечника", r_s: "Толщина", res_l: "Материал в рулоне", n_h: "Nesting Pro", n_p: "Макеты", g_h: "Детектор веса", g_p: "Масса материала", w_h: "Ветровая нагрузка", w_p: "Статика и безопасность", h_h: "Подгиб Про", h_p: "Припуск баннера", mat: "Материал", g_res: "Общий вес", n_pb: "Плита Ш", n_ph: "Плита В", n_sb: "Знак Ш", n_sh: "Знак В", n_cut: "Ширина реза", h_d: "Диаметр столба" },
-        da: { mainH: "Skiltetekniker-værktøj", back: "TILBAGE", bt: "Forbind enhed", r_h: "Rullemåler", r_p: "Beregn", r_d1: "Rullediameter", r_d2: "Kernediameter", r_s: "Tykkelse", res_l: "Materiale på rulle", n_h: "Nesting Pro", n_p: "Layouts", g_h: "Vægtdetektor", g_p: "Materialemasse", w_h: "Vindbelastning", w_p: "Statik og sikkerhed", h_h: "Søm Pro", h_p: "Bannertillæg", mat: "Materiale", g_res: "Samlet vægt", n_pb: "Plade B", n_ph: "Plade H", n_sb: "Skilt B", n_sh: "Skilt H", n_cut: "Skærebredde", h_d: "Stangdiameter" },
-        no: { mainH: "Skiltmakerverktøy", back: "TILBAKE", bt: "Koble til enhet", r_h: "Rullemåler", r_p: "Beregn", r_d1: "Rullediameter", r_d2: "Kjernediameter", r_s: "Tykkelse", res_l: "Materiale på rull", n_h: "Nesting Pro", n_p: "Oppsett", g_h: "Vektdetektor", g_p: "Materialmasse", w_h: "Vindbelastning", w_p: "Statikk og sikkerhet", h_h: "Fald Pro", h_p: "Bannertillegg", mat: "Materiale", g_res: "Totalvekt", n_pb: "Plate B", n_ph: "Plate H", n_sb: "Skilt B", n_sh: "Skilt H", n_cut: "Skjærebredde", h_d: "Stangdiameter" },
-        ja: { mainH: "サインメーカーツール", back: "戻る", bt: "デバイスを接続", r_h: "ロールメーター", r_p: "計算する", r_d1: "ロール直径", r_d2: "芯の直径", r_s: "厚さ", res_l: "ロール上の材料", n_h: "ネスティング・プロ", n_p: "レイアウト", g_h: "重量検出器", g_p: "材料の質量", w_h: "風荷重", w_p: "静力学と安全性", h_h: "ヘム・プロ", h_p: "バナー許容差", mat: "材料", g_res: "総重量", n_pb: "シート幅", n_ph: "シート高さ", n_sb: "サイン幅", n_sh: "サイン高さ", n_cut: "カット幅", h_d: "ポール直径" }
+        en: { mainH: "Signmaker Tools", back: "BACK", bt: "Connect Device", r_h: "Roll Meter", r_p: "Calculate", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", n_h: "Nesting Pro", n_p: "Layouts", g_h: "Weight Detector", g_p: "Material Mass", w_h: "Wind Load", w_p: "Statics & Safety", h_h: "Hem Pro", h_p: "Banner Allowance", mat: "Material", g_res: "Total Weight", n_pb: "Sheet W", n_ph: "Sheet H", n_sb: "Sign W", n_sh: "Sign H", n_cut: "Cut Width", h_d: "Pole Diameter" }
     };
+    ["fr", "es", "it", "nl", "pl", "da", "no", "ru", "ja"].forEach(l => { if(!i18n[l]) i18n[l] = i18n.en; });
 
     function getT(l, k) { return (i18n[l] && i18n[l][k]) ? i18n[l][k] : (i18n['en'][k] || k); }
+
     function updateAllUnits() {
         const u = document.getElementById('uG').value, l = document.getElementById('lG').value;
         document.querySelectorAll('[data-u]').forEach(el => { el.innerText = `${getT(l, el.getAttribute('data-t'))} (${u})`; });
         calcR(); calcN(); calcG(); calcW(); calcH();
     }
+
     function changeLang() {
         const l = document.getElementById('lG').value;
         document.querySelectorAll('[data-t]').forEach(el => { if(!el.hasAttribute('data-u')) el.innerText = getT(l, el.getAttribute('data-t')); });
         updateAllUnits(); lucide.createIcons();
     }
-    function calcR() { let D=parseFloat(document.getElementById('rD').value||0), d=parseFloat(document.getElementById('rd').value||0), s=parseFloat(document.getElementById('rs').value||0); if(D&&d&&s) document.getElementById('resR').innerText = ((Math.PI*(Math.pow(D,2)-Math.pow(d,2)))/(4000*s)).toFixed(2) + " m"; }
+
+    function calcR() {
+        const u = document.getElementById('uG').value;
+        let D=parseFloat(document.getElementById('rD').value||0), d=parseFloat(document.getElementById('rd').value||0), s=parseFloat(document.getElementById('rs').value||0);
+        if(D&&d&&s) {
+            let res = (Math.PI*(Math.pow(D,2)-Math.pow(d,2)))/(4*s);
+            if(u === 'mm') document.getElementById('resR').innerText = (res/1000).toFixed(2) + " m";
+            else document.getElementById('resR').innerText = (res/12).toFixed(2) + " ft";
+        }
+    }
+    
     function calcN() { let pW=parseFloat(document.getElementById('pW').value), pH=parseFloat(document.getElementById('pH').value), sW=parseFloat(document.getElementById('sW').value), sH=parseFloat(document.getElementById('sH').value), gap=parseFloat(document.getElementById('cut').value)||0; if(pW&&pH&&sW&&sH){ let t = Math.floor((pW+gap)/(sW+gap)) * Math.floor((pH+gap)/(sH+gap)); document.getElementById('resN').innerText = t; } }
     function calcG() { let b=parseFloat(document.getElementById('gb').value), h=parseFloat(document.getElementById('gh').value), s=parseFloat(document.getElementById('gs').value), d=parseFloat(document.getElementById('gMat').value); if(b&&h&&s) document.getElementById('resG').innerText = (((b*h)/1000000) * s * d).toFixed(2) + " kg"; }
     function calcW() { let b=parseFloat(document.getElementById('wb').value), h=parseFloat(document.getElementById('wh').value); if(b&&h) document.getElementById('resW').innerText = Math.round(((b*h)/1000000) * 500) + " N"; }
