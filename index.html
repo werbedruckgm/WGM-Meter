@@ -16,9 +16,11 @@
         html, body { height: 100%; overflow: hidden; background: var(--bg-light-gray); font-family: sans-serif; display: flex; justify-content: center; align-items: center; margin: 0; }
         .card { background: var(--card-bg); padding: 25px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); width: 88%; max-width: 360px; border: 1px solid #e0e0e0; position: relative; }
         
-        .lang-select { position: absolute; top: 15px; right: 15px; font-size: 0.7em; padding: 4px; border-radius: 8px; border: 1px solid #ddd; background: #fff; max-width: 80px; }
+        /* Auswahl-Elemente oben */
+        .top-controls { position: absolute; top: 15px; left: 15px; right: 15px; display: flex; justify-content: space-between; align-items: center; }
+        select { font-size: 0.7em; padding: 4px; border-radius: 8px; border: 1px solid #ddd; background: #fff; outline: none; }
 
-        .logo-container { text-align: center; margin-bottom: 10px; padding-top: 10px; }
+        .logo-container { text-align: center; margin-bottom: 10px; padding-top: 20px; }
         .logo-container img { max-width: 80%; height: auto; max-height: 80px; }
         .divider { height: 3px; background-color: var(--primary-orange); width: 100%; margin-bottom: 20px; border-radius: 2px; }
         .input-group { margin-bottom: 15px; }
@@ -37,18 +39,24 @@
 <body>
 
 <div class="card">
-    <select class="lang-select" id="langPicker" onchange="changeLang()">
-        <option value="de">DE</option>
-        <option value="en">EN</option>
-        <option value="fr">FR</option>
-        <option value="nl">NL</option>
-        <option value="pl">PL</option>
-        <option value="es">ES</option>
-        <option value="it">IT</option>
-        <option value="hu">HU</option>
-        <option value="ru">RU</option>
-        <option value="ja">JA</option>
-    </select>
+    <div class="top-controls">
+        <select id="unitPicker" onchange="calc()">
+            <option value="mm">mm</option>
+            <option value="inc">inch</option>
+        </select>
+        <select id="langPicker" onchange="changeLang()">
+            <option value="de">DE</option>
+            <option value="en">EN</option>
+            <option value="fr">FR</option>
+            <option value="nl">NL</option>
+            <option value="pl">PL</option>
+            <option value="es">ES</option>
+            <option value="it">IT</option>
+            <option value="hu">HU</option>
+            <option value="ru">RU</option>
+            <option value="ja">JA</option>
+        </select>
+    </div>
 
     <div class="logo-container"><img src="wgm-applogo.jpg" alt="Werbedruck GM"></div>
     <div class="divider"></div>
@@ -75,7 +83,7 @@
     
     <footer>
         <strong>Werbedruck GM</strong><br>
-        <span id="lbl_footer">V1.9 Multilingual & Bluetooth</span><br>
+        <span id="lbl_footer">V1.9.5 Multi-Unit & Bluetooth</span><br>
         <div class="legal-links">
             <a href="https://www.deine-werbewerkstatt.de/Impressum/" target="_blank" id="lbl_imp">Impressum</a> | 
             <a href="https://www.deine-werbewerkstatt.de/datenschutz/" target="_blank" id="lbl_priv">Datenschutz</a>
@@ -85,23 +93,26 @@
 
 <script>
 const translations = {
-    de: { D: "Rollendurchmesser (mm)", d: "Kerndurchmesser (mm)", s: "Materialstärke (mm)", res: "Material auf der Rolle", bt: "🔵 MESS-GERÄT VERBINDEN", foot: "V1.9 Multilingual & Bluetooth", imp: "Impressum", priv: "Datenschutz" },
-    en: { D: "Roll Diameter (mm)", d: "Core Diameter (mm)", s: "Material Thickness (mm)", res: "Material on Roll", bt: "🔵 CONNECT CALIPER", foot: "V1.9 Multilingual & Bluetooth", imp: "Imprint", priv: "Privacy" },
-    fr: { D: "Diamètre du rouleau (mm)", d: "Diamètre du noyau (mm)", s: "Épaisseur du matériau (mm)", res: "Matériau sur rouleau", bt: "🔵 CONNECTER LE PIED À COULISSE", foot: "V1.9 Multilingue", imp: "Mentions légales", priv: "Confidentialité" },
-    nl: { D: "Roldiameter (mm)", d: "Kerndiameter (mm)", s: "Materiaaldikte (mm)", res: "Materiaal op rol", bt: "🔵 SCHUIFMAAT VERBINDEN", foot: "V1.9 Meertalig", imp: "Colofon", priv: "Privacy" },
-    pl: { D: "Średnica rolki (mm)", d: "Średnica rdzenia (mm)", s: "Grubość materiału (mm)", res: "Materiał na rolce", bt: "🔵 POŁĄCZ SUWMIARKĘ", foot: "V1.9 Wielojęzyczny", imp: "Nota prawna", priv: "Prywatność" },
-    hu: { D: "Tekercs átmérő (mm)", d: "Magátmérő (mm)", s: "Anyagvastagság (mm)", res: "Anyag a tekercsen", bt: "🔵 TOLÓMÉRŐ CSATLAKOZTATÁSA", foot: "V1.9 Többnyelvű", imp: "Impresszum", priv: "Adatvédelem" },
-    ru: { D: "Диаметр рулона (мм)", d: "Диаметр втулки (мм)", s: "Толщина материала (мм)", res: "Материал в рулоне", bt: "🔵 ПОДКЛЮЧИТЬ ШТАНГЕНЦИРКУЛЬ", foot: "V1.9 Мультиязычный", imp: "Выходные данные", priv: "Конфиденциальность" },
-    es: { D: "Diámetro del rollo (mm)", d: "Diámetro del núcleo (mm)", s: "Grosor del material (mm)", res: "Material en el rollo", bt: "🔵 CONECTAR CALIBRADOR", foot: "V1.9 Multilingüe", imp: "Aviso Legal", priv: "Privacidad" },
-    it: { D: "Diametro rotolo (mm)", d: "Diametro anima (mm)", s: "Spessore materiale (mm)", res: "Materiale sul rotolo", bt: "🔵 CONNETTI CALIBRO", foot: "V1.9 Multilingua", imp: "Note Legali", priv: "Privacy" },
-    ja: { D: "ロール直径 (mm)", d: "芯の直径 (mm)", s: "材料の厚さ (mm)", res: "ロール上の材料", bt: "🔵 ノギスを接続する", foot: "V1.9 多言語対応", imp: "インプリント", priv: "プライバシー" }
+    de: { D: "Rollendurchmesser", d: "Kerndurchmesser", s: "Materialstärke", res: "Material auf der Rolle", bt: "🔵 MESS-GERÄT VERBINDEN", foot: "V1.9.5 Multi-Unit & Bluetooth", imp: "Impressum", priv: "Datenschutz" },
+    en: { D: "Roll Diameter", d: "Core Diameter", s: "Material Thickness", res: "Material on Roll", bt: "🔵 CONNECT CALIPER", foot: "V1.9.5 Multi-Unit & Bluetooth", imp: "Imprint", priv: "Privacy" },
+    fr: { D: "Diamètre du rouleau", d: "Diamètre du noyau", s: "Épaisseur du matériau", res: "Matériau sur rouleau", bt: "🔵 CONNECTER LE PIED", foot: "V1.9.5 Multilingue", imp: "Mentions légales", priv: "Confidentialité" },
+    nl: { D: "Roldiameter", d: "Kerndiameter", s: "Materiaaldikte", res: "Materiaal op rol", bt: "🔵 SCHUIFMAAT VERBINDEN", foot: "V1.9.5 Meertalig", imp: "Colofon", priv: "Privacy" },
+    pl: { D: "Średnica rolki", d: "Średnica rdzenia", s: "Grubość materiału", res: "Materiał na rolce", bt: "🔵 POŁĄCZ SUWMIARKĘ", foot: "V1.9.5 Wielojęzyczny", imp: "Nota prawna", priv: "Prywatność" },
+    hu: { D: "Tekercs átmérő", d: "Magátmérő", s: "Anyagvastagság", res: "Anyag a tekercsen", bt: "🔵 TOLÓMÉRŐ CSATLAKOZTATÁSA", foot: "V1.9.5 Többnyelvű", imp: "Impresszum", priv: "Adatvédelem" },
+    ru: { D: "Диаметр рулона", d: "Диаметр втулки", s: "Толщина материала", res: "Материал в рулоне", bt: "🔵 ПОДКЛЮЧИТЬ ПРИБОР", foot: "V1.9.5 Мультиязычный", imp: "Выходные данные", priv: "Конфиденциальность" },
+    es: { D: "Diámetro del rollo", d: "Diámetro del núcleo", s: "Grosor del material", res: "Material en el rollo", bt: "🔵 CONECTAR CALIBRADOR", foot: "V1.9.5 Multilingüe", imp: "Aviso Legal", priv: "Privacidad" },
+    it: { D: "Diametro rotolo", d: "Diametro anima", s: "Spessore materiale", res: "Materiale sul rotolo", bt: "🔵 CONNETTI CALIBRO", foot: "V1.9.5 Multilingua", imp: "Note Legali", priv: "Privacy" },
+    ja: { D: "ロール直径", d: "芯の直径", s: "材料の厚さ", res: "ロール上の材料", bt: "🔵 ノギスを接続する", foot: "V1.9.5 多言語対応", imp: "インプリント", priv: "プライバシー" }
 };
 
 function changeLang() {
     const l = document.getElementById('langPicker').value;
-    document.getElementById('lbl_D').innerText = translations[l].D;
-    document.getElementById('lbl_d').innerText = translations[l].d;
-    document.getElementById('lbl_s').innerText = translations[l].s;
+    const u = document.getElementById('unitPicker').value;
+    const unitText = "(" + u + ")";
+    
+    document.getElementById('lbl_D').innerText = translations[l].D + " " + unitText;
+    document.getElementById('lbl_d').innerText = translations[l].d + " " + unitText;
+    document.getElementById('lbl_s').innerText = translations[l].s + " " + unitText;
     document.getElementById('lbl_res_text').innerText = translations[l].res;
     document.getElementById('btn_bt').innerText = translations[l].bt;
     document.getElementById('lbl_footer').innerText = translations[l].foot;
@@ -110,10 +121,20 @@ function changeLang() {
 }
 
 function calc() {
-    const D = parseFloat(document.getElementById('D').value.replace(',', '.'));
-    const d = parseFloat(document.getElementById('d').value.replace(',', '.'));
-    const s = parseFloat(document.getElementById('s').value.replace(',', '.'));
+    const unit = document.getElementById('unitPicker').value;
+    changeLang(); // Update labels
+    
+    let D = parseFloat(document.getElementById('D').value.replace(',', '.'));
+    let d = parseFloat(document.getElementById('d').value.replace(',', '.'));
+    let s = parseFloat(document.getElementById('s').value.replace(',', '.'));
+
     if(D && d && s && D > d) {
+        // Wenn Inch gewählt ist, alles intern in mm umrechnen für die Meter-Formel
+        if(unit === "inc") {
+            D = D * 25.4;
+            d = d * 25.4;
+            s = s * 25.4;
+        }
         const L = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4000 * s);
         document.getElementById('res').innerText = L.toFixed(2) + " m";
     } else { document.getElementById('res').innerText = "0.00 m"; }
