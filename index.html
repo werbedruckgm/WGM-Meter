@@ -7,12 +7,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --wd-orange: #e67e22;
-            --wd-blue: #3b82f6;
-            --wd-dark: #333333;
-            --bg-app: #ffffff;
-            --bg-body: #f4f4f4;
-            --app-width: 320px;
+            --wd-orange: #e67e22; --wd-blue: #3b82f6; --wd-dark: #333333;
+            --bg-app: #ffffff; --bg-body: #f4f4f4; --app-width: 320px;
         }
         html, body { 
             height: 100%; margin: 0; padding: 0; background: var(--bg-body); 
@@ -23,8 +19,7 @@
             width: var(--app-width); height: 95vh; max-height: 780px;
             background: var(--bg-app); color: var(--wd-dark);
             display: flex; flex-direction: column; overflow: hidden;
-            border-radius: 40px; position: relative; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
+            border-radius: 40px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
         }
         @media (max-width: 380px) { .app-shell { width: 92vw; height: 96vh; } }
 
@@ -35,7 +30,7 @@
         select { background: white; border: 1px solid #ddd; padding: 3px 8px; border-radius: 6px; font-weight: 800; font-size: 0.65rem; color: var(--wd-dark); outline: none; cursor: pointer; }
         
         .logo-area { text-align: center; padding: 10px 20px; }
-        .logo-area img { max-width: 150px; height: auto; cursor: pointer; margin-bottom: 5px; }
+        .logo-area img { max-width: 160px; height: auto; cursor: pointer; margin-bottom: 5px; }
         .logo-area .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; margin: 10px 0; }
         .logo-area h1 { font-size: 0.8rem; letter-spacing: 0.5px; margin: 0; font-weight: 800; text-transform: uppercase; color: #555; }
         
@@ -63,7 +58,7 @@
         footer strong { color: #555; display: block !important; font-size: 0.7rem; margin-bottom: 2px; width: 100%; }
         footer .ver { display: block !important; margin-bottom: 5px; width: 100%; }
         .footer-links { margin-top: 5px; font-weight: 700; }
-        .footer-links a { color: #777; text-decoration: none; margin: 0 5px; }
+        .footer-links a { color: var(--wd-blue); text-decoration: none; margin: 0 5px; }
     </style>
 </head>
 <body>
@@ -101,12 +96,12 @@
         <div class="input-box"><span class="label" data-t="r_d2" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" oninput="calcR()"></div>
         <div class="input-box"><span class="label" data-t="r_s" data-u>Materialstärke</span><input type="number" id="rs" value="0.22" step="0.01" oninput="calcR()"></div>
         <div class="res-card"><span class="res-info" data-t="res_l">Material auf der Rolle</span><span id="resR" class="res-num">0.00 m</span></div>
-        <button class="bt-btn" onclick="alert('BT Search...')"><i data-lucide="bluetooth"></i> <span data-t="bt">MESS-GERÄT VERBINDEN</span></button>
+        <button class="bt-btn" onclick="alert('BT Search...')"><i data-lucide="bluetooth"></i> <span data-t="bt">VERBINDEN</span></button>
     </div>
 
     <footer>
         <strong>Werbedruck GM</strong>
-        <div class="ver">V2.1.2 | Multi-Unit & Bluetooth</div>
+        <div class="ver">V2.2.0 | Multi-Unit & Bluetooth</div>
         <div class="footer-links">
             <a href="https://www.deine-werbewerkstatt.de/Impressum/" target="_blank">Impressum</a> | 
             <a href="https://www.deine-werbewerkstatt.de/datenschutz/" target="_blank">Datenschutz</a>
@@ -117,32 +112,25 @@
 <script>
     const i18n = {
         de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Mess-Gerät verbinden", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Materialstärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Optimierer", n_p: "Schnittpläne", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", w_h: "Windlast-Prüfer", w_p: "Statik & Sicherheit", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage" },
-        en: { mainH: "Signmaker Tools", back: "BACK", bt: "Connect Device", r_h: "Roll Meter", r_p: "Calculate", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", n_h: "Nesting", n_p: "Layouts", g_h: "Weight Detector", g_p: "Material Mass", w_h: "Wind Load", w_p: "Statics & Safety", h_h: "Hem Pro", h_p: "Banner Allowance" }
+        en: { mainH: "Signmaker Tools", back: "BACK", bt: "Connect Device", r_h: "Roll Meter", r_p: "Calculate", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", n_h: "Nesting Pro", n_p: "Layouts", g_h: "Weight Detector", g_p: "Material Mass", w_h: "Wind Load", w_p: "Statics & Safety", h_h: "Hem Pro", h_p: "Banner Allowance" }
     };
     ["fr", "es", "it", "nl", "pl", "da", "no", "ru", "ja"].forEach(l => { if(!i18n[l]) i18n[l] = i18n.en; });
 
     function getT(l, k) { return (i18n[l] && i18n[l][k]) ? i18n[l][k] : (i18n['en'][k] || k); }
-
     function updateAllUnits() {
-        const u = document.getElementById('uG').value;
-        const l = document.getElementById('lG').value;
-        document.querySelectorAll('[data-u]').forEach(el => {
-            el.innerText = `${getT(l, el.getAttribute('data-t'))} (${u})`;
-        });
+        const u = document.getElementById('uG').value, l = document.getElementById('lG').value;
+        document.querySelectorAll('[data-u]').forEach(el => { el.innerText = `${getT(l, el.getAttribute('data-t'))} (${u})`; });
         calcR();
     }
-
     function changeLang() {
         const l = document.getElementById('lG').value;
         document.querySelectorAll('[data-t]').forEach(el => { if(!el.hasAttribute('data-u')) el.innerText = getT(l, el.getAttribute('data-t')); });
         updateAllUnits(); lucide.createIcons();
     }
-
     function calcR() {
         let D=parseFloat(document.getElementById('rD').value||0), d=parseFloat(document.getElementById('rd').value||0), s=parseFloat(document.getElementById('rs').value||0);
         if(D&&d&&s) document.getElementById('resR').innerText = ((Math.PI*(Math.pow(D,2)-Math.pow(d,2)))/(4000*s)).toFixed(2) + " m";
     }
-
     function go(v) { document.querySelectorAll('.view').forEach(e => e.classList.remove('active')); document.getElementById(v === 'main' ? 'main' : 'view-' + v).classList.add('active'); lucide.createIcons(); }
     
     let clks = 0, tmr;
