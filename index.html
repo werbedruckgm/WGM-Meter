@@ -31,7 +31,7 @@
             flex-direction: column; justify-content: center; align-items: center; 
             z-index: 3000; backdrop-filter: blur(15px); 
         }
-        #login-overlay .btn-action { max-width: 160px; height: 48px; flex: none; font-size: 0.8rem; }
+        #login-overlay .btn-action { max-width: 160px; height: 48px !important; flex: none; }
 
         .assist-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 215px;
@@ -50,14 +50,13 @@
         .logo-area { text-align: center; padding: 5px 20px; height: 155px; position: relative; }
         .logo-area img { max-width: 145px; cursor: pointer; }
         .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 8px 0 3px; font-weight: 900; text-transform: uppercase; }
-        .admin-title { font-size: 0.75rem; color: var(--wd-orange); font-weight: 900; margin-bottom: 8px; text-transform: uppercase; display: none; }
+        .admin-title { font-size: 0.78rem; color: var(--wd-orange); font-weight: 900; margin-bottom: 10px; text-transform: uppercase; display: none; }
         .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; }
 
         .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
         .view.active { display: flex; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* FLOATING CARDS V3.9.9 */
         .card { 
             background: var(--card-bg); height: 78px; border-radius: 22px; padding: 0 16px; 
             display: flex; align-items: center; gap: 14px; cursor: pointer; margin-bottom: 12px; 
@@ -71,8 +70,9 @@
         .card-text p { margin: 2px 0 0; font-size: 0.62rem; color: #64748b; font-weight: 600; }
 
         .mod-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; height: 35px; }
-        .help-btn { width: 34px; height: 34px; background: var(--icon-bg); color: var(--wd-blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #f1f5f9; }
-        .help-btn.active { background: var(--wd-orange); color: white; border-color: var(--wd-orange); }
+        /* MINIMAL HELP ICON (BLAU OHNE BUTTON) */
+        .help-btn { width: 34px; height: 34px; color: var(--wd-blue); display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; background: transparent; transition: color 0.2s; }
+        .help-btn.active { color: var(--wd-orange); }
 
         .input-box { margin-bottom: 12px; height: 65px; position: relative; }
         .label { font-size: 0.6rem; color: #475569; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
@@ -84,9 +84,12 @@
         .res-info { font-size: 0.58rem; font-weight: 800; text-transform: uppercase; opacity: 0.9; }
 
         .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.68rem; }
-        .btn-row { display: flex; gap: 10px; margin-top: 5px; height: 48px; width: 100%; }
+        .btn-row { display: flex; gap: 10px; margin-top: 5px; height: 48px; width: 100%; align-items: center; }
         .btn-action { background: var(--wd-blue); color: white; border: none; flex: 1; border-radius: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-transform: uppercase; font-size: 0.58rem; height: 48px; }
-        .btn-reset { width: 48px; height: 48px; background: #f1f5f9; color: #475569; border: 1.5px solid #cbd5e1; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex: none; }
+        
+        /* MINIMAL RESET BUTTON (ICON ONLY) */
+        .btn-reset { width: 44px; height: 44px; background: transparent; color: #64748b; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex: none; transition: color 0.2s; }
+        .btn-reset:active { color: var(--wd-orange); }
 
         .admin-scroll { flex: 1; overflow-y: auto; padding-right: 5px; }
         .admin-section { margin-bottom: 22px; border-bottom: 1px solid #eee; padding-bottom: 12px; }
@@ -148,7 +151,7 @@
         <div class="input-box"><span class="label" id="t-cut_l" data-u>Schnittbreite</span><input type="number" id="cut" value="1.5" onfocus="foc('cut')" onchange="jump('sW')" oninput="calcN()"></div>
         <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-sW_l" data-u>Schildbreite</span><input type="number" id="sW" onfocus="foc('sW')" onchange="jump('sH')" oninput="calcN()"></div><div class="input-box" style="flex:1;"><span class="label" id="t-sH_l" data-u>Schildhöhe</span><input type="number" id="sH" onfocus="foc('sH')" oninput="calcN()"></div></div>
         <div class="res-card"><span id="resN" class="res-num">0</span><span class="res-info" id="t-n_res">Nutzen pro Platte</span></div>
-        <div class="btn-row"><button class="btn-reset" style="width:100%" onclick="resetForm('nutzen')"><i data-lucide="refresh-cw"></i></button></div>
+        <div class="btn-row" style="justify-content:center;"><button class="btn-reset" onclick="resetForm('nutzen')"><i data-lucide="refresh-cw"></i></button></div>
     </div>
 
     <div id="view-gew" class="view">
@@ -158,7 +161,7 @@
         <div class="input-box"><span class="label" id="t-gs_l">Stärke / Gramm</span><input type="number" id="gs" onfocus="foc('gs')" onchange="jump('gb')" oninput="calcG()"></div>
         <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-gb_l" data-u>Breite</span><input type="number" id="gb" value="1000" onfocus="foc('gb')" onchange="jump('gh')" oninput="calcG()"></div><div class="input-box" style="flex:1;"><span class="label" id="t-gh_l" data-u>Höhe</span><input type="number" id="gh" value="1000" onfocus="foc('gh')" oninput="calcG()"></div></div>
         <div class="res-card"><span id="resG" class="res-num">0.00 kg</span><span class="res-info" id="t-g_res">Gesamtgewicht</span></div>
-        <div class="btn-row"><button class="btn-reset" style="width:100%" onclick="resetForm('gew')"><i data-lucide="refresh-cw"></i></button></div>
+        <div class="btn-row" style="justify-content:center;"><button class="btn-reset" onclick="resetForm('gew')"><i data-lucide="refresh-cw"></i></button></div>
     </div>
 
     <div id="view-wind" class="view">
@@ -166,7 +169,7 @@
         <div class="input-box"><span class="label" id="t-wMat_l">Material-DNA</span><select id="wMat" class="in-view" onchange="calcW(); jump('wb')" onfocus="foc('wMat')"></select></div>
         <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" id="t-wb_l" data-u>Breite</span><input type="number" id="wb" value="2000" onfocus="foc('wb')" oninput="calcW()" onchange="jump('wh')"></div><div class="input-box" style="flex:1;"><span class="label" id="t-wh_l" data-u>Höhe</span><input type="number" id="wh" value="1000" onfocus="foc('wh')" oninput="calcW()"></div></div>
         <div class="res-card"><span id="resW" class="res-num">0 N</span><span class="res-info" id="t-w_res">Windlast bei 120 km/h</span></div>
-        <div class="btn-row"><button class="btn-reset" style="width:100%" onclick="resetForm('wind')"><i data-lucide="refresh-cw"></i></button></div>
+        <div class="btn-row" style="justify-content:center;"><button class="btn-reset" onclick="resetForm('wind')"><i data-lucide="refresh-cw"></i></button></div>
     </div>
 
     <div id="view-hohl" class="view">
@@ -174,7 +177,7 @@
         <div class="input-box"><span class="label" id="t-hd_l" data-u>Stangen Ø</span><input type="number" id="hd" value="30" onfocus="foc('hd')" onchange="jump('hsd')" oninput="calcH()"></div>
         <div class="input-box"><span class="label" id="t-hsd_l" data-u>Materialdicke</span><input type="number" id="hsd" value="0.5" onfocus="foc('hsd')" oninput="calcH()"></div>
         <div class="res-card"><span id="resH" class="res-num">0.0 mm</span><span class="res-info" id="t-h_p">Hohlsaum-Zugabe</span></div>
-        <div class="btn-row"><button class="btn-reset" style="width:100%" onclick="resetForm('hohl')"><i data-lucide="refresh-cw"></i></button></div>
+        <div class="btn-row" style="justify-content:center;"><button class="btn-reset" onclick="resetForm('hohl')"><i data-lucide="refresh-cw"></i></button></div>
     </div>
 
     <div id="view-admin" class="view">
@@ -197,30 +200,30 @@
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <span id="f-ver">V3.9.9 | Master-Final</span>
+        <span id="f-ver">V4.0.0 | Master-Final</span>
         <div class="footer-links"><a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a></div>
     </footer>
 </div>
 
 <script>
-    const VERSION = "3.9.9";
+    const VERSION = "4.0.0";
     const i18n = {
         de: {
             mainH: "Werbetechniker-Tools", admin_exit: "ADMIN VERLASSEN", bt_btn: "BT MESSCHIEBER KOPPELN",
             rollen_h: "Rollen-Meter", nutzen_h: "Nutzen-Rechner", gew_h: "Gewichts-Rechner", wind_h: "Windlast-Rechner", hohl_h: "Hohlsaum-Rechner",
-            rollen_p: "Material auf der Rolle berechnen", nutzen_p: "Plattennutzung optimieren", gew_p: "Gewicht für Versand/Montage", wind_p: "Windlast nach DIN-Werten", hohl_p: "Hohlsaum für Banner-Stangen",
+            rollen_p: "Materiallängen präzise berechnen", nutzen_p: "Verschnittarme Schnittpläne", gew_p: "Materialgewicht ermitteln", wind_p: "Statik-Check für Außenwerbung", hohl_p: "Banner-Zulagen berechnen",
             back_r: "ZURÜCK", back_n: "ZURÜCK", back_g: "ZURÜCK", back_w: "ZURÜCK", back_h: "ZURÜCK",
             rD_l: "Durchmesser Außen", rd_l: "Kerndurchmesser", rs_l: "Materialstärke", res_l: "Material auf der Rolle",
             pW_l: "Plattenbreite", pH_l: "Plattenhöhe", cut_l: "Schnittbreite", sW_l: "Schildbreite", sH_l: "Schildhöhe", n_res: "Nutzen pro Platte",
             mat_l: "Datenbank (19 Werkstoffe)", gStd_l: "Presets", gb_l: "Breite", gh_l: "Höhe", g_res: "Gesamtgewicht", gs_l: "Stärke / Gramm",
             wMat_l: "Material-DNA", wb_l: "Breite", wh_l: "Höhe", w_res: "Windlast bei 120 km/h",
             hd_l: "Stangen Ø", hsd_l: "Materialdicke", h_p: "Hohlsaum-Zugabe",
-            h_rD: "Gesamtdurchmesser der Rolle messen.", h_rd: "Innendurchmesser der Hülse messen.",
-            h_rs: "Stärke inkl. Trägermaterial erfassen.", h_pW: "Breite der unbeschnittenen Platte.", h_pH: "Höhe der unbeschnittenen Platte.",
-            h_cut: "Säge- oder Fräsverlust pro Schnitt.", h_sW: "Gewünschte Breite des Endprodukts.", h_sH: "Gewünschte Höhe des Endprodukts.",
-            h_mat: "Material für Dichteberechnung wählen.", h_gStd: "Häufige Plattenstärken als Schnellwahl.", h_gs: "Plattenstärke in mm oder Grammatur in kg/m².",
-            h_gb: "Netto-Breite des Objekts.", h_gh: "Netto-Höhe des Objekts.", h_wMat: "Werkstoff-Koeffizient für Winddruck.",
-            h_wb: "Schildbreite für Windangriff.", h_wh: "Schildhöhe für Windangriff.", h_hd: "Durchmesser der Haltestange.", h_hsd: "Gesamtdicke des Banners."
+            h_rD: "Gesamte Rolle von Kante zu Kante messen.", h_rd: "Hülsendurchmesser am Rollenstart.",
+            h_rs: "Stärke einer Lage inkl. Träger.", h_pW: "Rohbreite der Platte.", h_pH: "Rohhöhe der Platte.",
+            h_cut: "Schnittverlust (Säge/Fräser).", h_sW: "Fertigbreite des Schildes.", h_sH: "Fertighöhe des Schildes.",
+            h_mat: "Material für Dichtewert wählen.", h_gStd: "Standardstärken wählen.", h_gs: "Stärke in mm oder kg/m².",
+            h_gb: "Objektbreite.", h_gh: "Objekthöhe.", h_wMat: "Werkstoff-Faktor wählen.",
+            h_wb: "Schildbreite.", h_wh: "Schildhöhe.", h_hd: "Stangendurchmesser.", h_hsd: "Bannerstärke."
         }
     };
     const materials = {
@@ -231,7 +234,7 @@
         'poly': { n: 'Polystyrol', d: 1.05, t: 'p', w: 1.0 }, 'stahl': { n: 'Stahlblech verzinkt', d: 7.8, t: 'p', w: 1.0 }, 'mag': { n: 'Magnetfolie', d: 3.5, t: 'r', w: 1.0 },
         'mesh': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }, 'mesh_p': { n: 'Mesh Wind-Pro', d: 0.25, t: 'r', w: 0.4 }, 'lkw': { n: 'LKW Plane (Frontlit)', d: 0.55, t: 'r', w: 1.0 }, 'block': { n: 'Blockout Banner', d: 0.8, t: 'r', w: 1.0 }
     };
-    let activeView = 'main', clks = 0, helpOn = false, btOn = false, tmr, currentAdminCtx = 'main';
+    let activeView = 'main', clks = 0, helpOn = false, btOn = false, tmr, adminCtx = 'main';
 
     function t(k) { return i18n.de[k] || "!!"; }
 
@@ -242,7 +245,7 @@
         
         const al = document.getElementById('admin-label');
         if(v === 'admin') {
-            al.innerText = (currentAdminCtx === 'main') ? "Admin Toolbox" : "Admin " + t(currentAdminCtx + "_h");
+            al.innerText = (adminCtx === 'main') ? "Admin Toolbox" : "Admin " + t(adminCtx + "_h");
             al.style.display = 'block';
         } else {
             al.style.display = 'none';
@@ -307,11 +310,11 @@
     async function connectBT() { try { await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }] }); btOn=true; } catch (e) { btOn=false; } }
 
     document.getElementById('logo-trigger').addEventListener('click', () => { clks++; clearTimeout(tmr); if(clks >= 5) { document.getElementById('login-overlay').style.display='flex'; clks=0; } tmr=setTimeout(()=>clks=0, 2000); });
-    function checkAccess() { if(document.getElementById('master-pin').value === "7805") { document.getElementById('login-overlay').style.display='none'; currentAdminCtx = activeView; go('admin'); } }
+    function checkAccess() { if(document.getElementById('master-pin').value === "7805") { document.getElementById('login-overlay').style.display='none'; adminCtx = activeView; go('admin'); } }
     function closeLogin() { document.getElementById('login-overlay').style.display='none'; }
 
     function openAdmin() {
-        const g=document.getElementById('admin-global-config'), l=document.getElementById('admin-fields-list'), ctx=currentAdminCtx;
+        const g=document.getElementById('admin-global-config'), l=document.getElementById('admin-fields-list'), ctx=adminCtx;
         g.style.display=(ctx==='main')?'block':'none';
         document.getElementById('cfg-color').value=getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim();
         document.getElementById('cfg-brand').value=document.getElementById('f-brand').innerText;
@@ -331,10 +334,10 @@
         updateUI();
     }
 
-    function saveDNA() { localStorage.setItem('wgm_v399', JSON.stringify({ c: document.getElementById('cfg-color').value, f: document.getElementById('f-brand').innerText, v: VERSION })); alert("DNA VERSIEGELT"); }
+    function saveDNA() { localStorage.setItem('wgm_v400', JSON.stringify({ c: document.getElementById('cfg-color').value, f: document.getElementById('f-brand').innerText, v: VERSION })); alert("DNA VERSIEGELT"); }
 
     window.onload = () => {
-        const s=localStorage.getItem('wgm_v399'); if(s) { const d=JSON.parse(s); if(d.v===VERSION) { document.documentElement.style.setProperty('--wd-orange', d.c); document.getElementById('f-brand').innerText=d.f; } }
+        const s=localStorage.getItem('wgm_v400'); if(s) { const d=JSON.parse(s); if(d.v===VERSION) { document.documentElement.style.setProperty('--wd-orange', d.c); document.getElementById('f-brand').innerText=d.f; } }
         updateUI();
     };
 </script>
