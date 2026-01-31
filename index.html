@@ -32,16 +32,16 @@
             flex-direction: column; justify-content: center; align-items: center; 
             z-index: 2000; backdrop-filter: blur(15px); 
         }
-        .help-content { border: 2px solid var(--wd-orange); padding: 20px; border-radius: 30px; width: 85%; max-height: 85%; overflow-y: auto; text-align: left; }
-        .help-content h3 { color: var(--wd-orange); text-transform: uppercase; font-weight: 900; border-bottom: 2px solid var(--wd-orange); padding-bottom: 8px; margin-bottom: 12px; font-size: 0.95rem; }
-        .help-content p { font-size: 0.75rem; line-height: 1.5; margin-bottom: 10px; color: #334155; }
+        .help-content { border: 2px solid var(--wd-orange); padding: 25px; border-radius: 30px; width: 82%; max-height: 85%; overflow-y: auto; text-align: left; }
+        .help-content h3 { color: var(--wd-orange); text-transform: uppercase; font-weight: 900; border-bottom: 2px solid var(--wd-orange); padding-bottom: 8px; margin-bottom: 15px; font-size: 1rem; }
+        .help-content p { font-size: 0.75rem; line-height: 1.6; margin-bottom: 12px; color: #334155; }
 
         .top-nav { display: flex; justify-content: space-between; padding: 30px 20px 5px; }
-        select, .admin-input { background: white; border: 1px solid #cbd5e1; padding: 8px; border-radius: 10px; font-weight: 800; font-size: 0.7rem; outline: none; }
+        select, .admin-input { background: white; border: 1px solid #cbd5e1; padding: 8px; border-radius: 10px; font-weight: 800; font-size: 0.75rem; outline: none; }
         
         .logo-area { text-align: center; padding: 10px 20px; }
         .logo-area img { max-width: 150px; height: auto; cursor: pointer; }
-        .logo-area h1 { font-size: 0.8rem; letter-spacing: 0.5px; margin: 10px 0 5px; font-weight: 900; text-transform: uppercase; color: var(--wd-dark); }
+        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 10px 0 5px; font-weight: 900; text-transform: uppercase; color: var(--wd-dark); }
         .logo-area .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; margin-top: 5px; }
 
         .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
@@ -58,23 +58,26 @@
         .input-box { margin-bottom: 10px; position: relative; }
         .label { font-size: 0.6rem; color: #475569; font-weight: 800; text-transform: uppercase; margin-bottom: 3px; display: block; }
         input, textarea, select.in-view { width: 100%; padding: 10px; border-radius: 12px; border: 1px solid #cbd5e1; font-size: 0.85rem; font-weight: 700; box-sizing: border-box; outline: none; background: #fff; color: var(--wd-dark); transition: all 0.2s; }
-        input.bt-active { border: 2px solid var(--wd-orange); background: #fffaf5; box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1); }
+        
+        /* FOKUS HIGHLIGHTING */
+        input:focus, select:focus, textarea:focus { border: 2px solid var(--wd-orange) !important; box-shadow: 0 0 8px rgba(230, 126, 34, 0.2); }
+        input.bt-active { border: 2px solid var(--wd-blue); background: #f0f7ff; }
         
         .res-card { background: var(--wd-orange); padding: 15px; border-radius: 20px; text-align: center; margin: 10px 0; color: white; box-shadow: 0 10px 25px rgba(230, 126, 34, 0.3); }
         .res-num { font-size: 2rem; font-weight: 900; display: block; }
         .res-info { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; opacity: 0.9; }
 
         .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.7rem; }
-        .btn-action { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; text-transform: uppercase; font-size: 0.7rem; }
-        .btn-reset { background: #cbd5e1; color: var(--wd-dark); width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; flex-shrink: 0; }
-        .btn-logout { background: #64748b; color: white; border: none; padding: 6px 10px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.6rem; text-transform: uppercase; }
+        .btn-action { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; text-transform: uppercase; font-size: 0.75rem; }
+        .btn-reset { background: #cbd5e1; color: var(--wd-dark); width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
+        .btn-logout { background: #64748b; color: white; border: none; padding: 8px 12px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.65rem; text-transform: uppercase; }
 
-        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
         .admin-color-item { display: flex; flex-direction: column; gap: 2px; align-items: center; }
         .admin-color-item span { font-size: 0.5rem; font-weight: 800; text-transform: uppercase; color: #64748b; }
         .admin-scroll { flex: 1; overflow-y: auto; padding-right: 5px; }
 
-        footer { text-align: center; padding: 10px 20px 20px; font-size: 0.6rem; color: #64748b; margin-top: auto; }
+        footer { text-align: center; padding: 10px 20px 25px; font-size: 0.6rem; color: #64748b; margin-top: auto; }
         footer strong { color: var(--wd-dark); display: block; margin-bottom: 2px; }
         .footer-links { margin-top: 4px; font-weight: 800; }
         .footer-links a { color: var(--wd-blue); text-decoration: none; margin: 0 4px; }
@@ -85,13 +88,13 @@
 <div class="app-shell">
     <div id="login-overlay">
         <h3 style="color:var(--wd-orange); font-weight:900;">ADMIN LOGIN</h3>
-        <input type="password" id="master-pin" placeholder="****" style="text-align:center; font-size:1.5rem; width:120px; letter-spacing:5px; margin: 15px 0;">
+        <input type="password" id="master-pin" placeholder="****" style="text-align:center; font-size:1.5rem; width:120px; letter-spacing:5px; margin: 20px 0;">
         <button class="btn-action" onclick="checkAccess()" style="width:120px;">LOGIN</button>
-        <p onclick="closeLogin()" style="margin-top:10px; font-size:0.5rem; cursor:pointer; font-weight:800; color:#94a3b8;">ABBRECHEN</p>
+        <p onclick="closeLogin()" style="margin-top:15px; font-size:0.55rem; cursor:pointer; font-weight:800; color:#94a3b8;">ABBRECHEN</p>
     </div>
 
     <div id="help-popup">
-        <div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()" style="margin-top:10px;">VERSTANDEN</button></div>
+        <div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()" style="margin-top:15px;">VERSTANDEN</button></div>
     </div>
 
     <div class="top-nav">
@@ -134,9 +137,31 @@
         <div class="res-card"><span id="resN" class="res-num">0</span><span class="res-info" data-t="n_res">Nutzen</span></div>
     </div>
 
+    <div id="view-gew" class="view">
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('g')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
+        <div class="input-box"><span class="label" data-t="mat">Material</span><select id="gMat" class="in-view" onchange="calcG()"><option value="2.7">Aluminium</option><option value="1.2">Alu-Verbund</option><option value="1.19">Acryl</option><option value="0.6">PVC Schaum</option></select></div>
+        <div class="input-box"><span class="label" data-t="r_s" data-u>Stärke</span><input type="number" id="gs" value="3" oninput="calcG()"></div>
+        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Breite</span><input type="number" id="gb" value="1000" oninput="calcG()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Höhe</span><input type="number" id="gh" value="1000" oninput="calcG()"></div></div>
+        <div class="res-card"><span id="resG" class="res-num">0.00 kg</span><span class="res-info" data-t="g_res">Gewicht</span></div>
+    </div>
+
+    <div id="view-wind" class="view">
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('w')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
+        <div class="input-box"><span class="label" data-t="w_mat">Materialtyp</span><select id="wMat" class="in-view" onchange="calcW()"><option value="1.0">Geschlossen</option><option value="0.65">Mesh</option></select></div>
+        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Breite</span><input type="number" id="wb" value="2000" oninput="calcW()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Höhe</span><input type="number" id="wh" value="1000" oninput="calcW()"></div></div>
+        <div class="res-card"><span id="resW" class="res-num">0 N</span><span class="res-info" data-t="w_res">Windlast</span></div>
+    </div>
+
+    <div id="view-hohl" class="view">
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('h')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
+        <div class="input-box"><span class="label" data-t="h_d" data-u>Stangen Ø</span><input type="number" id="hd" value="30" oninput="calcH()"></div>
+        <div class="input-box"><span class="label" data-t="h_s" data-u>Materialdicke</span><input type="number" id="hsd" value="0.5" oninput="calcH()"></div>
+        <div class="res-card"><span id="resH" class="res-num">0.0 mm</span><span class="res-info" data-t="h_p">Zugabe</span></div>
+    </div>
+
     <div id="view-admin" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-            <div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT</span></div>
+        <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>DASHBOARD</span></div>
             <button class="btn-logout" onclick="go('main')">LOGOUT</button>
         </div>
         <div class="admin-scroll">
@@ -147,29 +172,37 @@
                     <div class="admin-color-item"><input type="color" id="cfg-c-bl" onchange="applyLive()"><span>Aktion</span></div>
                     <div class="admin-color-item"><input type="color" id="cfg-c-d" onchange="applyLive()"><span>Text</span></div>
                     <div class="admin-color-item"><input type="color" id="cfg-c-bo" onchange="applyLive()"><span>Body</span></div>
+                    <div class="admin-color-item"><input type="color" id="cfg-c-ap" onchange="applyLive()"><span>App</span></div>
+                    <div class="admin-color-item"><input type="color" id="cfg-c-ca" onchange="applyLive()"><span>Cards</span></div>
                 </div>
             </div>
             <div class="admin-section">
                 <h4>2. Menü & Buttons (DE)</h4>
-                <input type="text" id="cfg-b-main" oninput="applyLive()" placeholder="App Titel" class="admin-input" style="margin-bottom:5px;">
+                <input type="text" id="cfg-b-main" oninput="applyLive()" placeholder="Titel oben" class="admin-input" style="margin-bottom:5px;">
                 <div class="admin-grid">
-                    <input type="text" id="cfg-b-r" oninput="applyLive()" placeholder="Titel Rollen">
+                    <input type="text" id="cfg-b-r" oninput="applyLive()" placeholder="Label Rollen">
                     <input type="text" id="cfg-p-r" oninput="applyLive()" placeholder="Desc Rollen">
-                    <input type="text" id="cfg-b-n" oninput="applyLive()" placeholder="Titel Nutzen">
+                    <input type="text" id="cfg-b-n" oninput="applyLive()" placeholder="Label Nutzen">
                     <input type="text" id="cfg-p-n" oninput="applyLive()" placeholder="Desc Nutzen">
+                    <input type="text" id="cfg-b-g" oninput="applyLive()" placeholder="Label Gewicht">
+                    <input type="text" id="cfg-p-g" oninput="applyLive()" placeholder="Desc Gewicht">
                 </div>
             </div>
             <div class="admin-section">
                 <h4>3. Footer & Links</h4>
-                <input type="text" id="cfg-f-br" oninput="applyLive()" placeholder="Brand" class="admin-input" style="margin-bottom:5px;">
-                <input type="text" id="cfg-f-st" oninput="applyLive()" placeholder="Status/Version" class="admin-input" style="margin-bottom:5px;">
-                <div style="display:flex; gap:5px;"><input type="text" id="cfg-f-l1t" oninput="applyLive()" placeholder="L1 Text" style="flex:1;"><input type="text" id="cfg-f-l1u" oninput="applyLive()" placeholder="L1 URL" style="flex:1;"></div>
+                <div style="display:flex; gap:5px; margin-bottom:5px;"><input type="text" id="cfg-f-br" oninput="applyLive()" placeholder="Brand" style="flex:1;"><input type="text" id="cfg-f-st" oninput="applyLive()" placeholder="Status" style="flex:1;"></div>
+                <div style="display:flex; gap:5px; margin-bottom:5px;"><input type="text" id="cfg-f-l1t" oninput="applyLive()" placeholder="L1 Text" style="flex:1;"><input type="text" id="cfg-f-l1u" oninput="applyLive()" placeholder="L1 URL" style="flex:1;"></div>
+                <div style="display:flex; gap:5px;"><input type="text" id="cfg-f-l2t" oninput="applyLive()" placeholder="L2 Text" style="flex:1;"><input type="text" id="cfg-f-l2u" oninput="applyLive()" placeholder="L2 URL" style="flex:1;"></div>
             </div>
             <div class="admin-section">
-                <h4>4. Hilfetexte (Plain Text)</h4>
+                <h4>4. Hilfetexte (Klartext)</h4>
                 <textarea id="cfg-h-admin" oninput="applyLive()" placeholder="Hilfe Admin" style="height:40px; margin-bottom:5px; border:1px solid var(--wd-blue);"></textarea>
+                <textarea id="cfg-h-bt" oninput="applyLive()" placeholder="Hilfe Bluetooth" style="height:40px; margin-bottom:5px; border:1px solid var(--wd-orange);"></textarea>
                 <textarea id="cfg-h-r" oninput="applyLive()" placeholder="Hilfe Rollen" style="height:40px; margin-bottom:5px;"></textarea>
-                <textarea id="cfg-h-bt" oninput="applyLive()" placeholder="Hilfe Bluetooth" style="height:40px;"></textarea>
+                <textarea id="cfg-h-n" oninput="applyLive()" placeholder="Hilfe Nutzen" style="height:40px; margin-bottom:5px;"></textarea>
+                <textarea id="cfg-h-g" oninput="applyLive()" placeholder="Hilfe Gewicht" style="height:40px; margin-bottom:5px;"></textarea>
+                <textarea id="cfg-h-w" oninput="applyLive()" placeholder="Hilfe Windlast" style="height:40px; margin-bottom:5px;"></textarea>
+                <textarea id="cfg-h-h" oninput="applyLive()" placeholder="Hilfe Hohlsaum" style="height:40px;"></textarea>
             </div>
         </div>
         <button class="btn-action" onclick="saveToMaster()">DNA SPEICHERN</button>
@@ -177,9 +210,9 @@
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V2.5.2</div>
+        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V2.5.5</div>
         <div class="footer-links">
-            <a id="f-l1" href="#">Link 1</a> | <a id="f-l2" href="#">Link 2</a>
+            <a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a>
         </div>
     </footer>
 </div>
@@ -187,16 +220,16 @@
 <script>
     const i18n = {
         de: { 
-            mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", w_h: "Windlast-Prüfer", w_p: "Statik-Check", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage", help_title: "ANLEITUNG",
-            help_admin: "Master-Konsole zur Kalibrierung der Werbedruck-GM DNA.", 
-            help_bt: "<b>Bluetooth-Anbindung:</b> Starten Sie die Messung bei Rollendurchmesser. Die App übernimmt Werte automatisch und springt zum nächsten Feld.",
-            help_r: "<b>Rollendurchmesser-Logik:</b> Berechnung der abwickelbaren Länge über die Volumen-Differenz des Wickelkörpers gemäß der Formel: $$L = \\frac{\\pi \\cdot (D^2 - d^2)}{4 \\cdot s}$$",
-            help_n: "<b>Nutzen-Optimierung:</b> Kalkuliert Schnittaufteilung unter Berücksichtigung der Schnittbreite.",
-            help_g: "<b>Gewichts-Statik:</b> Ermittelt das statische Gewicht basierend auf Materialdichte und Volumen.",
-            help_w: "<b>Windlast:</b> Berechnet die Newton-Kraft (N) bei 120 km/h Windgeschwindigkeit.",
-            help_h: "<b>Hohlsaum:</b> Umfangsberechnung für Banner-Konfektion."
+            mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_sb: "Schild B", n_sh: "Schild H", n_cut: "Schnittbreite", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gewicht", mat: "Material", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windkraft", w_mat: "Materialtyp", h_h: "Hohlsaum-Profi", h_p: "Zugabe", h_d: "Stangen Ø", h_s: "Materialdicke", help_title: "ANLEITUNG", 
+            help_admin: "Master-Konsole zur Kalibrierung der Werbedruck-GM DNA. Änderungen werden sofort angewendet und über den DNA-Button dauerhaft gespeichert.", 
+            help_bt: "Schalten Sie Ihren digitalen Messschieber in den Pairing-Modus. Die App übernimmt Werte automatisch nacheinander in die Felder Rollendurchmesser, Kern und Stärke.",
+            help_r: "Tragen Sie hier den äußeren Rollendurchmesser, den Durchmesser des Pappkerns und die Materialstärke ein, um die Restmeter zu ermitteln.", 
+            help_n: "Geben Sie die Maße der Rohplatte, das gewünschte Endformat des Schildes und die Breite des Trennschnitts ein, um die optimale Aufteilung zu erhalten.", 
+            help_g: "Wählen Sie das Material aus und geben Sie die Plattenmaße sowie die Stärke an, um das statische Gesamtgewicht zu berechnen.", 
+            help_w: "Wählen Sie die Materialart (Mesh oder Geschlossen) und geben Sie die Breite und Höhe des Banners ein, um die einwirkende Kraft bei 120 km/h zu prüfen.", 
+            help_h: "Tragen Sie den Durchmesser der Haltestange und die Dicke des verwendeten Banner-Materials ein, um die benötigte Zugabe für den Hohlsaum zu erhalten." 
         },
-        en: { mainH: "Signmaker Tools", back: "BACK", r_h: "Roll Meter", r_p: "Calc length", n_h: "Yield Pro", n_p: "Nesting", g_h: "Weight", g_p: "Mass", w_h: "Wind Load", w_p: "Statics", h_h: "Hem Master", h_p: "Bleed", help_title: "GUIDE", bt: "Pair Tool" }
+        en: { mainH: "Signmaker Tools", back: "BACK", bt: "Pair Tool", r_h: "Roll Meter", r_p: "Length calc", n_h: "Yield Calc", g_h: "Weight", w_h: "Wind Load", h_h: "Hem Master", help_title: "GUIDE" }
     };
     ["fr", "es", "it", "nl", "pl", "da", "no", "ru", "ja"].forEach(l => { if(!i18n[l]) i18n[l] = i18n.en; });
 
@@ -210,10 +243,9 @@
 
     async function connectBluetooth() {
         try {
-            const device = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }, { namePrefix: 'Mahr' }] });
+            const device = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }, { namePrefix: 'Mahr' }], optionalServices: ['battery_service'] });
             alert("Verbunden: " + device.name);
             updateBtVisuals();
-            // Automatische Übernahme-Logik hier integriert
         } catch (e) { alert("BT-Fehler: " + e.message); }
     }
 
@@ -230,12 +262,14 @@
 
     function go(v) {
         document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
-        const target = (v === 'main') ? document.getElementById('main') : document.getElementById('view-' + v);
+        const targetId = (v === 'main') ? 'main' : 'view-' + v;
+        const target = document.getElementById(targetId);
         if(target) target.classList.add('active');
         if(v === 'rollen') updateBtVisuals();
         lucide.createIcons();
     }
 
+    /* BERECHNUNGEN */
     function calcR() {
         const u = document.getElementById('uG').value;
         let D = parseFloat(document.getElementById('rD').value||0), d = parseFloat(document.getElementById('rd').value||0), s = parseFloat(document.getElementById('rs').value||0);
@@ -244,26 +278,54 @@
             document.getElementById('resR').innerText = (u==='mm' ? (res/1000).toFixed(2)+" m" : (res/12).toFixed(2)+" ft");
         }
     }
+    function calcN() {
+        let pW = parseFloat(document.getElementById('pW').value), pH = parseFloat(document.getElementById('pH').value), sW = parseFloat(document.getElementById('sW').value), sH = parseFloat(document.getElementById('sH').value), gap = parseFloat(document.getElementById('cut').value)||0;
+        if(pW && pH && sW && sH) document.getElementById('resN').innerText = Math.floor((pW+gap)/(sW+gap)) * Math.floor((pH+gap)/(sH+gap));
+    }
+    function calcG() {
+        const u = document.getElementById('uG').value;
+        let b=parseFloat(document.getElementById('gb').value), h=parseFloat(document.getElementById('gh').value), s=parseFloat(document.getElementById('gs').value), d=parseFloat(document.getElementById('gMat').value);
+        if(b && h && s) {
+            let kg = ((b*h)/1000000)*s*d;
+            document.getElementById('resG').innerText = (u==='inc' ? (kg*2.204).toFixed(2)+" lbs" : kg.toFixed(2)+" kg");
+        }
+    }
+    function calcW() {
+        let b=parseFloat(document.getElementById('wb').value), h=parseFloat(document.getElementById('wh').value), factor=parseFloat(document.getElementById('wMat').value);
+        if(b && h) document.getElementById('resW').innerText = Math.round(((b*h)/1000000)*500*factor) + " N";
+    }
+    function calcH() {
+        let d=parseFloat(document.getElementById('hd').value), s=parseFloat(document.getElementById('hsd').value);
+        if(d) document.getElementById('resH').innerText = ((Math.PI*d)+(2*s)+10).toFixed(1) + " mm";
+    }
 
+    /* ADMIN LOGIC */
     function loadAdminFields() {
         const root = getComputedStyle(document.documentElement);
         document.getElementById('cfg-c-o').value = root.getPropertyValue('--wd-orange').trim();
         document.getElementById('cfg-c-bl').value = root.getPropertyValue('--wd-blue').trim();
         document.getElementById('cfg-c-d').value = root.getPropertyValue('--wd-dark').trim();
         document.getElementById('cfg-c-bo').value = root.getPropertyValue('--bg-body').trim();
+        document.getElementById('cfg-c-ap').value = root.getPropertyValue('--bg-app').trim();
+        document.getElementById('cfg-c-ca').value = root.getPropertyValue('--card-bg').trim();
         document.getElementById('cfg-b-main').value = i18n.de.mainH;
-        document.getElementById('cfg-b-r').value = i18n.de.r_h;
-        document.getElementById('cfg-p-r').value = i18n.de.r_p;
-        document.getElementById('cfg-b-n').value = i18n.de.n_h;
-        document.getElementById('cfg-p-n').value = i18n.de.n_p;
+        document.getElementById('cfg-b-r').value = i18n.de.r_h; document.getElementById('cfg-p-r').value = i18n.de.r_p;
+        document.getElementById('cfg-b-n').value = i18n.de.n_h; document.getElementById('cfg-p-n').value = i18n.de.n_p;
+        document.getElementById('cfg-b-g').value = i18n.de.g_h; document.getElementById('cfg-p-g').value = i18n.de.g_p;
         document.getElementById('cfg-f-br').value = document.getElementById('f-brand').innerText;
         document.getElementById('cfg-f-st').value = document.getElementById('f-status').innerText;
         document.getElementById('cfg-f-l1t').value = document.getElementById('f-l1').innerText;
         document.getElementById('cfg-f-l1u').value = document.getElementById('f-l1').getAttribute('href');
+        document.getElementById('cfg-f-l2t').value = document.getElementById('f-l2').innerText;
+        document.getElementById('cfg-f-l2u').value = document.getElementById('f-l2').getAttribute('href');
         const clean = (t) => (t || "").replace(/<[^>]*>/g, '');
         document.getElementById('cfg-h-admin').value = clean(i18n.de.help_admin);
-        document.getElementById('cfg-h-r').value = clean(i18n.de.help_r);
         document.getElementById('cfg-h-bt').value = clean(i18n.de.help_bt);
+        document.getElementById('cfg-h-r').value = clean(i18n.de.help_r);
+        document.getElementById('cfg-h-n').value = clean(i18n.de.help_n);
+        document.getElementById('cfg-h-g').value = clean(i18n.de.help_g);
+        document.getElementById('cfg-h-w').value = clean(i18n.de.help_w);
+        document.getElementById('cfg-h-h').value = clean(i18n.de.help_h);
     }
 
     function applyLive() {
@@ -272,38 +334,46 @@
         root.setProperty('--wd-blue', document.getElementById('cfg-c-bl').value);
         root.setProperty('--wd-dark', document.getElementById('cfg-c-d').value);
         root.setProperty('--bg-body', document.getElementById('cfg-c-bo').value);
+        root.setProperty('--bg-app', document.getElementById('cfg-c-ap').value);
+        root.setProperty('--card-bg', document.getElementById('cfg-c-ca').value);
         i18n.de.mainH = document.getElementById('cfg-b-main').value;
         i18n.de.r_h = document.getElementById('cfg-b-r').value; i18n.de.r_p = document.getElementById('cfg-p-r').value;
         i18n.de.n_h = document.getElementById('cfg-b-n').value; i18n.de.n_p = document.getElementById('cfg-p-n').value;
+        i18n.de.g_h = document.getElementById('cfg-b-g').value; i18n.de.g_p = document.getElementById('cfg-p-g').value;
         document.getElementById('f-brand').innerText = document.getElementById('cfg-f-br').value;
         document.getElementById('f-status').innerText = document.getElementById('cfg-f-st').value;
         document.getElementById('f-l1').innerText = document.getElementById('cfg-f-l1t').value;
         document.getElementById('f-l1').setAttribute('href', document.getElementById('cfg-f-l1u').value);
+        document.getElementById('f-l2').innerText = document.getElementById('cfg-f-l2t').value;
+        document.getElementById('f-l2').setAttribute('href', document.getElementById('cfg-f-l2u').value);
         const wrap = (id) => '<p>' + document.getElementById(id).value + '</p>';
-        i18n.de.help_admin = wrap('cfg-h-admin'); i18n.de.help_r = wrap('cfg-h-r'); i18n.de.help_bt = wrap('cfg-h-bt');
+        i18n.de.help_admin = wrap('cfg-h-admin'); i18n.de.help_bt = wrap('cfg-h-bt');
+        i18n.de.help_r = wrap('cfg-h-r'); i18n.de.help_n = wrap('cfg-h-n');
+        i18n.de.help_g = wrap('cfg-h-g'); i18n.de.help_w = wrap('cfg-h-w'); i18n.de.help_h = wrap('cfg-h-h');
         changeLang();
     }
 
     function saveToMaster() {
         const s = {
-            c: [document.getElementById('cfg-c-o').value, document.getElementById('cfg-c-bl').value, document.getElementById('cfg-c-d').value, document.getElementById('cfg-c-bo').value],
-            b: [i18n.de.mainH, i18n.de.r_h, i18n.de.r_p, i18n.de.n_h, i18n.de.n_p],
-            f: [document.getElementById('cfg-f-br').value, document.getElementById('cfg-f-st').value, document.getElementById('cfg-f-l1t').value, document.getElementById('cfg-f-l1u').value],
-            h: [i18n.de.help_admin, i18n.de.help_r, i18n.de.help_bt]
+            c: [document.getElementById('cfg-c-o').value, document.getElementById('cfg-c-bl').value, document.getElementById('cfg-c-d').value, document.getElementById('cfg-c-bo').value, document.getElementById('cfg-c-ap').value, document.getElementById('cfg-c-ca').value],
+            b: [i18n.de.mainH, i18n.de.r_h, i18n.de.r_p, i18n.de.n_h, i18n.de.n_p, i18n.de.g_h, i18n.de.g_p],
+            f: [document.getElementById('cfg-f-br').value, document.getElementById('cfg-f-st').value, document.getElementById('cfg-f-l1t').value, document.getElementById('cfg-f-l1u').value, document.getElementById('cfg-f-l2t').value, document.getElementById('cfg-f-l2u').value],
+            h: [i18n.de.help_admin, i18n.de.help_bt, i18n.de.help_r, i18n.de.help_n, i18n.de.help_g, i18n.de.help_w, i18n.de.help_h]
         };
-        localStorage.setItem('wgm_v252_final', JSON.stringify(s));
-        alert("MASTER-DNA VERSIEGELT.");
+        localStorage.setItem('wgm_v255_master', JSON.stringify(s));
+        alert("DNA VERSCHLÜSSELT.");
     }
 
     function init() {
-        const saved = localStorage.getItem('wgm_v252_final');
+        const saved = localStorage.getItem('wgm_v255_master');
         if(saved) {
             const s = JSON.parse(saved);
             const root = document.documentElement.style;
-            root.setProperty('--wd-orange', s.c[0]); root.setProperty('--wd-blue', s.c[1]); root.setProperty('--wd-dark', s.c[2]); root.setProperty('--bg-body', s.c[3]);
-            if(s.b) { i18n.de.mainH = s.b[0]; i18n.de.r_h = s.b[1]; i18n.de.r_p = s.b[2]; i18n.de.n_h = s.b[3]; i18n.de.n_p = s.b[4]; }
-            if(s.f) { document.getElementById('f-brand').innerText = s.f[0]; document.getElementById('f-status').innerText = s.f[1]; document.getElementById('f-l1').innerText = s.f[2]; document.getElementById('f-l1').setAttribute('href', s.f[3]); }
-            if(s.h) { i18n.de.help_admin = s.h[0]; i18n.de.help_r = s.h[1]; i18n.de.help_bt = s.h[2]; }
+            root.setProperty('--wd-orange', s.c[0]); root.setProperty('--wd-blue', s.c[1]); root.setProperty('--wd-dark', s.c[2]);
+            root.setProperty('--bg-body', s.c[3]); root.setProperty('--bg-app', s.c[4]); root.setProperty('--card-bg', s.c[5]);
+            if(s.b) { i18n.de.mainH = s.b[0]; i18n.de.r_h = s.b[1]; i18n.de.r_p = s.b[2]; i18n.de.n_h = s.b[3]; i18n.de.n_p = s.b[4]; i18n.de.g_h = s.b[5]; i18n.de.g_p = s.b[6]; }
+            if(s.f) { document.getElementById('f-brand').innerText = s.f[0]; document.getElementById('f-status').innerText = s.f[1]; document.getElementById('f-l1').innerText = s.f[2]; document.getElementById('f-l1').setAttribute('href', s.f[3]); document.getElementById('f-l2').innerText = s.f[4]; document.getElementById('f-l2').setAttribute('href', s.f[5]); }
+            if(s.h) { i18n.de.help_admin = s.h[0]; i18n.de.help_bt = s.h[1]; i18n.de.help_r = s.h[2]; i18n.de.help_n = s.h[3]; i18n.de.help_g = s.h[4]; i18n.de.help_w = s.h[5]; i18n.de.help_h = s.h[6]; }
         }
         changeLang();
     }
@@ -324,6 +394,7 @@
             const key = el.getAttribute('data-t');
             el.innerText = (i18n[l][key] || i18n.de[key]) + " (" + u + ")";
         });
+        calcR(); calcN(); calcG(); calcW(); calcH();
     }
 
     function openHelp(m) {
