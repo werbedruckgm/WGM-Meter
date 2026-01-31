@@ -29,27 +29,26 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(255,255,255,0.98); display: none; 
             flex-direction: column; justify-content: center; align-items: center; 
-            z-index: 2000; backdrop-filter: blur(15px); 
+            z-index: 3000; backdrop-filter: blur(15px); 
         }
 
-        /* TOP OVERLAY HILFE */
+        /* TOP OVERLAY HILFE - FIXIERT ÜBER LOGO */
         .assist-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 215px;
-            background: var(--wd-blue); color: white; z-index: 1500;
+            background: var(--wd-blue); color: white; z-index: 2000;
             display: none; flex-direction: column; justify-content: center;
             padding: 45px 20px 20px; box-sizing: border-box;
             border-bottom: 4px solid var(--wd-orange);
-            animation: slideDown 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation: slideDown 0.3s ease-out;
         }
         @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
         .assist-overlay p { margin: 0; font-size: 0.72rem; font-weight: 700; line-height: 1.5; }
 
-        .top-nav { display: flex; justify-content: flex-end; padding: 25px 20px 5px; height: 35px; z-index: 1600; }
+        .top-nav { display: flex; justify-content: flex-end; padding: 25px 20px 5px; height: 35px; z-index: 2100; }
         select { background: white; border: 1px solid #cbd5e1; padding: 6px; border-radius: 8px; font-weight: 800; font-size: 0.65rem; outline: none; }
         
         .logo-area { text-align: center; padding: 5px 20px; height: 140px; position: relative; }
-        .logo-area img { max-width: 145px; cursor: pointer; transition: transform 0.2s; }
-        .logo-area img:active { transform: scale(0.95); }
+        .logo-area img { max-width: 145px; cursor: pointer; }
         .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 8px 0 5px; font-weight: 900; text-transform: uppercase; }
         .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; }
 
@@ -66,17 +65,20 @@
         .help-btn { width: 34px; height: 34px; background: var(--icon-bg); color: var(--wd-blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #f1f5f9; }
         .help-btn.active { background: var(--wd-orange); color: white; border-color: var(--wd-orange); }
 
+        /* STARRE UI-ANKER GEGEN ÜBERLAPPUNG */
         .input-box { margin-bottom: 12px; height: 65px; position: relative; }
         .label { font-size: 0.6rem; color: #475569; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
         input, select.in-view { width: 100%; height: 42px; padding: 0 12px; border-radius: 12px; border: 2.5px solid #cbd5e1; font-size: 0.88rem; font-weight: 800; outline: none; background: #fff; color: var(--wd-dark); box-sizing: border-box; }
-        input:focus, select.in-view:focus { border: 3.5px solid var(--wd-orange) !important; box-shadow: 0 0 12px rgba(230, 126, 34, 0.2); }
+        input:focus { border: 3.5px solid var(--wd-orange) !important; box-shadow: 0 0 12px rgba(230, 126, 34, 0.2); }
 
         .res-card { background: var(--wd-orange); height: 85px; border-radius: 22px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 10px 0; color: white; box-shadow: 0 10px 25px rgba(230, 126, 34, 0.25); }
         .res-num { font-size: 1.8rem; font-weight: 900; }
         .res-info { font-size: 0.58rem; font-weight: 800; text-transform: uppercase; opacity: 0.9; }
 
         .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.68rem; }
-        .btn-action { background: var(--wd-blue); color: white; border: none; height: 48px; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 5px; text-transform: uppercase; font-size: 0.75rem; }
+        .btn-row { display: flex; gap: 10px; margin-top: 5px; height: 48px; }
+        .btn-action { background: var(--wd-blue); color: white; border: none; flex: 1; border-radius: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; font-size: 0.72rem; }
+        .btn-reset { width: 48px; background: #f1f5f9; color: #475569; border: 1.5px solid #cbd5e1; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
         .admin-scroll { flex: 1; overflow-y: auto; padding-right: 5px; }
         .admin-section { margin-bottom: 22px; border-bottom: 1px solid #eee; padding-bottom: 12px; }
@@ -97,7 +99,7 @@
     <div id="login-overlay">
         <h3 style="color:var(--wd-orange); font-weight:900;">ADMIN MASTER-GATE</h3>
         <input type="password" id="master-pin" placeholder="****" style="text-align:center; font-size:1.6rem; width:130px; letter-spacing:10px; margin-bottom: 15px;">
-        <button class="btn-action" style="width:160px;" onclick="checkAccess()">ENTSPERREN</button>
+        <button class="btn-action" style="max-width:160px;" onclick="checkAccess()">ENTSPERREN</button>
         <p onclick="closeLogin()" style="margin-top:20px; font-size:0.6rem; cursor:pointer; font-weight:900; color:#94a3b8;">ABBRECHEN</p>
     </div>
 
@@ -125,7 +127,10 @@
         <div class="input-box"><span class="label" id="t-rd_l" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" onfocus="foc('rd')" oninput="calcR()" onchange="jump('rs')"></div>
         <div class="input-box"><span class="label" id="t-rs_l" data-u>Materialstärke</span><input type="number" id="rs" value="0.22" step="0.01" onfocus="foc('rs')" oninput="calcR()"></div>
         <div class="res-card"><span id="resR" class="res-num">0.00 m</span><span class="res-info" id="t-res_l">Material auf der Rolle</span></div>
-        <button class="btn-action" onclick="connectBT()"><i data-lucide="bluetooth"></i> <span>BT Messchieber koppeln</span></button>
+        <div class="btn-row">
+            <button class="btn-action" onclick="connectBT()"><i data-lucide="bluetooth"></i> <span>KOPPELN</span></button>
+            <button class="btn-reset" onclick="resetForm('rollen')"><i data-lucide="refresh-cw"></i></button>
+        </div>
     </div>
 
     <div id="view-nutzen" class="view">
@@ -134,15 +139,23 @@
         <div class="input-box"><span class="label" id="t-cut_l" data-u>Schnittbreite</span><input type="number" id="cut" value="1.5" onfocus="foc('cut')" onchange="jump('sW')"></div>
         <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-sW_l" data-u>Schildbreite</span><input type="number" id="sW" onfocus="foc('sW')" onchange="jump('sH')"></div><div class="input-box" style="flex:1;"><span class="label" id="t-sH_l" data-u>Schildhöhe</span><input type="number" id="sH" onfocus="foc('sH')" oninput="calcN()"></div></div>
         <div class="res-card"><span id="resN" class="res-num">0</span><span class="res-info" id="t-n_res">Nutzen pro Platte</span></div>
+        <div class="btn-row">
+            <button class="btn-action" onclick="calcN()"><span>BERECHNEN</span></button>
+            <button class="btn-reset" onclick="resetForm('nutzen')"><i data-lucide="refresh-cw"></i></button>
+        </div>
     </div>
 
     <div id="view-gew" class="view">
         <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_g">ZURÜCK</span></div><div class="help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
-        <div class="input-box"><span class="label" id="t-mat_l">Material-Datenbank</span><select id="gMat" class="in-view" onchange="updateMaterialLogic(); jump('gStd')" onfocus="foc('mat')"></select></div>
+        <div class="input-box"><span class="label" id="t-mat_l">Datenbank (19 Werkstoffe)</span><select id="gMat" class="in-view" onchange="updateMaterialLogic(); jump('gStd')" onfocus="foc('mat')"></select></div>
         <div id="row-thickness-preset" class="input-box"><span class="label" id="t-gStd_l">Presets</span><select id="gStd" class="in-view" onchange="applyPreset(); jump('gb')" onfocus="foc('gStd')"></select></div>
         <div class="input-box"><span class="label" id="t-gs_l">Stärke / Gramm</span><input type="number" id="gs" onfocus="foc('gs')" onchange="jump('gb')"></div>
         <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-gb_l" data-u>Breite</span><input type="number" id="gb" value="1000" onfocus="foc('gb')" onchange="jump('gh')"></div><div class="input-box" style="flex:1;"><span class="label" id="t-gh_l" data-u>Höhe</span><input type="number" id="gh" value="1000" onfocus="foc('gh')" oninput="calcG()"></div></div>
         <div class="res-card"><span id="resG" class="res-num">0.00 kg</span><span class="res-info" id="t-g_res">Gesamtgewicht</span></div>
+        <div class="btn-row">
+            <button class="btn-action" onclick="calcG()"><span>BERECHNEN</span></button>
+            <button class="btn-reset" onclick="resetForm('gew')"><i data-lucide="refresh-cw"></i></button>
+        </div>
     </div>
 
     <div id="view-wind" class="view">
@@ -150,27 +163,35 @@
         <div class="input-box"><span class="label" id="t-wMat_l">Material-DNA</span><select id="wMat" class="in-view" onchange="calcW(); jump('wb')" onfocus="foc('wMat')"></select></div>
         <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" id="t-wb_l" data-u>Breite</span><input type="number" id="wb" value="2000" onfocus="foc('wb')" oninput="calcW()" onchange="jump('wh')"></div><div class="input-box" style="flex:1;"><span class="label" id="t-wh_l" data-u>Höhe</span><input type="number" id="wh" value="1000" onfocus="foc('wh')" oninput="calcW()"></div></div>
         <div class="res-card"><span id="resW" class="res-num">0 N</span><span class="res-info" id="t-w_res">Windlast bei 120 km/h</span></div>
+        <div class="btn-row">
+            <button class="btn-action" onclick="calcW()"><span>BERECHNEN</span></button>
+            <button class="btn-reset" onclick="resetForm('wind')"><i data-lucide="refresh-cw"></i></button>
+        </div>
     </div>
 
     <div id="view-hohl" class="view">
         <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_h">ZURÜCK</span></div><div class="help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
         <div class="input-box"><span class="label" id="t-hd_l" data-u>Stangen Ø</span><input type="number" id="hd" value="30" onfocus="foc('hd')" onchange="jump('hsd')"></div>
-        <div class="input-box"><span class="label" id="t-hsd_l" data-u>Bannerdicke</span><input type="number" id="hsd" value="0.5" onfocus="foc('hsd')" oninput="calcH()"></div>
+        <div class="input-box"><span class="label" id="t-hsd_l" data-u>Materialdicke</span><input type="number" id="hsd" value="0.5" onfocus="foc('hsd')" oninput="calcH()"></div>
         <div class="res-card"><span id="resH" class="res-num">0.0 mm</span><span class="res-info" id="t-h_p">Hohlsaum-Zugabe</span></div>
+        <div class="btn-row">
+            <button class="btn-action" onclick="calcH()"><span>BERECHNEN</span></button>
+            <button class="btn-reset" onclick="resetForm('hohl')"><i data-lucide="refresh-cw"></i></button>
+        </div>
     </div>
 
     <div id="view-admin" class="view">
         <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span id="t-admin_exit">ADMIN VERLASSEN</span></div></div>
         <div class="admin-scroll">
             <div id="admin-global-config" class="admin-section">
-                <h4>Globale DNA (Farben & Branding)</h4>
-                <label class="label">Akzentfarbe</label><input type="color" id="cfg-color" onchange="applyAdminLive()" style="height:35px; padding:2px; cursor:pointer;">
+                <h4>Globale DNA (Design & Branding)</h4>
+                <label class="label">Hauptfarbe</label><input type="color" id="cfg-color" onchange="applyAdminLive()" style="height:35px; padding:2px; cursor:pointer;">
                 <label class="label" style="margin-top:10px;">Firma</label><input type="text" id="cfg-brand" oninput="applyAdminLive()">
                 <label class="label" style="margin-top:10px;">Impressum URL</label><input type="text" id="cfg-link1" oninput="applyAdminLive()">
                 <label class="label" style="margin-top:10px;">Datenschutz URL</label><input type="text" id="cfg-link2" oninput="applyAdminLive()">
             </div>
             <div id="admin-local-config" class="admin-section">
-                <h4>Modul-Administration</h4>
+                <h4>Modul-Texte (Pre-Fill aktiv)</h4>
                 <div id="admin-fields-list"></div>
             </div>
         </div>
@@ -179,40 +200,45 @@
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <span id="f-ver">V3.9.4 | Sequential Mastery</span>
+        <span id="f-ver">V3.9.5 | Master-Release</span>
         <div class="footer-links"><a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a></div>
     </footer>
 </div>
 
 <script>
-    const VERSION = "3.9.4";
+    const VERSION = "3.9.5";
     const i18n = {
         de: {
             mainH: "Werbetechniker-Tools", admin_exit: "ADMIN VERLASSEN", 
             back_r: "ZURÜCK", back_n: "ZURÜCK", back_g: "ZURÜCK", back_w: "ZURÜCK", back_h: "ZURÜCK",
             rollen_h: "Rollen-Meter", rollen_p: "Längen berechnen", rD_l: "Durchmesser Außen", rd_l: "Kerndurchmesser", rs_l: "Materialstärke", res_l: "Material auf der Rolle",
             nutzen_h: "Nutzen-Rechner", nutzen_p: "Schnittpläne", pW_l: "Plattenbreite", pH_l: "Plattenhöhe", cut_l: "Schnittbreite", sW_l: "Schildbreite", sH_l: "Schildhöhe", n_res: "Nutzen pro Platte",
-            gew_h: "Gewichts-Detektor", gew_p: "Materialgewicht", mat_l: "Material-Datenbank", gStd_l: "Presets", gb_l: "Breite", gh_l: "Höhe", g_res: "Gesamtgewicht", gs_l: "Stärke / Gramm",
+            gew_h: "Gewichts-Detektor", gew_p: "Materialgewicht", mat_l: "Datenbank (19 Werkstoffe)", gStd_l: "Presets", gb_l: "Breite", gh_l: "Höhe", g_res: "Gesamtgewicht", gs_l: "Stärke / Gramm",
             wind_h: "Windlast-Prüfer", wind_p: "Statik-Check", wMat_l: "Material-DNA", wb_l: "Breite", wh_l: "Höhe", w_res: "Windlast bei 120 km/h",
-            hohl_h: "Hohlsaum-Profi", hohl_p: "Banner-Zulage", hd_l: "Stangen Ø", hsd_l: "Bannerdicke", h_p: "Hohlsaum-Zugabe",
-            h_rD: "Messen Sie den Gesamtdurchmesser von Außenkante zu Außenkante. Nutzen Sie die HID-Taste oder manuelle Eingabe.",
-            h_rd: "Bestimmen Sie den Hülsendurchmesser mit den RÜCKSEITIGEN MESSGABELN am Rollenanfang.",
+            hohl_h: "Hohlsaum-Profi", hohl_p: "Banner-Zulage", hd_l: "Stangen Ø", hsd_l: "Materialdicke", h_p: "Hohlsaum-Zugabe",
+            h_rD: "Erfassen Sie den kompletten Abstand von Außenkante zu Außenkante. HID-Taste oder manuelle Eingabe nutzen.",
+            h_rd: "Messen Sie den Außendurchmesser der Hülse zwingend mit den RÜCKSEITIGEN MESSGABELN am Rollenanfang.",
             h_rs: "Messen Sie mit dem digitalen BT-Messschieber exakt EINE EINZELNE LAGE inklusive Träger.",
             h_pW: "Breite der Rohplatte vor dem Zuschnitt.", h_pH: "Höhe der Rohplatte vor dem Zuschnitt.",
             h_cut: "Materialverlust pro Trennvorgang (Sägeblatt/Fräser).",
             h_sW: "Netto-Breite des fertigen Nutzens.", h_sH: "Netto-Höhe des fertigen Nutzens.",
-            h_mat: "Wählen Sie den Werkstoff aus der Datenbank für Dichte und Statikfaktoren.",
+            h_mat: "Wählen Sie einen der 19 Werkstoffe aus der Datenbank für korrekte Dichte und Statikfaktoren.",
             h_gStd: "Wählen Sie ein Preset, um die Stärkeeingabe zu automatisieren.",
-            h_gs: "Plattenstärke in mm oder Grammatur in kg/m².",
-            h_gb: "Gesamtbreite des Elements.", h_gh: "Gesamthöhe des Elements.",
+            h_gs: "Plattenstärke in mm oder Grammatur der Folie/Plane in kg/m².",
+            h_gb: "Breite des Objekts.", h_gh: "Höhe des Objekts.",
             h_wMat: "Wählen Sie das Material für korrekte Windlastkoeffizienten.",
             h_wb: "Windangriffsbreite.", h_wh: "Windangriffshöhe.",
-            h_hd: "Außendurchmesser der Stange für den Hohlsaum.",
-            h_hsd: "Dicke des Materials für die Umfangsberechnung."
+            h_hd: "Außendurchmesser der Aufhängestange.",
+            h_hsd: "Dicke des Banners für die Umfangsberechnung des Saums."
         }
     };
     const materials = {
-        'alu': { n: 'Aluminium', d: 2.7, t: 'p', w: 1.0 }, 'alu_v': { n: 'Alu-Verbund', d: 1.2, t: 'p', w: 1.0 }, 'glas': { n: 'Glas', d: 2.5, t: 'p', w: 1.0 }, 'v2a': { n: 'Edelstahl', d: 7.9, t: 'p', w: 1.0 }, 'pvc_h': { n: 'PVC-Hartschaum', d: 0.55, t: 'p', w: 1.0 }, 'sieb': { n: 'Siebdruckplatte', d: 0.75, t: 'p', w: 1.0 }, 'mdf': { n: 'MDF Platte', d: 0.75, t: 'p', w: 1.0 }, 'mplx': { n: 'Multiplex', d: 0.7, t: 'p', w: 1.0 }, 'pc': { n: 'Polycarbonat', d: 1.2, t: 'p', w: 1.0 }, 'mesh': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }, 'lkw': { n: 'LKW Plane', d: 0.9, t: 'r', w: 1.0 }
+        'alu': { n: 'Aluminium', d: 2.7, t: 'p', w: 1.0 }, 'alu_v': { n: 'Alu-Verbund', d: 1.2, t: 'p', w: 1.0 }, 'acryl': { n: 'Acrylglas / Plexi', d: 1.19, t: 'p', w: 1.0 },
+        'pvc_h': { n: 'PVC-Hartschaum', d: 0.55, t: 'p', w: 1.0 }, 'hkp': { n: 'Hohlkammer (HKP)', d: 0.45, t: 'p', w: 1.0 }, 'kapa': { n: 'Kapa Leichtschaum', d: 0.2, t: 'p', w: 1.0 },
+        'glas': { n: 'Glas', d: 2.5, t: 'p', w: 1.0 }, 'v2a': { n: 'Edelstahl (V2A)', d: 7.9, t: 'p', w: 1.0 }, 'sieb': { n: 'Siebdruckplatte', d: 0.75, t: 'p', w: 1.0 },
+        'mdf': { n: 'MDF Platte', d: 0.75, t: 'p', w: 1.0 }, 'mplx': { n: 'Multiplex', d: 0.7, t: 'p', w: 1.0 }, 'pc': { n: 'Polycarbonat', d: 1.2, t: 'p', w: 1.0 },
+        'poly': { n: 'Polystyrol', d: 1.05, t: 'p', w: 1.0 }, 'stahl': { n: 'Stahlblech verzinkt', d: 7.8, t: 'p', w: 1.0 }, 'mag': { n: 'Magnetfolie', d: 3.5, t: 'r', w: 1.0 },
+        'mesh': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }, 'mesh_p': { n: 'Mesh Wind-Pro', d: 0.25, t: 'r', w: 0.4 }, 'lkw': { n: 'LKW Plane (Frontlit)', d: 0.55, t: 'r', w: 1.0 }, 'block': { n: 'Blockout Banner', d: 0.8, t: 'r', w: 1.0 }
     };
     let activeView = 'main', clks = 0, helpOn = false, btOn = false, tmr;
 
@@ -255,63 +281,63 @@
             el.innerText = t(k);
             if(el.hasAttribute('data-u')) el.innerText += ` (${u})`;
         });
-        if(activeView === 'wind' && !document.getElementById('wMat').options.length) {
-            for(let k in materials) document.getElementById('wMat').add(new Option(materials[k].n, k));
+        if(['wind','gew'].includes(activeView)) {
+            const sel = document.getElementById(activeView === 'wind' ? 'wMat' : 'gMat');
+            if(!sel.options.length) for(let k in materials) sel.add(new Option(materials[k].n, k));
         }
-        if(activeView === 'gew' && !document.getElementById('gMat').options.length) {
-            for(let k in materials) document.getElementById('gMat').add(new Option(materials[k].n, k));
+        if(activeView === 'gew' && !document.getElementById('gStd').options.length) {
             [1,2,3,4,5,8,10,15,19,20,30].forEach(v => document.getElementById('gStd').add(new Option(v + " mm", v)));
         }
         if (window.lucide) lucide.createIcons();
     }
 
+    function resetForm(v) {
+        const view = document.getElementById('view-' + v);
+        view.querySelectorAll('input').forEach(i => i.value = i.defaultValue || "");
+        const res = view.querySelector('.res-num'); if(res) res.innerText = (v === 'nutzen' || v === 'wind') ? "0" : "0.00";
+        const first = view.querySelector('input'); if(first) first.focus();
+    }
+
     function applyPreset() { document.getElementById('gs').value = document.getElementById('gStd').value; calcG(); }
     function calcR() { let D=parseFloat(document.getElementById('rD').value||0), d=parseFloat(document.getElementById('rd').value||0), s=parseFloat(document.getElementById('rs').value||0); if(D && d && s) document.getElementById('resR').innerText = ((Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s) / 1000).toFixed(2) + " m"; }
     function calcN() { let pW=parseFloat(document.getElementById('pW').value||0), pH=parseFloat(document.getElementById('pH').value||0), sW=parseFloat(document.getElementById('sW').value||0), sH=parseFloat(document.getElementById('sH').value||0), c=parseFloat(document.getElementById('cut').value||0); if(pW && pH && sW && sH) document.getElementById('resN').innerText = Math.floor((pW+c)/(sW+c)) * Math.floor((pH+c)/(sH+c)); }
-    function calcG() { const sel=document.getElementById('gMat'); if(!sel.value) return; const m=materials[sel.value]; let b=parseFloat(document.getElementById('gb').value||0), h=parseFloat(document.getElementById('gh').value||0), s=parseFloat(document.getElementById('gs').value||0); if(b && h && s) { let kg = (m.t === 'p') ? ((b*h)/1000000)*s*m.d : ((b*h)/1000000)*s; document.getElementById('resG').innerText = kg.toFixed(2)+" kg"; } }
-    function calcW() { const sel=document.getElementById('wMat'); if(!sel.value) return; const m=materials[sel.value]; let b=parseFloat(document.getElementById('wb').value||0), h=parseFloat(document.getElementById('wh').value||0); if(b && h && m) document.getElementById('resW').innerText = Math.round(((b*h)/1000000)*500*m.w)+" N"; }
+    function calcG() { const m=materials[document.getElementById('gMat').value]; let b=parseFloat(document.getElementById('gb').value||0), h=parseFloat(document.getElementById('gh').value||0), s=parseFloat(document.getElementById('gs').value||0); if(b && h && s && m) { let kg = (m.t === 'p') ? ((b*h)/1000000)*s*m.d : ((b*h)/1000000)*s; document.getElementById('resG').innerText = kg.toFixed(2)+" kg"; } }
+    function calcW() { const m=materials[document.getElementById('wMat').value]; let b=parseFloat(document.getElementById('wb').value||0), h=parseFloat(document.getElementById('wh').value||0); if(b && h && m) document.getElementById('resW').innerText = Math.round(((b*h)/1000000)*500*m.w)+" N"; }
     function calcH() { let d=parseFloat(document.getElementById('hd').value||0), s=parseFloat(document.getElementById('hsd').value||0); if(d) document.getElementById('resH').innerText = ((Math.PI*d)+(2*s)+10).toFixed(1)+" mm"; }
 
-    function updateMaterialLogic() {
-        const m = materials[document.getElementById('gMat').value];
-        document.getElementById('row-thickness-preset').style.display = (m.t === 'p') ? 'block' : 'none';
-        document.getElementById('gs').value = (m.t === 'p') ? 3 : m.d;
-        calcG();
-    }
+    function updateMaterialLogic() { const m=materials[document.getElementById('gMat').value]; document.getElementById('row-thickness-preset').style.display=(m.t==='p')?'block':'none'; document.getElementById('gs').value=(m.t==='p')?3:m.d; calcG(); }
+    async function connectBT() { try { await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }] }); btOn=true; alert("HARDWARE VERBUNDEN"); } catch (e) { btOn=false; alert("BT OFFLINE."); } }
 
-    async function connectBT() { try { await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }] }); btOn = true; alert("HARDWARE GEKOPPELT"); } catch (e) { btOn = false; alert("BT OFFLINE: Manuelle Eingabe aktiv."); } }
-
-    document.getElementById('logo-trigger').addEventListener('click', () => { clks++; clearTimeout(tmr); if(clks >= 5) { document.getElementById('login-overlay').style.display='flex'; clks=0; } tmr = setTimeout(()=>clks=0, 2000); });
+    document.getElementById('logo-trigger').addEventListener('click', () => { clks++; clearTimeout(tmr); if(clks >= 5) { document.getElementById('login-overlay').style.display='flex'; clks=0; } tmr=setTimeout(()=>clks=0, 2000); });
     function checkAccess() { if(document.getElementById('master-pin').value === "7805") { document.getElementById('login-overlay').style.display='none'; openAdmin(); } }
     function closeLogin() { document.getElementById('login-overlay').style.display='none'; }
 
     function openAdmin() {
-        const g = document.getElementById('admin-global-config'), l = document.getElementById('admin-fields-list'), ctx = activeView;
-        g.style.display = (ctx === 'main') ? 'block' : 'none';
-        document.getElementById('cfg-color').value = getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim();
-        document.getElementById('cfg-brand').value = document.getElementById('f-brand').innerText;
-        document.getElementById('cfg-link1').value = document.getElementById('f-l1').href;
-        document.getElementById('cfg-link2').value = document.getElementById('f-l2').href;
-        l.innerHTML = '';
-        const list = (ctx === 'main') ? ['rollen_h', 'nutzen_h', 'gew_h', 'wind_h', 'hohl_h'] : [ctx + '_h', 'back_' + ctx.charAt(0)];
-        list.forEach(k => { if(i18n.de[k]) l.innerHTML += `<label class="label">${k}</label><input type="text" id="cfg-${k}" value="${i18n.de[k]}" oninput="applyAdminLive()" style="margin-bottom:12px;">`; });
+        const g=document.getElementById('admin-global-config'), l=document.getElementById('admin-fields-list'), ctx=activeView;
+        g.style.display=(ctx==='main')?'block':'none';
+        document.getElementById('cfg-color').value=getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim();
+        document.getElementById('cfg-brand').value=document.getElementById('f-brand').innerText;
+        document.getElementById('cfg-link1').value=document.getElementById('f-l1').href;
+        document.getElementById('cfg-link2').value=document.getElementById('f-l2').href;
+        l.innerHTML='';
+        const list=(ctx==='main')?['rollen_h','nutzen_h','gew_h','wind_h','hohl_h']:[ctx+'_h','back_'+ctx.charAt(0)];
+        list.forEach(k=>{ if(i18n.de[k]) l.innerHTML+=`<label class="label">${k}</label><input type="text" id="cfg-${k}" value="${i18n.de[k]}" oninput="applyAdminLive()" style="margin-bottom:12px;">`; });
         go('admin');
     }
 
     function applyAdminLive() {
         document.documentElement.style.setProperty('--wd-orange', document.getElementById('cfg-color').value);
-        document.getElementById('f-brand').innerText = document.getElementById('cfg-brand').value;
-        document.getElementById('f-l1').href = document.getElementById('cfg-link1').value;
-        document.getElementById('f-l2').href = document.getElementById('cfg-link2').value;
-        document.querySelectorAll('[id^="cfg-"]').forEach(el => { const k = el.id.replace('cfg-', ''); if(i18n.de[k] !== undefined) i18n.de[k] = el.value; });
+        document.getElementById('f-brand').innerText=document.getElementById('cfg-brand').value;
+        document.getElementById('f-l1').href=document.getElementById('cfg-link1').value;
+        document.getElementById('f-l2').href=document.getElementById('cfg-link2').value;
+        document.querySelectorAll('[id^="cfg-"]').forEach(el => { const k=el.id.replace('cfg-',''); if(i18n.de[k]!==undefined) i18n.de[k]=el.value; });
         updateUI();
     }
 
-    function saveDNA() { localStorage.setItem('wgm_v394', JSON.stringify({ c: document.getElementById('cfg-color').value, f: document.getElementById('f-brand').innerText, v: VERSION })); alert("DNA MASTER-REKORD VERSIEGELT"); }
+    function saveDNA() { localStorage.setItem('wgm_v395', JSON.stringify({ c: document.getElementById('cfg-color').value, f: document.getElementById('f-brand').innerText, v: VERSION })); alert("DNA VERSIEGELT"); }
 
     window.onload = () => {
-        const s = localStorage.getItem('wgm_v394');
-        if(s) { const d = JSON.parse(s); if(d.v === VERSION) { document.documentElement.style.setProperty('--wd-orange', d.c); document.getElementById('f-brand').innerText = d.f; } }
+        const s=localStorage.getItem('wgm_v395'); if(s) { const d=JSON.parse(s); if(d.v===VERSION) { document.documentElement.style.setProperty('--wd-orange', d.c); document.getElementById('f-brand').innerText=d.f; } }
         updateUI();
     };
 </script>
