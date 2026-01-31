@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>WGM Master-Tool | WERBEDRUCK GM</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --wd-orange: #e67e22; --wd-blue: #3b82f6; --wd-dark: #1e293b;
+            --bg-body: #cbd5e1; --bg-shell: #ffffff; --card-bg: #ffffff;
+            --icon-bg: #f8fafc; --label-color: #475569; --app-width: 320px;
+        }
+        html, body { 
+            height: 100%; margin: 0; padding: 0; background: var(--bg-body); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
+        }
+        .app-shell {
+            width: var(--app-width); height: 95vh; max-height: 780px;
+            background: var(--bg-shell); color: var(--wd-dark);
+            display: flex; flex-direction: column; overflow: hidden;
+            border-radius: 40px; position: relative; 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.25); 
+        }
+        @media (max-width: 380px) { .app-shell { width: 94vw; height: 96vh; } }
+        
+        #login-overlay { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(255,255,255,0.98); display: none; 
+            flex-direction: column; justify-content: center; align-items: center; 
+            z-index: 3000; backdrop-filter: blur(15px); 
+        }
+        #login-overlay .btn-action { max-width: 160px; height: 48px !important; flex: none; font-size: 0.8rem; }
+
+        .assist-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 215px;
+            background: var(--wd-blue); color: white; z-index: 2000;
+            display: none; flex-direction: column; justify-content: center;
+            padding: 45px 20px 20px; box-sizing: border-box;
+            border-bottom: 4px solid var(--wd-orange);
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+        .assist-overlay p { margin: 0; font-size: 0.72rem; font-weight: 700; line-height: 1.5; }
+
+        .top-nav { display: flex; justify-content: flex-end; padding: 25px 20px 5px; height: 35px; z-index: 2500; position: relative; }
+        select { background: white; border: 1px solid #cbd5e1; padding: 6px; border-radius: 8px; font-weight: 800; font-size: 0.65rem; outline: none; }
+        
+        .logo-area { text-align: center; padding: 5px 20px; height: 160px; position: relative; }
+        .logo-area img { max-width: 145px; cursor: pointer; }
+        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 8px 0 5px; font-weight: 900; text-transform: uppercase; }
+        .admin-title { font-size: 0.78rem; color: var(--wd-orange); font-weight: 900; margin-bottom: 12px; text-transform: uppercase; display: none; }
+        .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; }
+
+        .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
+        .view.active { display: flex; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .card { 
+            background: var(--card-bg); height: 78px; border-radius: 22px; padding: 0 16px; 
+            display: flex; align-items: center; gap: 14px; cursor: pointer; margin-bottom: 12px; 
+            border: 1px solid rgba(0,0,0,0.04); 
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12); 
+            transition: transform 0.2s;
+        }
+        .card:active { transform: translateY(2px); }
+        .icon { width: 44px; height: 44px; background: var(--icon-bg); color: var(--wd-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+        .card-text h2 { margin: 0; font-size: 0.82rem; font-weight: 900; text-transform: uppercase; }
+        .card-text p { margin: 2px 0 0; font-size: 0.62rem; color: #64748b; font-weight: 600; }
+
+        .mod-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; height: 35px; }
+        .help-btn { width: 34px; height: 34px; color: var(--wd-blue); display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; background: transparent; }
+        .help-btn.active { color: var(--wd-orange); }
+
+        .input-box { margin-bottom: 12px; height: 65px; position: relative; }
+        .label { font-size: 0.6rem; color: var(--label-color); font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
+        input, select.in-view { width: 100%; height: 42px; padding: 0 12px; border-radius: 12px; border: 2.5px solid #cbd5e1; font-size: 0.88rem; font-weight: 800; outline: none; background: #fff; box-sizing: border-box; }
+        input:focus { border: 3.5px solid var(--wd-orange) !important; box-shadow: 0 0 12px rgba(230, 126, 34, 0.2); }
+
+        .res-card { background: var(--wd-orange); height: 85px; border-radius: 22px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 10px 0; color: white; box-shadow: 0 10px 25px rgba(230, 126, 34, 0.25); }
+        .res-num { font-size: 1.8rem; font-weight: 900; }
+        .res-info { font-size: 0.58rem; font-weight: 800; text-transform: uppercase; opacity: 0.9; }
+
+        .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.68rem; }
+        .btn-row { display: flex; gap: 10px; margin-top: 5px; height: 48px; width: 100%; align-items: center; }
+        .btn-action { background: var(--wd-blue); color: white; border: none; flex: 1; border-radius: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-transform: uppercase; font-size: 0.58rem; height: 48px; }
+        
+        .btn-reset { 
+            width: 44px; height: 44px; border-radius: 12px; background: #f8fafc; color: #64748b; 
+            border: 1.5px solid #cbd5e1; cursor: pointer; display: flex; align-items: center; justify-content: center; flex: none; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.06); transition: all 0.2s;
+        }
+        .btn-reset:active { transform: translateY(1px); box-shadow: 0 2px 4px rgba(0,0,0,0.04); color: var(--wd-orange); }
+
+        .admin-scroll { flex: 1; overflow-y: auto; padding-right: 5px; }
+        .admin-section { margin-bottom: 22px; border-bottom: 1px solid #eee; padding-bottom: 12px; }
+        .admin-section h4 { font-size: 0.68rem; color: var(--wd-orange); text-transform: uppercase; margin-bottom: 10px; border-left: 3px solid var(--wd-orange); padding-left: 8px; }
+
+        footer { text-align: center; padding: 10px 20px 25px; font-size: 0.58rem; color: #64748b; margin-top: auto; }
+        footer strong { color: var(--wd-dark); display: block; margin-bottom: 2px; }
+        .footer-links a { color: var(--wd-blue); text-decoration: none; font-weight: 800; margin: 0 8px; }
+    </style>
+</head>
+<body>
+
+<div class="app-shell">
+    <div id="assist-overlay" class="assist-overlay" onclick="toggleAssist()">
+        <p id="assist-text">Wählen Sie ein Feld aus für Details.</p>
+    </div>
+
+    <div id="login-overlay">
+        <h3 style="color:var(--wd-orange); font-weight:900;">ADMIN MASTER-GATE</h3>
+        <input type="password" id="master-pin" placeholder="****" style="text-align:center; font-size:1.6rem; width:130px; letter-spacing:10px; margin-bottom: 25px;">
+        <button class="btn-action" onclick="checkAccess()">ENTSPERREN</button>
+        <p onclick="closeLogin()" style="margin-top:25px; font-size:0.6rem; cursor:pointer; font-weight:900; color:#94a3b8;">ABBRECHEN</p>
+    </div>
+
+    <div class="top-nav">
+        <select id="uG" onchange="updateUI()"><option value="mm">mm</option><option value="inc">inc</option></select>
+    </div>
+
+    <div class="logo-area">
+        <img src="applogo.jpg" id="logo-trigger" alt="WERBEDRUCK GM">
+        <h1 id="app-title">Werbetechniker-Tools</h1>
+        <div id="admin-label" class="admin-title">Admin Toolbox</div>
+        <div class="divider"></div>
+    </div>
+
+    <main id="view-main" class="view active">
+        <div class="card" onclick="go('rollen')"><div class="icon"><i data-lucide="ruler"></i></div><div class="card-text"><h2 id="t-rollen_h">Rollen-Meter</h2><p id="t-rollen_p">Längen berechnen</p></div></div>
+        <div class="card" onclick="go('nutzen')"><div class="icon"><i data-lucide="layout-grid"></i></div><div class="card-text"><h2 id="t-nutzen_h">Nutzen-Rechner</h2><p id="t-nutzen_p">Schnittpläne</p></div></div>
+        <div class="card" onclick="go('gew')"><div class="icon"><i data-lucide="weight"></i></div><div class="card-text"><h2 id="t-gew_h">Gewichts-Rechner</h2><p id="t-gew_p">Materialgewicht</p></div></div>
+        <div class="card" onclick="go('wind')"><div class="icon"><i data-lucide="wind"></i></div><div class="card-text"><h2 id="t-wind_h">Windlast-Rechner</h2><p id="t-wind_p">Statik-Check</p></div></div>
+        <div class="card" onclick="go('hohl')"><div class="icon"><i data-lucide="maximize"></i></div><div class="card-text"><h2 id="t-hohl_h">Hohlsaum-Rechner</h2><p id="t-hohl_p">Banner-Zulage</p></div></div>
+    </main>
+
+    <div id="view-rollen" class="view">
+        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_r">ZURÜCK</span></div><div class="help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
+        <div class="input-box"><span class="label" id="t-rD_l" data-u>Durchmesser Außen</span><input type="number" id="rD" onfocus="foc('rD')" oninput="calcR()" onchange="jump('rd')"></div>
+        <div class="input-box"><span class="label" id="t-rd_l" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" onfocus="foc('rd')" oninput="calcR()" onchange="jump('rs')"></div>
+        <div class="input-box"><span class="label" id="t-rs_l" data-u>Materialstärke</span><input type="number" id="rs" value="0.22" step="0.01" onfocus="foc('rs')" oninput="calcR()"></div>
+        <div class="res-card"><span id="resR" class="res-num">0.00 m</span><span class="res-info" id="t-res_l">Material auf der Rolle</span></div>
+        <div class="btn-row">
+            <button class="btn-action" id="t-bt_btn" onclick="connectBT()"><i data-lucide="bluetooth"></i> <span>BT MESSCHIEBER KOPPELN</span></button>
+            <button class="btn-reset" onclick="resetForm('rollen')"><i data-lucide="refresh-cw"></i></button>
+        </div>
+    </div>
+
+    <div id="view-nutzen" class="view">
+        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_n">ZURÜCK</span></div><div class="help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
+        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-pW_l" data-u>Plattenbreite</span><input type="number" id="pW" value="3000" onfocus="foc('pW')" onchange="jump('pH')" oninput="calcN()"></div><div class="input-box" style="flex:1;"><span class="label" id="t-pH_l" data-u>Plattenhöhe</span><input type="number" id="pH" value="1500" onfocus="foc('pH')" onchange="jump('cut')" oninput="calcN()"></div></div>
+        <div class="input-box"><span class="label" id="t-cut_l" data-u>Schnittbreite</span><input type="number" id="cut" value="1.5" onfocus="foc('cut')" onchange="jump('sW')" oninput="calcN()"></div>
+        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-sW_l" data-u>Schildbreite</span><input type="number" id="sW" onfocus="foc('sW')" onchange="jump('sH')" oninput="calcN()"></div><div class="input-box" style="flex:1;"><span class="label" id="t-sH_l" data-u>Schildhöhe</span><input type="number" id="sH" onfocus="foc('sH')" oninput="calcN()"></div></div>
+        <div class="res-card"><span id="resN" class="res-num">0</span><span class="res-info" id="t-n_res">Nutzen pro Platte</span></div>
+        <div class="btn-row" style="justify-content:center;"><button class="btn-reset" onclick="resetForm('nutzen')"><i data-lucide="refresh-cw"></i></button></div>
+    </div>
+
+    <div id="view-gew" class="view">
+        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_g">ZURÜCK</span></div><div class="help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
+        <div class="input-box"><span class="label" id="t-mat_l">Datenbank (19 Werkstoffe)</span><select id="gMat" class="in-view" onchange="updateMaterialLogic(); jump('gStd')" onfocus="foc('mat')"></select></div>
+        <div id="row-thickness-preset" class="input-box"><span class="label" id="t-gStd_l">Presets</span><select id="gStd" class="in-view" onchange="applyPreset(); jump('gb')" onfocus="foc('gStd')"></select></div>
+        <div class="input-box"><span class="label" id="t-gs_l">Stärke / Gramm</span><input type="number" id="gs" onfocus="foc('gs')" onchange="jump('gb')" oninput="calcG()"></div>
+        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-gb_l" data-u>Breite</span><input type="number" id="gb" value="1000" onfocus="foc('gb')" onchange="jump('gh')" oninput="calcG()"></div><div class="input-box" style="flex:1;"><span class="label" id="t-gh_l" data-u>Höhe</span><input type="number" id="gh" value="1000" onfocus="foc('gh')" oninput="calcG()"></div></div>
+        <div class="res-card"><span id="resG" class="res-num">0.00 kg</span><span class="res-info" id="t-g_res">Gesamtgewicht</span></div>
+        <div class="btn-row" style="justify-content:center;"><button class="btn-reset" onclick="resetForm('gew')"><i data-lucide="refresh-cw"></i></button></div>
+    </div>
+
+    <div id="view-admin" class="view">
+        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span id="t-admin_exit">ADMIN VERLASSEN</span></div></div>
+        <div class="admin-scroll">
+            <div id="admin-global-config" class="admin-section">
+                <h4>Globale DNA (V4.1.0-PRE)</h4>
+                <label class="label">Hauptfarbe (Akzent)</label><input type="color" id="cfg-color" onchange="applyAdminLive()" style="height:35px; padding:2px; cursor:pointer;">
+                <label class="label" style="margin-top:10px;">Hintergrund (Shell)</label><input type="color" id="cfg-bg-shell" onchange="applyAdminLive()" style="height:35px; padding:2px; cursor:pointer;">
+                <label class="label" style="margin-top:10px;">Label-Farbe</label><input type="color" id="cfg-label-color" onchange="applyAdminLive()" style="height:35px; padding:2px; cursor:pointer;">
+                <label class="label" style="margin-top:10px;">Firma</label><input type="text" id="cfg-brand" oninput="applyAdminLive()">
+                <label class="label" style="margin-top:10px;">Versionsnummer</label><input type="text" id="cfg-ver-num" oninput="applyAdminLive()" placeholder="V4.1.0">
+                <label class="label" style="margin-top:10px;">Impressum URL</label><input type="text" id="cfg-link1" oninput="applyAdminLive()">
+                <label class="label" style="margin-top:10px;">Datenschutz URL</label><input type="text" id="cfg-link2" oninput="applyAdminLive()">
+            </div>
+            <div id="admin-local-config" class="admin-section">
+                <h4>Modul-Texte</h4>
+                <div id="admin-fields-list"></div>
+            </div>
+        </div>
+        <button class="btn-action" style="margin-top:20px; height:48px; flex:none; font-size:0.8rem;" onclick="saveDNA()">DNA VERSIEGELN</button>
+    </div>
+
+    <footer id="app-footer">
+        <strong id="f-brand">Werbedruck GM</strong>
+        <span id="f-ver">V4.1.0 | Master-Final</span>
+        <div class="footer-links"><a id="f-l1" href="https://werbedruckgm.github.io/WGM">Impressum</a> | <a id="f-l2" href="https://werbedruckgm.github.io/WGM">Datenschutz</a></div>
+    </footer>
+</div>
+
+<script>
+    const i18n = {
+        de: {
+            mainH: "Werbetechniker-Tools", admin_exit: "ADMIN VERLASSEN", bt_btn: "BT MESSCHIEBER KOPPELN",
+            rollen_h: "Rollen-Meter", nutzen_h: "Nutzen-Rechner", gew_h: "Gewichts-Rechner", wind_h: "Windlast-Rechner", hohl_h: "Hohlsaum-Rechner",
+            rollen_p: "Materiallängen präzise berechnen", nutzen_p: "Verschnittarme Schnittpläne", gew_p: "Materialgewicht ermitteln", wind_p: "Statik-Check für Außenwerbung", hohl_p: "Banner-Zulagen berechnen",
+            back_r: "ZURÜCK", back_n: "ZURÜCK", back_g: "ZURÜCK", back_w: "ZURÜCK", back_h: "ZURÜCK",
+            rD_l: "Durchmesser Außen", rd_l: "Kerndurchmesser", rs_l: "Materialstärke", res_l: "Material auf der Rolle",
+            pW_l: "Plattenbreite", pH_l: "Plattenhöhe", cut_l: "Schnittbreite", sW_l: "Schildbreite", sH_l: "Schildhöhe", n_res: "Nutzen pro Platte",
+            mat_l: "Datenbank (19 Werkstoffe)", gStd_l: "Presets", gb_l: "Breite", gh_l: "Höhe", g_res: "Gesamtgewicht", gs_l: "Stärke / Gramm",
+            wMat_l: "Material-DNA", wb_l: "Breite", wh_l: "Höhe", w_res: "Windlast bei 120 km/h",
+            hd_l: "Stangen Ø", hsd_l: "Materialdicke", h_p: "Hohlsaum-Zugabe",
+            h_rD: "Gesamte Rolle von Kante zu Kante messen.", h_rd: "Hülsendurchmesser am Rollenstart.",
+            h_rs: "Stärke einer Lage inkl. Träger.", h_pW: "Rohbreite der Platte.", h_pH: "Rohhöhe der Platte.",
+            h_cut: "Schnittverlust (Säge/Fräser).", h_sW: "Fertigbreite des Schildes.", h_sH: "Fertighöhe des Schildes.",
+            h_mat: "Material für Dichtewert wählen.", h_gStd: "Standardstärken wählen.", h_gs: "Stärke in mm oder kg/m².",
+            h_gb: "Objektbreite.", h_gh: "Objekthöhe.", h_wMat: "Werkstoff-Faktor wählen.",
+            h_wb: "Schildbreite.", h_wh: "Schildhöhe.", h_hd: "Stangendurchmesser.", h_hsd: "Bannerstärke."
+        }
+    };
+    const materials = {
+        'alu': { n: 'Aluminium', d: 2.7, t: 'p', w: 1.0 }, 'alu_v': { n: 'Alu-Verbund', d: 1.2, t: 'p', w: 1.0 }, 'acryl': { n: 'Acrylglas / Plexi', d: 1.19, t: 'p', w: 1.0 },
+        'pvc_h': { n: 'PVC-Hartschaum', d: 0.55, t: 'p', w: 1.0 }, 'hkp': { n: 'Hohlkammer (HKP)', d: 0.45, t: 'p', w: 1.0 }, 'kapa': { n: 'Kapa Leichtschaum', d: 0.2, t: 'p', w: 1.0 },
+        'glas': { n: 'Glas', d: 2.5, t: 'p', w: 1.0 }, 'v2a': { n: 'Edelstahl (V2A)', d: 7.9, t: 'p', w: 1.0 }, 'sieb': { n: 'Siebdruckplatte', d: 0.75, t: 'p', w: 1.0 },
+        'mdf': { n: 'MDF Platte', d: 0.75, t: 'p', w: 1.0 }, 'mplx': { n: 'Multiplex', d: 0.7, t: 'p', w: 1.0 }, 'pc': { n: 'Polycarbonat', d: 1.2, t: 'p', w: 1.0 },
+        'poly': { n: 'Polystyrol', d: 1.05, t: 'p', w: 1.0 }, 'stahl': { n: 'Stahlblech verzinkt', d: 7.8, t: 'p', w: 1.0 }, 'mag': { n: 'Magnetfolie', d: 3.5, t: 'r', w: 1.0 },
+        'mesh': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }, 'mesh_p': { n: 'Mesh Wind-Pro', d: 0.25, t: 'r', w: 0.4 }, 'lkw': { n: 'LKW Plane (Frontlit)', d: 0.55, t: 'r', w: 1.0 }, 'block': { n: 'Blockout Banner', d: 0.8, t: 'r', w: 1.0 }
+    };
+    let activeView = 'main', helpOn = false, btOn = false, clks = 0, tmr, adminCtx = 'main';
+
+    function t(k) { return i18n.de[k] || "!!"; }
+
+    function go(v) {
+        document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
+        const al = document.getElementById('admin-label');
+        const tit = document.getElementById('app-title');
+        if(v === 'admin') {
+            al.innerText = (adminCtx === 'main') ? "Admin Toolbox" : "Admin " + t(adminCtx + "_h");
+            al.style.display = 'block'; tit.style.display = 'none'; openAdmin();
+        } else {
+            al.style.display = 'none'; tit.style.display = 'block';
+        }
+        activeView = v; helpOn = false; document.getElementById('assist-overlay').style.display = 'none';
+        const target = document.getElementById(v === 'admin' ? 'view-admin' : 'view-' + v);
+        target.classList.add('active');
+        if(v !== 'main' && v !== 'admin') {
+            const f = target.querySelector('input, select');
+            if(f) { setTimeout(() => { f.focus(); foc(f.id); }, 100); }
+        }
+        updateUI();
+    }
+
+    function toggleAssist() {
+        helpOn = !helpOn;
+        document.getElementById('assist-overlay').style.display = helpOn ? 'flex' : 'none';
+        document.querySelectorAll('.help-btn').forEach(b => b.classList.toggle('active', helpOn));
+        if(helpOn) { const cur = document.activeElement; if(cur && cur.id) foc(cur.id); }
+    }
+
+    function foc(id) { if(!id) return; document.getElementById('assist-text').innerText = t('h_' + id) || "Eingabe erforderlich."; }
+    function jump(nextId) { const n = document.getElementById(nextId); if(n) n.focus(); }
+
+    function updateUI() {
+        const u = document.getElementById('uG').value;
+        if(activeView !== 'admin') { document.getElementById('app-title').innerText = (activeView === 'main') ? t('mainH') : t(activeView + '_h'); }
+        document.querySelectorAll('[id^="t-"]').forEach(el => {
+            const k = el.id.replace('t-', ''); el.innerText = t(k);
+            if(el.hasAttribute('data-u')) el.innerText += ` (${u})`;
+        });
+        if (window.lucide) lucide.createIcons();
+    }
+
+    function resetForm(v) {
+        const view = document.getElementById('view-' + v);
+        view.querySelectorAll('input').forEach(i => i.value = i.defaultValue || "");
+        const res = view.querySelector('.res-num'); if(res) res.innerText = (v === 'nutzen') ? "0" : "0.00";
+    }
+
+    function applyPreset() { document.getElementById('gs').value = document.getElementById('gStd').value; calcG(); }
+    function calcR() { let D=parseFloat(document.getElementById('rD').value||0), d=parseFloat(document.getElementById('rd').value||0), s=parseFloat(document.getElementById('rs').value||0); if(D && d && s) document.getElementById('resR').innerText = ((Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s) / 1000).toFixed(2) + " m"; }
+    function calcN() { let pW=parseFloat(document.getElementById('pW').value||0), pH=parseFloat(document.getElementById('pH').value||0), sW=parseFloat(document.getElementById('sW').value||0), sH=parseFloat(document.getElementById('sH').value||0), c=parseFloat(document.getElementById('cut').value||0); if(pW && pH && sW && sH) document.getElementById('resN').innerText = Math.floor((pW+c)/(sW+c)) * Math.floor((pH+c)/(sH+c)); }
+    function calcG() { const m=materials[document.getElementById('gMat').value]; let b=parseFloat(document.getElementById('gb').value||0), h=parseFloat(document.getElementById('gh').value||0), s=parseFloat(document.getElementById('gs').value||0); if(b && h && s && m) { let kg = (m.t === 'p') ? ((b*h)/1000000)*s*m.d : ((b*h)/1000000)*s; document.getElementById('resG').innerText = kg.toFixed(2)+" kg"; } }
+
+    function updateMaterialLogic() { const m=materials[document.getElementById('gMat').value]; document.getElementById('row-thickness-preset').style.display=(m.t==='p')?'block':'none'; document.getElementById('gs').value=(m.t==='p')?3:m.d; calcG(); }
+    async function connectBT() { try { await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }] }); btOn=true; } catch (e) { btOn=false; } }
+
+    document.getElementById('logo-trigger').addEventListener('click', () => { clks++; clearTimeout(tmr); if(clks >= 5) { document.getElementById('login-overlay').style.display='flex'; clks=0; } tmr=setTimeout(()=>clks=0, 2000); });
+    function checkAccess() { if(document.getElementById('master-pin').value === "7805") { document.getElementById('login-overlay').style.display='none'; adminCtx = activeView; go('admin'); } }
+    function closeLogin() { document.getElementById('login-overlay').style.display='none'; }
+
+    function openAdmin() {
+        const g=document.getElementById('admin-global-config'), l=document.getElementById('admin-fields-list'), ctx=adminCtx;
+        const stl=getComputedStyle(document.documentElement);
+        g.style.display=(ctx==='main')?'block':'none';
+        document.getElementById('cfg-color').value=stl.getPropertyValue('--wd-orange').trim();
+        document.getElementById('cfg-bg-shell').value=stl.getPropertyValue('--bg-shell').trim();
+        document.getElementById('cfg-label-color').value=stl.getPropertyValue('--label-color').trim();
+        document.getElementById('cfg-brand').value=document.getElementById('f-brand').innerText;
+        document.getElementById('cfg-ver-num').value=document.getElementById('f-ver').innerText;
+        document.getElementById('cfg-link1').value=document.getElementById('f-l1').href;
+        document.getElementById('cfg-link2').value=document.getElementById('f-l2').href;
+        l.innerHTML='';
+        const list=(ctx==='main')?['rollen_h','nutzen_h','gew_h']:[ctx+'_h','back_'+ctx.charAt(0)];
+        list.forEach(k=>{ if(i18n.de[k]) l.innerHTML+=`<label class="label">${k}</label><input type="text" id="cfg-${k}" value="${i18n.de[k]}" oninput="applyAdminLive()" style="margin-bottom:12px;">`; });
+    }
+
+    function applyAdminLive() {
+        const r = document.documentElement;
+        r.style.setProperty('--wd-orange', document.getElementById('cfg-color').value);
+        r.style.setProperty('--bg-shell', document.getElementById('cfg-bg-shell').value);
+        r.style.setProperty('--label-color', document.getElementById('cfg-label-color').value);
+        document.getElementById('f-brand').innerText=document.getElementById('cfg-brand').value;
+        document.getElementById('f-ver').innerText=document.getElementById('cfg-ver-num').value;
+        document.getElementById('f-l1').href=document.getElementById('cfg-link1').value;
+        document.getElementById('f-l2').href=document.getElementById('cfg-link2').value;
+        document.querySelectorAll('[id^="cfg-"]').forEach(el => { const k=el.id.replace('cfg-',''); if(i18n.de[k]!==undefined) i18n.de[k]=el.value; });
+        updateUI();
+    }
+
+    function saveDNA() { 
+        const dna = { c: document.getElementById('cfg-color').value, b: document.getElementById('cfg-bg-shell').value, l: document.getElementById('cfg-label-color').value, f: document.getElementById('f-brand').innerText, v: document.getElementById('f-ver').innerText };
+        localStorage.setItem('wgm_v410', JSON.stringify(dna)); alert("DNA VERSIEGELT"); 
+    }
+
+    window.onload = () => {
+        const s=localStorage.getItem('wgm_v410'); if(s) { 
+            const d=JSON.parse(s); const r=document.documentElement;
+            r.style.setProperty('--wd-orange', d.c); r.style.setProperty('--bg-shell', d.b); r.style.setProperty('--label-color', d.l);
+            document.getElementById('f-brand').innerText=d.f; document.getElementById('f-ver').innerText=d.v; 
+        }
+        updateUI();
+    };
+</script>
+</body>
+</html>
