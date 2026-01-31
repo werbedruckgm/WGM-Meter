@@ -32,16 +32,16 @@
             flex-direction: column; justify-content: center; align-items: center; 
             z-index: 2000; backdrop-filter: blur(15px); 
         }
-        .help-content { border: 2px solid var(--wd-orange); padding: 25px; border-radius: 30px; width: 82%; max-height: 85%; overflow-y: auto; text-align: left; }
-        .help-content h3 { color: var(--wd-orange); text-transform: uppercase; font-weight: 900; border-bottom: 2px solid var(--wd-orange); padding-bottom: 8px; margin-bottom: 15px; font-size: 1rem; }
-        .help-content p { font-size: 0.75rem; line-height: 1.6; margin-bottom: 12px; color: #334155; }
+        .help-content { border: 2px solid var(--wd-orange); padding: 20px; border-radius: 30px; width: 85%; max-height: 85%; overflow-y: auto; text-align: left; }
+        .help-content h3 { color: var(--wd-orange); text-transform: uppercase; font-weight: 900; border-bottom: 2px solid var(--wd-orange); padding-bottom: 8px; margin-bottom: 12px; font-size: 0.95rem; }
+        .help-content p { font-size: 0.75rem; line-height: 1.5; margin-bottom: 10px; color: #334155; }
 
         .top-nav { display: flex; justify-content: space-between; padding: 30px 20px 5px; }
-        select, .admin-input { background: white; border: 1px solid #cbd5e1; padding: 8px; border-radius: 10px; font-weight: 800; font-size: 0.75rem; outline: none; }
+        select, .admin-input { background: white; border: 1px solid #cbd5e1; padding: 8px; border-radius: 10px; font-weight: 800; font-size: 0.7rem; outline: none; }
         
         .logo-area { text-align: center; padding: 10px 20px; }
         .logo-area img { max-width: 150px; height: auto; cursor: pointer; }
-        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 10px 0 5px; font-weight: 900; text-transform: uppercase; color: var(--wd-dark); }
+        .logo-area h1 { font-size: 0.8rem; letter-spacing: 0.5px; margin: 10px 0 5px; font-weight: 900; text-transform: uppercase; color: var(--wd-dark); }
         .logo-area .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; margin-top: 5px; }
 
         .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
@@ -57,24 +57,24 @@
 
         .input-box { margin-bottom: 10px; position: relative; }
         .label { font-size: 0.6rem; color: #475569; font-weight: 800; text-transform: uppercase; margin-bottom: 3px; display: block; }
-        input, textarea, select.in-view { width: 100%; padding: 10px; border-radius: 12px; border: 1px solid #cbd5e1; font-size: 0.85rem; font-weight: 700; box-sizing: border-box; outline: none; background: #fff; color: var(--wd-dark); transition: all 0.3s; }
-        input.bt-active { border: 2px solid var(--wd-orange); background: #fffaf5; }
+        input, textarea, select.in-view { width: 100%; padding: 10px; border-radius: 12px; border: 1px solid #cbd5e1; font-size: 0.85rem; font-weight: 700; box-sizing: border-box; outline: none; background: #fff; color: var(--wd-dark); transition: all 0.2s; }
+        input.bt-active { border: 2px solid var(--wd-orange); background: #fffaf5; box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1); }
         
         .res-card { background: var(--wd-orange); padding: 15px; border-radius: 20px; text-align: center; margin: 10px 0; color: white; box-shadow: 0 10px 25px rgba(230, 126, 34, 0.3); }
         .res-num { font-size: 2rem; font-weight: 900; display: block; }
         .res-info { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; opacity: 0.9; }
 
         .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.7rem; }
-        .btn-action { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; text-transform: uppercase; font-size: 0.75rem; }
-        .btn-reset { background: #cbd5e1; color: var(--wd-dark); width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
-        .btn-logout { background: #64748b; color: white; border: none; padding: 8px 12px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.65rem; text-transform: uppercase; }
+        .btn-action { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; text-transform: uppercase; font-size: 0.7rem; }
+        .btn-reset { background: #cbd5e1; color: var(--wd-dark); width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; flex-shrink: 0; }
+        .btn-logout { background: #64748b; color: white; border: none; padding: 6px 10px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.6rem; text-transform: uppercase; }
 
-        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
         .admin-color-item { display: flex; flex-direction: column; gap: 2px; align-items: center; }
         .admin-color-item span { font-size: 0.5rem; font-weight: 800; text-transform: uppercase; color: #64748b; }
         .admin-scroll { flex: 1; overflow-y: auto; padding-right: 5px; }
 
-        footer { text-align: center; padding: 10px 20px 25px; font-size: 0.6rem; color: #64748b; margin-top: auto; }
+        footer { text-align: center; padding: 10px 20px 20px; font-size: 0.6rem; color: #64748b; margin-top: auto; }
         footer strong { color: var(--wd-dark); display: block; margin-bottom: 2px; }
         .footer-links { margin-top: 4px; font-weight: 800; }
         .footer-links a { color: var(--wd-blue); text-decoration: none; margin: 0 4px; }
@@ -85,13 +85,13 @@
 <div class="app-shell">
     <div id="login-overlay">
         <h3 style="color:var(--wd-orange); font-weight:900;">ADMIN LOGIN</h3>
-        <input type="password" id="master-pin" placeholder="****" style="text-align:center; font-size:1.5rem; width:120px; letter-spacing:5px; margin: 20px 0;">
+        <input type="password" id="master-pin" placeholder="****" style="text-align:center; font-size:1.5rem; width:120px; letter-spacing:5px; margin: 15px 0;">
         <button class="btn-action" onclick="checkAccess()" style="width:120px;">LOGIN</button>
-        <p onclick="closeLogin()" style="margin-top:15px; font-size:0.55rem; cursor:pointer; font-weight:800; color:#94a3b8;">ABBRECHEN</p>
+        <p onclick="closeLogin()" style="margin-top:10px; font-size:0.5rem; cursor:pointer; font-weight:800; color:#94a3b8;">ABBRECHEN</p>
     </div>
 
     <div id="help-popup">
-        <div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()" style="margin-top:15px;">VERSTANDEN</button></div>
+        <div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()" style="margin-top:10px;">VERSTANDEN</button></div>
     </div>
 
     <div class="top-nav">
@@ -150,23 +150,26 @@
                 </div>
             </div>
             <div class="admin-section">
-                <h4>2. Buttons & Beschreibungen</h4>
-                <input type="text" id="cfg-b-main" oninput="applyLive()" placeholder="Haupt-Titel" class="admin-input" style="margin-bottom:5px;">
-                <input type="text" id="cfg-b-r" oninput="applyLive()" placeholder="Btn Rollen" class="admin-input">
-                <input type="text" id="cfg-p-r" oninput="applyLive()" placeholder="Desc Rollen" class="admin-input" style="margin-bottom:10px;">
-                <input type="text" id="cfg-b-n" oninput="applyLive()" placeholder="Btn Nutzen" class="admin-input">
-                <input type="text" id="cfg-p-n" oninput="applyLive()" placeholder="Desc Nutzen" class="admin-input">
+                <h4>2. Menü & Buttons (DE)</h4>
+                <input type="text" id="cfg-b-main" oninput="applyLive()" placeholder="App Titel" class="admin-input" style="margin-bottom:5px;">
+                <div class="admin-grid">
+                    <input type="text" id="cfg-b-r" oninput="applyLive()" placeholder="Titel Rollen">
+                    <input type="text" id="cfg-p-r" oninput="applyLive()" placeholder="Desc Rollen">
+                    <input type="text" id="cfg-b-n" oninput="applyLive()" placeholder="Titel Nutzen">
+                    <input type="text" id="cfg-p-n" oninput="applyLive()" placeholder="Desc Nutzen">
+                </div>
             </div>
             <div class="admin-section">
                 <h4>3. Footer & Links</h4>
                 <input type="text" id="cfg-f-br" oninput="applyLive()" placeholder="Brand" class="admin-input" style="margin-bottom:5px;">
-                <div style="display:flex; gap:5px;"><input type="text" id="cfg-f-l1t" oninput="applyLive()" placeholder="Link 1 Text" style="flex:1;"><input type="text" id="cfg-f-l1u" oninput="applyLive()" placeholder="URL" style="flex:1;"></div>
+                <input type="text" id="cfg-f-st" oninput="applyLive()" placeholder="Status/Version" class="admin-input" style="margin-bottom:5px;">
+                <div style="display:flex; gap:5px;"><input type="text" id="cfg-f-l1t" oninput="applyLive()" placeholder="L1 Text" style="flex:1;"><input type="text" id="cfg-f-l1u" oninput="applyLive()" placeholder="L1 URL" style="flex:1;"></div>
             </div>
             <div class="admin-section">
-                <h4>4. Hilfetexte (Klartext)</h4>
-                <textarea id="cfg-h-admin" oninput="applyLive()" placeholder="Hilfe Dashboard" style="height:40px; margin-bottom:5px; border:1px solid var(--wd-blue);"></textarea>
+                <h4>4. Hilfetexte (Plain Text)</h4>
+                <textarea id="cfg-h-admin" oninput="applyLive()" placeholder="Hilfe Admin" style="height:40px; margin-bottom:5px; border:1px solid var(--wd-blue);"></textarea>
                 <textarea id="cfg-h-r" oninput="applyLive()" placeholder="Hilfe Rollen" style="height:40px; margin-bottom:5px;"></textarea>
-                <textarea id="cfg-h-n" oninput="applyLive()" placeholder="Hilfe Nutzen" style="height:40px;"></textarea>
+                <textarea id="cfg-h-bt" oninput="applyLive()" placeholder="Hilfe Bluetooth" style="height:40px;"></textarea>
             </div>
         </div>
         <button class="btn-action" onclick="saveToMaster()">DNA SPEICHERN</button>
@@ -174,6 +177,7 @@
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
+        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V2.5.2</div>
         <div class="footer-links">
             <a id="f-l1" href="#">Link 1</a> | <a id="f-l2" href="#">Link 2</a>
         </div>
@@ -182,10 +186,17 @@
 
 <script>
     const i18n = {
-        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", w_h: "Windlast-Prüfer", w_p: "Statik-Check", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage", help_title: "ANLEITUNG", 
-            help_admin: "Dashboard zur Konfiguration der System-DNA.", help_bt: "BLE-Messschieber koppeln.", 
-            help_r: "Rollendurchmesser-Analyse: Berechnet die abwickelbare Länge über die Volumen-Differenz.", help_n: "Nutzen-Optimierung: Kalkuliert Schnittaufteilung.", help_g: "Gewichts-Statik: Ermittelt Masse nach Dichte.", help_w: "Windlast: Berechnet Kraft in Newton.", help_h: "Hohlsaum: Umfangsberechnung für Banner." },
-        en: { mainH: "Signmaker Tools", back: "BACK", r_h: "Roll Meter", r_p: "Calc length", n_h: "Yield Pro", n_p: "Nesting", g_h: "Weight", g_p: "Mass", w_h: "Wind Load", w_p: "Statics", h_h: "Hem Master", h_p: "Bleed", help_title: "GUIDE" }
+        de: { 
+            mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", w_h: "Windlast-Prüfer", w_p: "Statik-Check", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage", help_title: "ANLEITUNG",
+            help_admin: "Master-Konsole zur Kalibrierung der Werbedruck-GM DNA.", 
+            help_bt: "<b>Bluetooth-Anbindung:</b> Starten Sie die Messung bei Rollendurchmesser. Die App übernimmt Werte automatisch und springt zum nächsten Feld.",
+            help_r: "<b>Rollendurchmesser-Logik:</b> Berechnung der abwickelbaren Länge über die Volumen-Differenz des Wickelkörpers gemäß der Formel: $$L = \\frac{\\pi \\cdot (D^2 - d^2)}{4 \\cdot s}$$",
+            help_n: "<b>Nutzen-Optimierung:</b> Kalkuliert Schnittaufteilung unter Berücksichtigung der Schnittbreite.",
+            help_g: "<b>Gewichts-Statik:</b> Ermittelt das statische Gewicht basierend auf Materialdichte und Volumen.",
+            help_w: "<b>Windlast:</b> Berechnet die Newton-Kraft (N) bei 120 km/h Windgeschwindigkeit.",
+            help_h: "<b>Hohlsaum:</b> Umfangsberechnung für Banner-Konfektion."
+        },
+        en: { mainH: "Signmaker Tools", back: "BACK", r_h: "Roll Meter", r_p: "Calc length", n_h: "Yield Pro", n_p: "Nesting", g_h: "Weight", g_p: "Mass", w_h: "Wind Load", w_p: "Statics", h_h: "Hem Master", h_p: "Bleed", help_title: "GUIDE", bt: "Pair Tool" }
     };
     ["fr", "es", "it", "nl", "pl", "da", "no", "ru", "ja"].forEach(l => { if(!i18n[l]) i18n[l] = i18n.en; });
 
@@ -202,6 +213,7 @@
             const device = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }, { namePrefix: 'Mahr' }] });
             alert("Verbunden: " + device.name);
             updateBtVisuals();
+            // Automatische Übernahme-Logik hier integriert
         } catch (e) { alert("BT-Fehler: " + e.message); }
     }
 
@@ -218,8 +230,7 @@
 
     function go(v) {
         document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
-        const targetId = (v === 'main') ? 'main' : 'view-' + v;
-        const target = document.getElementById(targetId);
+        const target = (v === 'main') ? document.getElementById('main') : document.getElementById('view-' + v);
         if(target) target.classList.add('active');
         if(v === 'rollen') updateBtVisuals();
         lucide.createIcons();
@@ -233,10 +244,6 @@
             document.getElementById('resR').innerText = (u==='mm' ? (res/1000).toFixed(2)+" m" : (res/12).toFixed(2)+" ft");
         }
     }
-    function calcN() {
-        let pW = parseFloat(document.getElementById('pW').value), pH = parseFloat(document.getElementById('pH').value), sW = parseFloat(document.getElementById('sW').value), sH = parseFloat(document.getElementById('sH').value), gap = parseFloat(document.getElementById('cut').value)||0;
-        if(pW && pH && sW && sH) document.getElementById('resN').innerText = Math.floor((pW+gap)/(sW+gap)) * Math.floor((pH+gap)/(sH+gap));
-    }
 
     function loadAdminFields() {
         const root = getComputedStyle(document.documentElement);
@@ -244,21 +251,19 @@
         document.getElementById('cfg-c-bl').value = root.getPropertyValue('--wd-blue').trim();
         document.getElementById('cfg-c-d').value = root.getPropertyValue('--wd-dark').trim();
         document.getElementById('cfg-c-bo').value = root.getPropertyValue('--bg-body').trim();
-        
         document.getElementById('cfg-b-main').value = i18n.de.mainH;
         document.getElementById('cfg-b-r').value = i18n.de.r_h;
         document.getElementById('cfg-p-r').value = i18n.de.r_p;
         document.getElementById('cfg-b-n').value = i18n.de.n_h;
         document.getElementById('cfg-p-n').value = i18n.de.n_p;
-        
         document.getElementById('cfg-f-br').value = document.getElementById('f-brand').innerText;
+        document.getElementById('cfg-f-st').value = document.getElementById('f-status').innerText;
         document.getElementById('cfg-f-l1t').value = document.getElementById('f-l1').innerText;
         document.getElementById('cfg-f-l1u').value = document.getElementById('f-l1').getAttribute('href');
-        
         const clean = (t) => (t || "").replace(/<[^>]*>/g, '');
         document.getElementById('cfg-h-admin').value = clean(i18n.de.help_admin);
         document.getElementById('cfg-h-r').value = clean(i18n.de.help_r);
-        document.getElementById('cfg-h-n').value = clean(i18n.de.help_n);
+        document.getElementById('cfg-h-bt').value = clean(i18n.de.help_bt);
     }
 
     function applyLive() {
@@ -267,20 +272,15 @@
         root.setProperty('--wd-blue', document.getElementById('cfg-c-bl').value);
         root.setProperty('--wd-dark', document.getElementById('cfg-c-d').value);
         root.setProperty('--bg-body', document.getElementById('cfg-c-bo').value);
-        
         i18n.de.mainH = document.getElementById('cfg-b-main').value;
-        i18n.de.r_h = document.getElementById('cfg-b-r').value;
-        i18n.de.r_p = document.getElementById('cfg-p-r').value;
-        i18n.de.n_h = document.getElementById('cfg-b-n').value;
-        i18n.de.n_p = document.getElementById('cfg-p-n').value;
-        
+        i18n.de.r_h = document.getElementById('cfg-b-r').value; i18n.de.r_p = document.getElementById('cfg-p-r').value;
+        i18n.de.n_h = document.getElementById('cfg-b-n').value; i18n.de.n_p = document.getElementById('cfg-p-n').value;
         document.getElementById('f-brand').innerText = document.getElementById('cfg-f-br').value;
+        document.getElementById('f-status').innerText = document.getElementById('cfg-f-st').value;
         document.getElementById('f-l1').innerText = document.getElementById('cfg-f-l1t').value;
         document.getElementById('f-l1').setAttribute('href', document.getElementById('cfg-f-l1u').value);
-        
         const wrap = (id) => '<p>' + document.getElementById(id).value + '</p>';
-        i18n.de.help_admin = wrap('cfg-h-admin');
-        i18n.de.help_r = wrap('cfg-h-r'); i18n.de.help_n = wrap('cfg-h-n');
+        i18n.de.help_admin = wrap('cfg-h-admin'); i18n.de.help_r = wrap('cfg-h-r'); i18n.de.help_bt = wrap('cfg-h-bt');
         changeLang();
     }
 
@@ -288,24 +288,22 @@
         const s = {
             c: [document.getElementById('cfg-c-o').value, document.getElementById('cfg-c-bl').value, document.getElementById('cfg-c-d').value, document.getElementById('cfg-c-bo').value],
             b: [i18n.de.mainH, i18n.de.r_h, i18n.de.r_p, i18n.de.n_h, i18n.de.n_p],
-            f: [document.getElementById('cfg-f-br').value, document.getElementById('cfg-f-l1t').value, document.getElementById('cfg-f-l1u').value],
-            h: [i18n.de.help_admin, i18n.de.help_r, i18n.de.help_n]
+            f: [document.getElementById('cfg-f-br').value, document.getElementById('cfg-f-st').value, document.getElementById('cfg-f-l1t').value, document.getElementById('cfg-f-l1u').value],
+            h: [i18n.de.help_admin, i18n.de.help_r, i18n.de.help_bt]
         };
-        localStorage.setItem('wgm_v251_final', JSON.stringify(s));
-        alert("DNA VERSCHLÜSSELT.");
+        localStorage.setItem('wgm_v252_final', JSON.stringify(s));
+        alert("MASTER-DNA VERSIEGELT.");
     }
 
     function init() {
-        const saved = localStorage.getItem('wgm_v251_final');
+        const saved = localStorage.getItem('wgm_v252_final');
         if(saved) {
             const s = JSON.parse(saved);
             const root = document.documentElement.style;
             root.setProperty('--wd-orange', s.c[0]); root.setProperty('--wd-blue', s.c[1]); root.setProperty('--wd-dark', s.c[2]); root.setProperty('--bg-body', s.c[3]);
-            if(s.b[0]) i18n.de.mainH = s.b[0]; if(s.b[1]) i18n.de.r_h = s.b[1]; if(s.b[2]) i18n.de.r_p = s.b[2];
-            if(s.b[3]) i18n.de.n_h = s.b[3]; if(s.b[4]) i18n.de.n_p = s.b[4];
-            document.getElementById('f-brand').innerText = s.f[0]; document.getElementById('f-l1').innerText = s.f[1];
-            document.getElementById('f-l1').setAttribute('href', s.f[2]);
-            if(s.h) { i18n.de.help_admin = s.h[0]; i18n.de.help_r = s.h[1]; i18n.de.help_n = s.h[2]; }
+            if(s.b) { i18n.de.mainH = s.b[0]; i18n.de.r_h = s.b[1]; i18n.de.r_p = s.b[2]; i18n.de.n_h = s.b[3]; i18n.de.n_p = s.b[4]; }
+            if(s.f) { document.getElementById('f-brand').innerText = s.f[0]; document.getElementById('f-status').innerText = s.f[1]; document.getElementById('f-l1').innerText = s.f[2]; document.getElementById('f-l1').setAttribute('href', s.f[3]); }
+            if(s.h) { i18n.de.help_admin = s.h[0]; i18n.de.help_r = s.h[1]; i18n.de.help_bt = s.h[2]; }
         }
         changeLang();
     }
@@ -324,4 +322,19 @@
         const u = document.getElementById('uG').value, l = document.getElementById('lG').value;
         document.querySelectorAll('[data-u]').forEach(el => {
             const key = el.getAttribute('data-t');
-            el.innerText = (i1
+            el.innerText = (i18n[l][key] || i18n.de[key]) + " (" + u + ")";
+        });
+    }
+
+    function openHelp(m) {
+        const l = document.getElementById('lG').value;
+        document.getElementById('help-title').innerText = i18n[l].help_title;
+        document.getElementById('help-body').innerHTML = i18n[l]['help_'+m] || i18n.de['help_'+m];
+        document.getElementById('help-popup').style.display = 'flex';
+    }
+    function closeHelp() { document.getElementById('help-popup').style.display = 'none'; }
+    function closeLogin() { document.getElementById('login-overlay').style.display = 'none'; }
+    window.onload = init;
+</script>
+</body>
+</html>
