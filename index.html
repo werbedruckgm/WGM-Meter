@@ -58,7 +58,7 @@
         .input-box { margin-bottom: 12px; position: relative; }
         .label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
         .label { font-size: 0.6rem; color: #475569; font-weight: 800; text-transform: uppercase; }
-        .info-small { color: var(--wd-blue); cursor: pointer; width: 14px; height: 14px; }
+        .info-small { color: var(--wd-blue); cursor: pointer; width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; }
         
         input, textarea, select.in-view { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; font-size: 0.85rem; font-weight: 700; box-sizing: border-box; outline: none; background: #fff; color: var(--wd-dark); transition: all 0.2s; }
         
@@ -70,7 +70,7 @@
         .res-num { font-size: 2rem; font-weight: 900; display: block; }
         .res-info { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; opacity: 0.9; }
 
-        .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.7rem; }
+        .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.7rem; margin-bottom: 15px; }
         .btn-action { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; text-transform: uppercase; font-size: 0.75rem; }
         .btn-reset { background: #cbd5e1; color: var(--wd-dark); width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
         .btn-logout { background: #64748b; color: white; border: none; padding: 8px 12px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.65rem; text-transform: uppercase; }
@@ -91,22 +91,24 @@
     <div id="login-overlay">
         <h3 style="color:var(--wd-orange); font-weight:900;">ADMIN LOGIN</h3>
         <input type="password" id="master-pin" placeholder="****" style="text-align:center; font-size:1.5rem; width:120px; letter-spacing:5px; margin: 20px 0;">
-        <button class="btn-action" onclick="checkAccess()" style="width:120px;">LOGIN</button>
+        <button class="btn-action" onclick="checkAccess()">LOGIN</button>
         <p onclick="closeLogin()" style="margin-top:15px; font-size:0.55rem; cursor:pointer; font-weight:800; color:#94a3b8;">ABBRECHEN</p>
     </div>
 
     <div id="help-popup">
-        <div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()" style="margin-top:15px;">VERSTANDEN</button></div>
+        <div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()">VERSTANDEN</button></div>
     </div>
 
     <div id="admin-help-popup">
-        <div class="help-content"><h3 style="color:var(--wd-blue);">PARAMETER INFO</h3><p id="admin-help-body" style="font-weight:600;"></p><button class="btn-action" onclick="closeAdminHelp()" style="margin-top:15px; background:var(--wd-blue);">ZURÜCK</button></div>
+        <div class="help-content"><h3 style="color:var(--wd-blue);">PARAMETER INFO</h3><p id="admin-help-body" style="font-weight:600;"></p><button class="btn-action" onclick="closeAdminHelp()" style="background:var(--wd-blue);">ZURÜCK</button></div>
     </div>
 
     <div class="top-nav">
         <select id="uG" onchange="updateAllUnits()"><option value="mm">mm</option><option value="inc">inc</option></select>
         <select id="lG" onchange="changeLang()">
-            <option value="de">DE</option><option value="en">EN</option>
+            <option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="es">ES</option>
+            <option value="it">IT</option><option value="nl">NL</option><option value="pl">PL</option><option value="ru">RU</option>
+            <option value="da">DA</option><option value="no">NO</option><option value="ja">JP</option>
         </select>
     </div>
 
@@ -125,7 +127,7 @@
     </main>
 
     <div id="view-rollen" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('r')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('r')"><i data-lucide="info"></i></div></div>
         <div class="input-box"><span class="label" data-t="r_d1" data-u>Rollendurchmesser</span><input type="number" id="rD" oninput="calcR()"></div>
         <div class="input-box"><span class="label" data-t="r_d2" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" oninput="calcR()"></div>
         <div class="input-box"><span class="label" data-t="r_s" data-u>Stärke</span><input type="number" id="rs" value="0.22" step="0.01" oninput="calcR()"></div>
@@ -134,7 +136,7 @@
     </div>
 
     <div id="view-nutzen" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('n')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('n')"><i data-lucide="info"></i></div></div>
         <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Platte B</span><input type="number" id="pW" value="3000" oninput="calcN()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Platte H</span><input type="number" id="pH" value="1500" oninput="calcN()"></div></div>
         <div class="input-box"><span class="label" data-t="n_cut" data-u>Schnittbreite</span><input type="number" id="cut" value="1.5" oninput="calcN()"></div>
         <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_sb" data-u>Schild B</span><input type="number" id="sW" oninput="calcN()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_sh" data-u>Schild H</span><input type="number" id="sH" oninput="calcN()"></div></div>
@@ -142,15 +144,15 @@
     </div>
 
     <div id="view-gew" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('g')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
-        <div class="input-box"><span class="label" data-t="mat">Material</span><select id="gMat" class="in-view" onchange="calcG()"><option value="2.7">Aluminium</option><option value="1.2">Alu-Verbund</option><option value="1.19">Acryl</option></select></div>
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('g')"><i data-lucide="info"></i></div></div>
+        <div class="input-box"><span class="label" data-t="mat">Material</span><select id="gMat" class="in-view" onchange="calcG()"><option value="2.7">Aluminium</option><option value="1.2">Alu-Verbund</option><option value="1.19">Acryl</option><option value="0.6">PVC Schaum</option></select></div>
         <div class="input-box"><span class="label" data-t="r_s" data-u>Stärke</span><input type="number" id="gs" value="3" oninput="calcG()"></div>
         <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Breite</span><input type="number" id="gb" value="1000" oninput="calcG()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Höhe</span><input type="number" id="gh" value="1000" oninput="calcG()"></div></div>
         <div class="res-card"><span id="resG" class="res-num">0.00 kg</span><span class="res-info" data-t="g_res">Gewicht</span></div>
     </div>
 
     <div id="view-wind" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('w')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('w')"><i data-lucide="info"></i></div></div>
         <div class="input-box"><span class="label" data-t="w_mat">Oberfläche</span><select id="wMat" class="in-view" onchange="calcW()"><option value="1.0">Geschlossen</option><option value="0.65">Mesh</option></select></div>
         <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Breite</span><input type="number" id="wb" value="2000" oninput="calcW()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Höhe</span><input type="number" id="wh" value="1000" oninput="calcW()"></div></div>
         <div class="res-card"><span id="resW" class="res-num">0 N</span><span class="res-info" data-t="w_res">Windkraft</span></div>
@@ -164,70 +166,67 @@
     </div>
 
     <div id="admin-global" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div></div>
+        <div class="view-header" style="display:flex; justify-content:space-between; align-items:center;"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT GLOBAL</span></div><button class="btn-logout" onclick="go('main')">LOGOUT</button></div>
         <div class="admin-scroll">
             <div class="admin-section"><h4>Design DNA</h4>
                 <div class="admin-grid"><div class="input-box"><span class="label-row"><span class="label">Akzent</span><i data-lucide="info" class="info-small" onclick="ash('c-o')"></i></span><input type="color" id="cfg-c-o" onchange="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Buttons</span><i data-lucide="info" class="info-small" onclick="ash('c-bl')"></i></span><input type="color" id="cfg-c-bl" onchange="applyLive()"></div></div>
             </div>
-            <div class="admin-section"><h4>UI Master</h4>
+            <div class="admin-section"><h4>UI & Footer Master</h4>
                 <div class="input-box"><span class="label-row"><span class="label">App Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-main')"></i></span><input type="text" id="cfg-b-main" oninput="applyLive()"></div>
                 <div class="input-box"><span class="label-row"><span class="label">Firma Footer</span><i data-lucide="info" class="info-small" onclick="ash('f-br')"></i></span><input type="text" id="cfg-f-br" oninput="applyLive()"></div>
+                <div class="input-box"><span class="label-row"><span class="label">Status/Vers.</span><i data-lucide="info" class="info-small" onclick="ash('f-st')"></i></span><input type="text" id="cfg-f-st" oninput="applyLive()"></div>
+                <div style="display:flex; gap:5px; margin-bottom:5px;"><input type="text" id="cfg-f-l1t" placeholder="L1 Text" oninput="applyLive()" style="flex:1;"><input type="text" id="cfg-f-l1u" placeholder="L1 URL" oninput="applyLive()" style="flex:1;"></div>
+                <div style="display:flex; gap:5px;"><input type="text" id="cfg-f-l2t" placeholder="L2 Text" oninput="applyLive()" style="flex:1;"><input type="text" id="cfg-f-l2u" placeholder="L2 URL" oninput="applyLive()" style="flex:1;"></div>
             </div>
         </div>
         <button class="btn-action" onclick="saveContext('global')">GLOBAL DNA SPEICHERN</button>
     </div>
 
     <div id="admin-rollen" class="view">
-        <div class="view-header"><h4>Tool: Rollen-Meter</h4></div><div class="admin-scroll">
-        <div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-r')"></i></span><input type="text" id="cfg-b-r" oninput="applyLive()"></div>
-        <div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-r')"></i></span><textarea id="cfg-h-r" oninput="applyLive()" style="height:100px;"></textarea></div>
-        </div><button class="btn-action" onclick="saveContext('rollen')">MODUL DNA SPEICHERN</button>
+        <div class="view-header"><div class="back-btn" onclick="go('rollen')"><i data-lucide="chevron-left"></i> <span>TOOL EXIT</span></div></div>
+        <div class="admin-scroll"><div class="admin-section"><h4>Tool: Rollen-Meter</h4><div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-r')"></i></span><input type="text" id="cfg-b-r" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-r')"></i></span><textarea id="cfg-h-r" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('rollen')">ROLLEN DNA SPEICHERN</button>
     </div>
 
-    <div id="admin-nutzen" class="view"><div class="view-header"><h4>Tool: Nutzen-Rechner</h4></div><div class="admin-scroll">
-        <div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-n')"></i></span><input type="text" id="cfg-b-n" oninput="applyLive()"></div>
-        <div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-n')"></i></span><textarea id="cfg-h-n" oninput="applyLive()" style="height:100px;"></textarea></div>
-        </div><button class="btn-action" onclick="saveContext('nutzen')">MODUL DNA SPEICHERN</button>
+    <div id="admin-nutzen" class="view">
+        <div class="view-header"><div class="back-btn" onclick="go('nutzen')"><i data-lucide="chevron-left"></i> <span>TOOL EXIT</span></div></div>
+        <div class="admin-scroll"><div class="admin-section"><h4>Tool: Nutzen-Rechner</h4><div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-n')"></i></span><input type="text" id="cfg-b-n" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-n')"></i></span><textarea id="cfg-h-n" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('nutzen')">NUTZEN DNA SPEICHERN</button>
     </div>
 
-    <div id="admin-gew" class="view"><div class="view-header"><h4>Tool: Gewichts-Detektor</h4></div><div class="admin-scroll">
-        <div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-g')"></i></span><input type="text" id="cfg-b-g" oninput="applyLive()"></div>
-        <div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-g')"></i></span><textarea id="cfg-h-g" oninput="applyLive()" style="height:100px;"></textarea></div>
-        </div><button class="btn-action" onclick="saveContext('gew')">MODUL DNA SPEICHERN</button>
+    <div id="admin-gew" class="view">
+        <div class="view-header"><div class="back-btn" onclick="go('gew')"><i data-lucide="chevron-left"></i> <span>TOOL EXIT</span></div></div>
+        <div class="admin-scroll"><div class="admin-section"><h4>Tool: Gewichts-Detektor</h4><div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-g')"></i></span><input type="text" id="cfg-b-g" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-g')"></i></span><textarea id="cfg-h-g" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('gew')">GEWICHT DNA SPEICHERN</button>
     </div>
 
-    <div id="admin-wind" class="view"><div class="view-header"><h4>Tool: Windlast-Prüfer</h4></div><div class="admin-scroll">
-        <div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-w')"></i></span><input type="text" id="cfg-b-w" oninput="applyLive()"></div>
-        <div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-w')"></i></span><textarea id="cfg-h-w" oninput="applyLive()" style="height:100px;"></textarea></div>
-        </div><button class="btn-action" onclick="saveContext('wind')">MODUL DNA SPEICHERN</button>
+    <div id="admin-wind" class="view">
+        <div class="view-header"><div class="back-btn" onclick="go('wind')"><i data-lucide="chevron-left"></i> <span>TOOL EXIT</span></div></div>
+        <div class="admin-scroll"><div class="admin-section"><h4>Tool: Windlast-Prüfer</h4><div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-w')"></i></span><input type="text" id="cfg-b-w" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-w')"></i></span><textarea id="cfg-h-w" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('wind')">WIND DNA SPEICHERN</button>
     </div>
 
-    <div id="admin-hohl" class="view"><div class="view-header"><h4>Tool: Hohlsaum-Profi</h4></div><div class="admin-scroll">
-        <div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-h')"></i></span><input type="text" id="cfg-b-h" oninput="applyLive()"></div>
-        <div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-h')"></i></span><textarea id="cfg-h-h" oninput="applyLive()" style="height:100px;"></textarea></div>
-        </div><button class="btn-action" onclick="saveContext('hohl')">MODUL DNA SPEICHERN</button>
+    <div id="admin-hohl" class="view">
+        <div class="view-header"><div class="back-btn" onclick="go('hohl')"><i data-lucide="chevron-left"></i> <span>TOOL EXIT</span></div></div>
+        <div class="admin-scroll"><div class="admin-section"><h4>Tool: Hohlsaum-Profi</h4><div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-h')"></i></span><input type="text" id="cfg-b-h" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-h')"></i></span><textarea id="cfg-h-h" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('hohl')">HOHL DNA SPEICHERN</button>
     </div>
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V3.3.0 | Final Master</div>
-        <div class="footer-links"><a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a></div>
+        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V3.4.0 | Context-Admin</div>
+        <div class="footer-links">
+            <a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a>
+        </div>
     </footer>
 </div>
 
 <script>
     const i18n = {
-        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", w_h: "Windlast-Prüfer", w_p: "Statik-Check", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage", help_title: "ANLEITUNG", 
-            help_r: "<b>Rollen Ø:</b> Gesamtdurchmesser.<br><b>Kern:</b> Papprollenmaß.<br><b>Stärke:</b> Foliendicke.",
-            help_n: "<b>Platte:</b> Rohmaß.<br><b>Endformat:</b> Zielmaß.<br><b>Schnitt:</b> Trennverlust.",
-            help_g: "<b>Material:</b> Typ wählen.<br><b>Dicke:</b> Plattenmaß.<br><b>Format:</b> Breite/Höhe.",
-            help_w: "<b>Fläche:</b> Oberflächentyp.<br><b>Maße:</b> Bannerkanten.",
-            help_h: "<b>Stange:</b> Durchmesser Halter.<br><b>Banner:</b> Dicke für Saum."
+        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_sb: "Schild B", n_sh: "Schild H", n_cut: "Schnittbreite", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gewicht", mat: "Material", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windkraft", w_mat: "Oberfläche", h_h: "Hohlsaum-Profi", h_p: "Zugabe", h_d: "Stangen Ø", h_s: "Materialdicke", help_title: "ANLEITUNG", 
+            help_r: "Geben Sie Rollendurchmesser, Kernmaß und Folienstärke nacheinander ein.", help_n: "Tragen Sie Plattenmaße, Verschnitt und Endformat ein.", help_g: "Wählen Sie Material, Dicke und Maße.", help_w: "Wählen Sie Oberfläche und Bannermaße.", help_h: "Geben Sie Stangendurchmesser und Bannerdicke ein."
         },
-        en: { mainH: "Signmaker Tools", back: "BACK", r_h: "Roll Meter" }
+        en: { mainH: "Signmaker Tools", back: "BACK", bt: "Pair Tool", r_h: "Roll Meter", r_p: "Length calc", n_h: "Yield Pro", g_h: "Weight Det.", w_h: "Wind Load", h_h: "Hem Master", help_title: "GUIDE" }
     };
+    ["fr", "es", "it", "nl", "pl", "da", "no", "ru", "ja"].forEach(l => { if(!i18n[l]) i18n[l] = i18n.en; });
+
     const adminInfo = {
-        'c-o': "Farbe für Trenner und Fokus-Umrandung.", 'c-bl': "Farbe für alle Aktions-Buttons.", 'b-main': "Header-Titel im Menü.", 'f-br': "Firma im Footer.",
+        'c-o': "Farbe für Akzentlinien und Fokus-Umrandung.", 'c-bl': "Farbe für alle Aktions-Buttons.", 'b-main': "Header-Titel im Menü.", 'f-br': "Firma im Footer.", 'f-st': "Statuszeile im Footer.",
         'b-r': "Name des Rollen-Tools.", 'h-r': "Hilfetext Rollen-Tool.", 'b-n': "Name Nutzen-Tool.", 'h-n': "Hilfetext Nutzen-Tool.",
         'b-g': "Name Gewicht-Tool.", 'h-g': "Hilfetext Gewicht-Tool.", 'b-w': "Name Wind-Tool.", 'h-w': "Hilfetext Wind-Tool.",
         'b-h': "Name Hohl-Tool.", 'h-h': "Hilfetext Hohl-Tool."
@@ -257,7 +256,7 @@
             document.getElementById('master-pin').value="";
             go((activeView === 'main') ? 'admin-global' : 'admin-' + activeView);
             loadAdminFields();
-        } else { alert("FALSCHER CODE."); }
+        } else { alert("CODE FALSCH."); }
     }
 
     function go(v) {
@@ -265,7 +264,6 @@
         const targetId = (v.startsWith('admin-')) ? v : (v === 'main' ? 'main' : 'view-' + v);
         const target = document.getElementById(targetId);
         if(!v.startsWith('admin-')) activeView = v;
-        
         const titleEl = document.getElementById('dynamic-main-title');
         const l = document.getElementById('lG').value;
         if(v === 'main') titleEl.innerText = i18n[l].mainH || i18n.de.mainH;
@@ -277,7 +275,7 @@
         lucide.createIcons();
     }
 
-    function ash(key) { document.getElementById('admin-help-body').innerText = adminInfo[key] || "Info n.v."; document.getElementById('admin-help-popup').style.display = 'flex'; }
+    function ash(key) { document.getElementById('admin-help-body').innerText = adminInfo[key] || "Keine Info n.v."; document.getElementById('admin-help-popup').style.display = 'flex'; }
     function closeAdminHelp() { document.getElementById('admin-help-popup').style.display = 'none'; }
 
     /* CALCS */
@@ -296,6 +294,11 @@
             if(b) b.value = i18n.de[k+'_h']; if(h) h.value = (i18n.de['help_'+k] || "").replace(/<[^>]*>/g, '').replace(/<br>/g, '\n');
         });
         if(document.getElementById('cfg-f-br')) document.getElementById('cfg-f-br').value = document.getElementById('f-brand').innerText;
+        if(document.getElementById('cfg-f-st')) document.getElementById('cfg-f-st').value = document.getElementById('f-status').innerText;
+        if(document.getElementById('cfg-f-l1t')) document.getElementById('cfg-f-l1t').value = document.getElementById('f-l1').innerText;
+        if(document.getElementById('cfg-f-l1u')) document.getElementById('cfg-f-l1u').value = document.getElementById('f-l1').getAttribute('href');
+        if(document.getElementById('cfg-f-l2t')) document.getElementById('cfg-f-l2t').value = document.getElementById('f-l2').innerText;
+        if(document.getElementById('cfg-f-l2u')) document.getElementById('cfg-f-l2u').value = document.getElementById('f-l2').getAttribute('href');
     }
 
     function applyLive() {
@@ -308,6 +311,11 @@
             if(b) i18n.de[k+'_h'] = b.value; if(h) i18n.de['help_'+k] = h.value;
         });
         if(document.getElementById('cfg-f-br')) document.getElementById('f-brand').innerText = document.getElementById('cfg-f-br').value;
+        if(document.getElementById('cfg-f-st')) document.getElementById('f-status').innerText = document.getElementById('cfg-f-st').value;
+        if(document.getElementById('cfg-f-l1t')) document.getElementById('f-l1').innerText = document.getElementById('cfg-f-l1t').value;
+        if(document.getElementById('cfg-f-l1u')) document.getElementById('f-l1').setAttribute('href', document.getElementById('cfg-f-l1u').value);
+        if(document.getElementById('cfg-f-l2t')) document.getElementById('f-l2').innerText = document.getElementById('cfg-f-l2t').value;
+        if(document.getElementById('cfg-f-l2u')) document.getElementById('f-l2').setAttribute('href', document.getElementById('cfg-f-l2u').value);
         changeLang();
     }
 
@@ -315,21 +323,21 @@
         const data = {
             c: [getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim(), getComputedStyle(document.documentElement).getPropertyValue('--wd-blue').trim()],
             b: [i18n.de.mainH, i18n.de.r_h, i18n.de.n_h, i18n.de.g_h, i18n.de.w_h, i18n.de.h_h],
-            f: [document.getElementById('f-brand').innerText],
+            f: [document.getElementById('f-brand').innerText, document.getElementById('f-status').innerText, document.getElementById('f-l1').innerText, document.getElementById('f-l1').getAttribute('href'), document.getElementById('f-l2').innerText, document.getElementById('f-l2').getAttribute('href')],
             h: [i18n.de.help_r, i18n.de.help_n, i18n.de.help_g, i18n.de.help_w, i18n.de.help_h]
         };
-        localStorage.setItem('wgm_v330_master', JSON.stringify(data));
-        alert("SEKTIONS-DNA GESPEICHERT.");
+        localStorage.setItem('wgm_v340_master', JSON.stringify(data));
+        alert("DNA MODUL GESPEICHERT.");
     }
 
     function init() {
-        const saved = localStorage.getItem('wgm_v330_master');
+        const saved = localStorage.getItem('wgm_v340_master');
         if(saved) {
             const s = JSON.parse(saved);
             const root = document.documentElement.style;
             if(s.c[0]) root.setProperty('--wd-orange', s.c[0]); if(s.c[1]) root.setProperty('--wd-blue', s.c[1]);
             if(s.b) { i18n.de.mainH = s.b[0]; i18n.de.r_h = s.b[1]; i18n.de.n_h = s.b[2]; i18n.de.g_h = s.b[3]; i18n.de.w_h = s.b[4]; i18n.de.h_h = s.b[5]; }
-            if(s.f[0]) document.getElementById('f-brand').innerText = s.f[0];
+            if(s.f) { document.getElementById('f-brand').innerText = s.f[0]; document.getElementById('f-status').innerText = s.f[1]; document.getElementById('f-l1').innerText = s.f[2]; document.getElementById('f-l1').setAttribute('href', s.f[3]); document.getElementById('f-l2').innerText = s.f[4]; document.getElementById('f-l2').setAttribute('href', s.f[5]); }
             if(s.h) { i18n.de.help_r = s.h[0]; i18n.de.help_n = s.h[1]; i18n.de.help_g = s.h[2]; i18n.de.help_w = s.h[3]; i18n.de.help_h = s.h[4]; }
         }
         changeLang();
@@ -338,15 +346,16 @@
     function changeLang() {
         const l = document.getElementById('lG').value;
         document.querySelectorAll('[data-t]').forEach(el => { const k = el.getAttribute('data-t'); el.innerText = i18n[l][k] || i18n.de[k]; });
-        updateAllUnits(); lucide.createIcons();
+        updateAllUnits();
     }
     function updateAllUnits() {
         const u = document.getElementById('uG').value, l = document.getElementById('lG').value;
         document.querySelectorAll('[data-u]').forEach(el => { const k = el.getAttribute('data-t'); el.innerText = (i18n[l][k] || i18n.de[k]) + " (" + u + ")"; });
         calcR(); calcN(); calcG(); calcW(); calcH();
     }
-    function openHelp(m) { const l = document.getElementById('lG').value; document.getElementById('help-title').innerText = i18n[l].help_title || "INFO"; document.getElementById('help-body').innerHTML = i18n[l]['help_'+m] || i18n.de['help_'+m]; document.getElementById('help-popup').style.display = 'flex'; }
+    function openHelp(m) { const l = document.getElementById('lG').value; document.getElementById('help-title').innerText = "INFO"; document.getElementById('help-body').innerHTML = i18n[l]['help_'+m] || i18n.de['help_'+m]; document.getElementById('help-popup').style.display = 'flex'; }
     function closeHelp() { document.getElementById('help-popup').style.display = 'none'; }
+    function closeAdminHelp() { document.getElementById('admin-help-popup').style.display = 'none'; }
     function closeLogin() { document.getElementById('login-overlay').style.display = 'none'; }
     window.onload = init;
 </script>
