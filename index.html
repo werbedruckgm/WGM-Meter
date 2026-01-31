@@ -46,6 +46,7 @@
 
         .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
         .view.active { display: flex; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .card { background: var(--card-bg); border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 14px; cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #f1f5f9; transition: transform 0.2s; }
         .card:active { transform: scale(0.96); }
@@ -142,7 +143,7 @@
 
     <div id="view-gew" class="view">
         <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('g')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
-        <div class="input-box"><span class="label" data-t="mat">Material</span><select id="gMat" class="in-view" onchange="calcG()"><option value="2.7">Aluminium</option><option value="1.2">Alu-Verbund</option><option value="1.19">Acryl</option><option value="0.6">PVC Schaum</option></select></div>
+        <div class="input-box"><span class="label" data-t="mat">Material</span><select id="gMat" class="in-view" onchange="calcG()"><option value="2.7">Aluminium</option><option value="1.2">Alu-Verbund</option><option value="1.19">Acryl</option></select></div>
         <div class="input-box"><span class="label" data-t="r_s" data-u>Stärke</span><input type="number" id="gs" value="3" oninput="calcG()"></div>
         <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Breite</span><input type="number" id="gb" value="1000" oninput="calcG()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Höhe</span><input type="number" id="gh" value="1000" oninput="calcG()"></div></div>
         <div class="res-card"><span id="resG" class="res-num">0.00 kg</span><span class="res-info" data-t="g_res">Gewicht</span></div>
@@ -163,50 +164,73 @@
     </div>
 
     <div id="admin-global" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>GLOBAL EXIT</span></div><button class="btn-logout" onclick="go('main')">LOGOUT</button></div>
+        <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div></div>
         <div class="admin-scroll">
             <div class="admin-section"><h4>Design DNA</h4>
-                <div class="admin-grid"><div class="input-box"><span class="label-row"><span class="label">Akzent</span><i data-lucide="info" class="info-small" onclick="ash('c-o')"></i></span><input type="color" id="cfg-c-o" onchange="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Aktion</span><i data-lucide="info" class="info-small" onclick="ash('c-bl')"></i></span><input type="color" id="cfg-c-bl" onchange="applyLive()"></div></div>
+                <div class="admin-grid"><div class="input-box"><span class="label-row"><span class="label">Akzent</span><i data-lucide="info" class="info-small" onclick="ash('c-o')"></i></span><input type="color" id="cfg-c-o" onchange="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Buttons</span><i data-lucide="info" class="info-small" onclick="ash('c-bl')"></i></span><input type="color" id="cfg-c-bl" onchange="applyLive()"></div></div>
             </div>
             <div class="admin-section"><h4>UI Master</h4>
-                <div class="input-box"><span class="label-row"><span class="label">Haupt-Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-main')"></i></span><input type="text" id="cfg-b-main" oninput="applyLive()"></div>
+                <div class="input-box"><span class="label-row"><span class="label">App Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-main')"></i></span><input type="text" id="cfg-b-main" oninput="applyLive()"></div>
                 <div class="input-box"><span class="label-row"><span class="label">Firma Footer</span><i data-lucide="info" class="info-small" onclick="ash('f-br')"></i></span><input type="text" id="cfg-f-br" oninput="applyLive()"></div>
             </div>
         </div>
         <button class="btn-action" onclick="saveContext('global')">GLOBAL DNA SPEICHERN</button>
     </div>
 
-    <div id="admin-rollen" class="view"><div class="view-header"><h4>Tool: Rollen-Meter</h4></div><div class="admin-scroll"><div class="input-box"><span class="label-row"><span class="label">Label</span><i data-lucide="info" class="info-small" onclick="ash('b-r')"></i></span><input type="text" id="cfg-b-r" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Desc</span><i data-lucide="info" class="info-small" onclick="ash('p-r')"></i></span><input type="text" id="cfg-p-r" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfe</span><i data-lucide="info" class="info-small" onclick="ash('h-r')"></i></span><textarea id="cfg-h-r" oninput="applyLive()" style="height:80px;"></textarea></div></div><button class="btn-action" onclick="saveContext('rollen')">ROLLEN DNA SPEICHERN</button></div>
-    
-    <div id="admin-nutzen" class="view"><div class="view-header"><h4>Tool: Nutzen-Rechner</h4></div><div class="admin-scroll"><div class="input-box"><span class="label-row"><span class="label">Label</span><i data-lucide="info" class="info-small" onclick="ash('b-n')"></i></span><input type="text" id="cfg-b-n" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Desc</span><i data-lucide="info" class="info-small" onclick="ash('p-n')"></i></span><input type="text" id="cfg-p-n" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfe</span><i data-lucide="info" class="info-small" onclick="ash('h-n')"></i></span><textarea id="cfg-h-n" oninput="applyLive()" style="height:80px;"></textarea></div></div><button class="btn-action" onclick="saveContext('nutzen')">NUTZEN DNA SPEICHERN</button></div>
+    <div id="admin-rollen" class="view">
+        <div class="view-header"><h4>Tool: Rollen-Meter</h4></div><div class="admin-scroll">
+        <div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-r')"></i></span><input type="text" id="cfg-b-r" oninput="applyLive()"></div>
+        <div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-r')"></i></span><textarea id="cfg-h-r" oninput="applyLive()" style="height:100px;"></textarea></div>
+        </div><button class="btn-action" onclick="saveContext('rollen')">MODUL DNA SPEICHERN</button>
+    </div>
 
-    <div id="admin-gew" class="view"><div class="view-header"><h4>Tool: Gewichts-Detektor</h4></div><div class="admin-scroll"><div class="input-box"><span class="label-row"><span class="label">Label</span><i data-lucide="info" class="info-small" onclick="ash('b-g')"></i></span><input type="text" id="cfg-b-g" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Desc</span><i data-lucide="info" class="info-small" onclick="ash('p-g')"></i></span><input type="text" id="cfg-p-g" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfe</span><i data-lucide="info" class="info-small" onclick="ash('h-g')"></i></span><textarea id="cfg-h-g" oninput="applyLive()" style="height:80px;"></textarea></div></div><button class="btn-action" onclick="saveContext('gew')">GEWICHT DNA SPEICHERN</button></div>
+    <div id="admin-nutzen" class="view"><div class="view-header"><h4>Tool: Nutzen-Rechner</h4></div><div class="admin-scroll">
+        <div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-n')"></i></span><input type="text" id="cfg-b-n" oninput="applyLive()"></div>
+        <div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-n')"></i></span><textarea id="cfg-h-n" oninput="applyLive()" style="height:100px;"></textarea></div>
+        </div><button class="btn-action" onclick="saveContext('nutzen')">MODUL DNA SPEICHERN</button>
+    </div>
 
-    <div id="admin-wind" class="view"><div class="view-header"><h4>Tool: Windlast-Prüfer</h4></div><div class="admin-scroll"><div class="input-box"><span class="label-row"><span class="label">Label</span><i data-lucide="info" class="info-small" onclick="ash('b-w')"></i></span><input type="text" id="cfg-b-w" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Desc</span><i data-lucide="info" class="info-small" onclick="ash('p-w')"></i></span><input type="text" id="cfg-p-w" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfe</span><i data-lucide="info" class="info-small" onclick="ash('h-w')"></i></span><textarea id="cfg-h-w" oninput="applyLive()" style="height:80px;"></textarea></div></div><button class="btn-action" onclick="saveContext('wind')">WIND DNA SPEICHERN</button></div>
+    <div id="admin-gew" class="view"><div class="view-header"><h4>Tool: Gewichts-Detektor</h4></div><div class="admin-scroll">
+        <div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-g')"></i></span><input type="text" id="cfg-b-g" oninput="applyLive()"></div>
+        <div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-g')"></i></span><textarea id="cfg-h-g" oninput="applyLive()" style="height:100px;"></textarea></div>
+        </div><button class="btn-action" onclick="saveContext('gew')">MODUL DNA SPEICHERN</button>
+    </div>
 
-    <div id="admin-hohl" class="view"><div class="view-header"><h4>Tool: Hohlsaum-Profi</h4></div><div class="admin-scroll"><div class="input-box"><span class="label-row"><span class="label">Label</span><i data-lucide="info" class="info-small" onclick="ash('b-h')"></i></span><input type="text" id="cfg-b-h" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Desc</span><i data-lucide="info" class="info-small" onclick="ash('p-h')"></i></span><input type="text" id="cfg-p-h" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfe</span><i data-lucide="info" class="info-small" onclick="ash('h-h')"></i></span><textarea id="cfg-h-h" oninput="applyLive()" style="height:80px;"></textarea></div></div><button class="btn-action" onclick="saveContext('hohl')">HOHL DNA SPEICHERN</button></div>
+    <div id="admin-wind" class="view"><div class="view-header"><h4>Tool: Windlast-Prüfer</h4></div><div class="admin-scroll">
+        <div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-w')"></i></span><input type="text" id="cfg-b-w" oninput="applyLive()"></div>
+        <div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-w')"></i></span><textarea id="cfg-h-w" oninput="applyLive()" style="height:100px;"></textarea></div>
+        </div><button class="btn-action" onclick="saveContext('wind')">MODUL DNA SPEICHERN</button>
+    </div>
+
+    <div id="admin-hohl" class="view"><div class="view-header"><h4>Tool: Hohlsaum-Profi</h4></div><div class="admin-scroll">
+        <div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-h')"></i></span><input type="text" id="cfg-b-h" oninput="applyLive()"></div>
+        <div class="input-box"><span class="label-row"><span class="label">Hilfetext</span><i data-lucide="info" class="info-small" onclick="ash('h-h')"></i></span><textarea id="cfg-h-h" oninput="applyLive()" style="height:100px;"></textarea></div>
+        </div><button class="btn-action" onclick="saveContext('hohl')">MODUL DNA SPEICHERN</button>
+    </div>
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V3.2.0 | Final Master</div>
+        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V3.3.0 | Final Master</div>
         <div class="footer-links"><a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a></div>
     </footer>
 </div>
 
 <script>
     const i18n = {
-        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", w_h: "Windlast-Prüfer", w_p: "Statik-Check", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage", help_title: "ANLEITUNG", 
-            help_r: "Geben Sie Rollendurchmesser, Kernmaß und Folienstärke nacheinander ein.", help_n: "Tragen Sie Plattenmaße, Verschnitt und Endformat ein.", help_g: "Wählen Sie Material, Dicke und Maße.", help_w: "Wählen Sie Oberfläche und Bannermaße.", help_h: "Geben Sie Stangendurchmesser und Bannerdicke ein."
+        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", w_h: "Windlast-Prüfer", w_p: "Statik-Check", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage", help_title: "ANLEITUNG", 
+            help_r: "<b>Rollen Ø:</b> Gesamtdurchmesser.<br><b>Kern:</b> Papprollenmaß.<br><b>Stärke:</b> Foliendicke.",
+            help_n: "<b>Platte:</b> Rohmaß.<br><b>Endformat:</b> Zielmaß.<br><b>Schnitt:</b> Trennverlust.",
+            help_g: "<b>Material:</b> Typ wählen.<br><b>Dicke:</b> Plattenmaß.<br><b>Format:</b> Breite/Höhe.",
+            help_w: "<b>Fläche:</b> Oberflächentyp.<br><b>Maße:</b> Bannerkanten.",
+            help_h: "<b>Stange:</b> Durchmesser Halter.<br><b>Banner:</b> Dicke für Saum."
         },
         en: { mainH: "Signmaker Tools", back: "BACK", r_h: "Roll Meter" }
     };
     const adminInfo = {
-        'c-o': "Ändert Akzentfarben und Fokus-Rahmen.", 'c-bl': "Farbe für Aktions-Buttons.", 'b-main': "Titel im Hauptmenü.", 'f-br': "Firmenname im Footer.",
-        'b-r': "Name des Rollen-Tools.", 'p-r': "Untertitel Rollen-Tool.", 'h-r': "Hilfetext Rollen-Tool.",
-        'b-n': "Name Nutzen-Tool.", 'p-n': "Untertitel Nutzen-Tool.", 'h-n': "Hilfetext Nutzen-Tool.",
-        'b-g': "Name Gewicht-Tool.", 'p-g': "Untertitel Gewicht-Tool.", 'h-g': "Hilfetext Gewicht-Tool.",
-        'b-w': "Name Wind-Tool.", 'p-w': "Untertitel Wind-Tool.", 'h-w': "Hilfetext Wind-Tool.",
-        'b-h': "Name Hohlsaum-Tool.", 'p-h': "Untertitel Hohlsaum-Tool.", 'h-h': "Hilfetext Hohlsaum-Tool."
+        'c-o': "Farbe für Trenner und Fokus-Umrandung.", 'c-bl': "Farbe für alle Aktions-Buttons.", 'b-main': "Header-Titel im Menü.", 'f-br': "Firma im Footer.",
+        'b-r': "Name des Rollen-Tools.", 'h-r': "Hilfetext Rollen-Tool.", 'b-n': "Name Nutzen-Tool.", 'h-n': "Hilfetext Nutzen-Tool.",
+        'b-g': "Name Gewicht-Tool.", 'h-g': "Hilfetext Gewicht-Tool.", 'b-w': "Name Wind-Tool.", 'h-w': "Hilfetext Wind-Tool.",
+        'b-h': "Name Hohl-Tool.", 'h-h': "Hilfetext Hohl-Tool."
     };
 
     let clks = 0, tmr, btFields = ['rD', 'rd', 'rs'], currentBtIdx = 0, activeView = 'main';
@@ -233,7 +257,7 @@
             document.getElementById('master-pin').value="";
             go((activeView === 'main') ? 'admin-global' : 'admin-' + activeView);
             loadAdminFields();
-        } else { alert("CODE FALSCH."); }
+        } else { alert("FALSCHER CODE."); }
     }
 
     function go(v) {
@@ -241,6 +265,7 @@
         const targetId = (v.startsWith('admin-')) ? v : (v === 'main' ? 'main' : 'view-' + v);
         const target = document.getElementById(targetId);
         if(!v.startsWith('admin-')) activeView = v;
+        
         const titleEl = document.getElementById('dynamic-main-title');
         const l = document.getElementById('lG').value;
         if(v === 'main') titleEl.innerText = i18n[l].mainH || i18n.de.mainH;
@@ -255,6 +280,7 @@
     function ash(key) { document.getElementById('admin-help-body').innerText = adminInfo[key] || "Info n.v."; document.getElementById('admin-help-popup').style.display = 'flex'; }
     function closeAdminHelp() { document.getElementById('admin-help-popup').style.display = 'none'; }
 
+    /* CALCS */
     function calcR() { const u = document.getElementById('uG').value; let D = parseFloat(document.getElementById('rD').value||0), d = parseFloat(document.getElementById('rd').value||0), s = parseFloat(document.getElementById('rs').value||0); if(D && d && s) { let res = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s); document.getElementById('resR').innerText = (u==='mm' ? (res/1000).toFixed(2)+" m" : (res/12).toFixed(2)+" ft"); } }
     function calcN() { let pW = parseFloat(document.getElementById('pW').value), pH = parseFloat(document.getElementById('pH').value), sW = parseFloat(document.getElementById('sW').value), sH = parseFloat(document.getElementById('sH').value), gap = parseFloat(document.getElementById('cut').value)||0; if(pW && pH && sW && sH) document.getElementById('resN').innerText = Math.floor((pW+gap)/(sW+gap)) * Math.floor((pH+gap)/(sH+gap)); }
     function calcG() { const u = document.getElementById('uG').value; let b=parseFloat(document.getElementById('gb').value), h=parseFloat(document.getElementById('gh').value), s=parseFloat(document.getElementById('gs').value), d=parseFloat(document.getElementById('gMat').value); if(b && h && s) { let kg = ((b*h)/1000000)*s*d; document.getElementById('resG').innerText = (u==='inc' ? (kg*2.204).toFixed(2)+" lbs" : kg.toFixed(2)+" kg"); } }
@@ -266,9 +292,8 @@
         ['c-o', 'c-bl'].forEach(k => { const el = document.getElementById('cfg-'+k); if(el) el.value = root.getPropertyValue('--wd-'+(k==='c-o'?'orange':'blue')).trim(); });
         if(document.getElementById('cfg-b-main')) document.getElementById('cfg-b-main').value = i18n.de.mainH;
         ['r','n','g','w','h'].forEach(k => { 
-            if(document.getElementById('cfg-b-'+k)) document.getElementById('cfg-b-'+k).value = i18n.de[k+'_h'];
-            if(document.getElementById('cfg-p-'+k)) document.getElementById('cfg-p-'+k).value = i18n.de[k+'_p'];
-            if(document.getElementById('cfg-h-'+k)) document.getElementById('cfg-h-'+k).value = (i18n.de['help_'+k] || "").replace(/<[^>]*>/g, '').replace(/<br>/g, '\n');
+            const b = document.getElementById('cfg-b-'+k), h = document.getElementById('cfg-h-'+k);
+            if(b) b.value = i18n.de[k+'_h']; if(h) h.value = (i18n.de['help_'+k] || "").replace(/<[^>]*>/g, '').replace(/<br>/g, '\n');
         });
         if(document.getElementById('cfg-f-br')) document.getElementById('cfg-f-br').value = document.getElementById('f-brand').innerText;
     }
@@ -279,9 +304,8 @@
         if(document.getElementById('cfg-c-bl')) root.setProperty('--wd-blue', document.getElementById('cfg-c-bl').value);
         if(document.getElementById('cfg-b-main')) i18n.de.mainH = document.getElementById('cfg-b-main').value;
         ['r','n','g','w','h'].forEach(k => {
-            if(document.getElementById('cfg-b-'+k)) i18n.de[k+'_h'] = document.getElementById('cfg-b-'+k).value;
-            if(document.getElementById('cfg-p-'+k)) i18n.de[k+'_p'] = document.getElementById('cfg-p-'+k).value;
-            if(document.getElementById('cfg-h-'+k)) i18n.de['help_'+k] = document.getElementById('cfg-h-'+k).value;
+            const b = document.getElementById('cfg-b-'+k), h = document.getElementById('cfg-h-'+k);
+            if(b) i18n.de[k+'_h'] = b.value; if(h) i18n.de['help_'+k] = h.value;
         });
         if(document.getElementById('cfg-f-br')) document.getElementById('f-brand').innerText = document.getElementById('cfg-f-br').value;
         changeLang();
@@ -290,21 +314,21 @@
     function saveContext(ctx) {
         const data = {
             c: [getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim(), getComputedStyle(document.documentElement).getPropertyValue('--wd-blue').trim()],
-            b: [i18n.de.mainH, i18n.de.r_h, i18n.de.r_p, i18n.de.n_h, i18n.de.n_p, i18n.de.g_h, i18n.de.g_p, i18n.de.w_h, i18n.de.w_p, i18n.de.h_h, i18n.de.h_p],
+            b: [i18n.de.mainH, i18n.de.r_h, i18n.de.n_h, i18n.de.g_h, i18n.de.w_h, i18n.de.h_h],
             f: [document.getElementById('f-brand').innerText],
             h: [i18n.de.help_r, i18n.de.help_n, i18n.de.help_g, i18n.de.help_w, i18n.de.help_h]
         };
-        localStorage.setItem('wgm_v320_master', JSON.stringify(data));
+        localStorage.setItem('wgm_v330_master', JSON.stringify(data));
         alert("SEKTIONS-DNA GESPEICHERT.");
     }
 
     function init() {
-        const saved = localStorage.getItem('wgm_v320_master');
+        const saved = localStorage.getItem('wgm_v330_master');
         if(saved) {
             const s = JSON.parse(saved);
             const root = document.documentElement.style;
             if(s.c[0]) root.setProperty('--wd-orange', s.c[0]); if(s.c[1]) root.setProperty('--wd-blue', s.c[1]);
-            if(s.b) { i18n.de.mainH = s.b[0]; i18n.de.r_h = s.b[1]; i18n.de.r_p = s.b[2]; i18n.de.n_h = s.b[3]; i18n.de.n_p = s.b[4]; i18n.de.g_h = s.b[5]; i18n.de.g_p = s.b[6]; i18n.de.w_h = s.b[7]; i18n.de.w_p = s.b[8]; i18n.de.h_h = s.b[9]; i18n.de.h_p = s.b[10]; }
+            if(s.b) { i18n.de.mainH = s.b[0]; i18n.de.r_h = s.b[1]; i18n.de.n_h = s.b[2]; i18n.de.g_h = s.b[3]; i18n.de.w_h = s.b[4]; i18n.de.h_h = s.b[5]; }
             if(s.f[0]) document.getElementById('f-brand').innerText = s.f[0];
             if(s.h) { i18n.de.help_r = s.h[0]; i18n.de.help_n = s.h[1]; i18n.de.help_g = s.h[2]; i18n.de.help_w = s.h[3]; i18n.de.help_h = s.h[4]; }
         }
@@ -314,7 +338,7 @@
     function changeLang() {
         const l = document.getElementById('lG').value;
         document.querySelectorAll('[data-t]').forEach(el => { const k = el.getAttribute('data-t'); el.innerText = i18n[l][k] || i18n.de[k]; });
-        updateAllUnits();
+        updateAllUnits(); lucide.createIcons();
     }
     function updateAllUnits() {
         const u = document.getElementById('uG').value, l = document.getElementById('lG').value;
