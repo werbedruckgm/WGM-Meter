@@ -31,7 +31,7 @@
             flex-direction: column; justify-content: center; align-items: center; 
             z-index: 3000; backdrop-filter: blur(15px); 
         }
-        #login-overlay .btn-action { max-width: 160px; height: 48px !important; flex: none; }
+        #login-overlay .btn-action { max-width: 160px; height: 48px !important; flex: none; font-size: 0.8rem; }
 
         .assist-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 215px;
@@ -47,10 +47,10 @@
         .top-nav { display: flex; justify-content: flex-end; padding: 25px 20px 5px; height: 35px; z-index: 2500; position: relative; }
         select { background: white; border: 1px solid #cbd5e1; padding: 6px; border-radius: 8px; font-weight: 800; font-size: 0.65rem; outline: none; }
         
-        .logo-area { text-align: center; padding: 5px 20px; height: 155px; position: relative; }
+        .logo-area { text-align: center; padding: 5px 20px; height: 160px; position: relative; }
         .logo-area img { max-width: 145px; cursor: pointer; }
-        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 8px 0 3px; font-weight: 900; text-transform: uppercase; }
-        .admin-title { font-size: 0.78rem; color: var(--wd-orange); font-weight: 900; margin-bottom: 10px; text-transform: uppercase; display: none; }
+        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 8px 0 5px; font-weight: 900; text-transform: uppercase; }
+        .admin-title { font-size: 0.78rem; color: var(--wd-orange); font-weight: 900; margin-bottom: 12px; text-transform: uppercase; display: none; }
         .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; }
 
         .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
@@ -70,8 +70,7 @@
         .card-text p { margin: 2px 0 0; font-size: 0.62rem; color: #64748b; font-weight: 600; }
 
         .mod-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; height: 35px; }
-        /* MINIMAL HELP ICON (BLAU OHNE BUTTON) */
-        .help-btn { width: 34px; height: 34px; color: var(--wd-blue); display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; background: transparent; transition: color 0.2s; }
+        .help-btn { width: 34px; height: 34px; color: var(--wd-blue); display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; background: transparent; }
         .help-btn.active { color: var(--wd-orange); }
 
         .input-box { margin-bottom: 12px; height: 65px; position: relative; }
@@ -87,9 +86,12 @@
         .btn-row { display: flex; gap: 10px; margin-top: 5px; height: 48px; width: 100%; align-items: center; }
         .btn-action { background: var(--wd-blue); color: white; border: none; flex: 1; border-radius: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-transform: uppercase; font-size: 0.58rem; height: 48px; }
         
-        /* MINIMAL RESET BUTTON (ICON ONLY) */
-        .btn-reset { width: 44px; height: 44px; background: transparent; color: #64748b; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex: none; transition: color 0.2s; }
-        .btn-reset:active { color: var(--wd-orange); }
+        .btn-reset { 
+            width: 44px; height: 44px; border-radius: 12px; background: #f8fafc; color: #64748b; 
+            border: 1.5px solid #cbd5e1; cursor: pointer; display: flex; align-items: center; justify-content: center; flex: none; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.06); transition: all 0.2s;
+        }
+        .btn-reset:active { transform: translateY(1px); box-shadow: 0 2px 4px rgba(0,0,0,0.04); color: var(--wd-orange); }
 
         .admin-scroll { flex: 1; overflow-y: auto; padding-right: 5px; }
         .admin-section { margin-bottom: 22px; border-bottom: 1px solid #eee; padding-bottom: 12px; }
@@ -184,14 +186,14 @@
         <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span id="t-admin_exit">ADMIN VERLASSEN</span></div></div>
         <div class="admin-scroll">
             <div id="admin-global-config" class="admin-section">
-                <h4>Globale DNA</h4>
+                <h4>Globale DNA (Design & Branding)</h4>
                 <label class="label">Hauptfarbe</label><input type="color" id="cfg-color" onchange="applyAdminLive()" style="height:35px; padding:2px; cursor:pointer;">
                 <label class="label" style="margin-top:10px;">Firma</label><input type="text" id="cfg-brand" oninput="applyAdminLive()">
                 <label class="label" style="margin-top:10px;">Impressum URL</label><input type="text" id="cfg-link1" oninput="applyAdminLive()">
                 <label class="label" style="margin-top:10px;">Datenschutz URL</label><input type="text" id="cfg-link2" oninput="applyAdminLive()">
             </div>
             <div id="admin-local-config" class="admin-section">
-                <h4>Modul-Texte</h4>
+                <h4>Modul-Texte (Pre-Fill aktiv)</h4>
                 <div id="admin-fields-list"></div>
             </div>
         </div>
@@ -200,13 +202,13 @@
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <span id="f-ver">V4.0.0 | Master-Final</span>
-        <div class="footer-links"><a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a></div>
+        <span id="f-ver">V4.0.2 | Master-Final</span>
+        <div class="footer-links"><a id="f-l1" href="https://werbedruckgm.github.io/WGM">Impressum</a> | <a id="f-l2" href="https://werbedruckgm.github.io/WGM">Datenschutz</a></div>
     </footer>
 </div>
 
 <script>
-    const VERSION = "4.0.0";
+    const VERSION = "4.0.2";
     const i18n = {
         de: {
             mainH: "Werbetechniker-Tools", admin_exit: "ADMIN VERLASSEN", bt_btn: "BT MESSCHIEBER KOPPELN",
@@ -240,17 +242,21 @@
 
     function go(v) {
         document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
-        activeView = v; helpOn = false;
-        document.getElementById('assist-overlay').style.display = 'none';
-        
         const al = document.getElementById('admin-label');
+        const tit = document.getElementById('app-title');
+        
         if(v === 'admin') {
             al.innerText = (adminCtx === 'main') ? "Admin Toolbox" : "Admin " + t(adminCtx + "_h");
             al.style.display = 'block';
+            tit.style.display = 'none';
+            openAdmin();
         } else {
             al.style.display = 'none';
+            tit.style.display = 'block';
         }
-
+        
+        activeView = v; helpOn = false;
+        document.getElementById('assist-overlay').style.display = 'none';
         const target = document.getElementById(v === 'admin' ? 'view-admin' : 'view-' + v);
         target.classList.add('active');
         if(v !== 'main' && v !== 'admin') {
@@ -267,16 +273,14 @@
         if(helpOn) { const cur = document.activeElement; if(cur && cur.id) foc(cur.id); }
     }
 
-    function foc(id) {
-        if(!id) return;
-        document.getElementById('assist-text').innerText = t('h_' + id) || "Eingabe erforderlich.";
-    }
-
+    function foc(id) { if(!id) return; document.getElementById('assist-text').innerText = t('h_' + id) || "Eingabe erforderlich."; }
     function jump(nextId) { const n = document.getElementById(nextId); if(n) n.focus(); }
 
     function updateUI() {
         const u = document.getElementById('uG').value;
-        document.getElementById('app-title').innerText = (activeView === 'main') ? t('mainH') : t(activeView + '_h');
+        if(activeView !== 'admin') {
+            document.getElementById('app-title').innerText = (activeView === 'main') ? t('mainH') : t(activeView + '_h');
+        }
         document.querySelectorAll('[id^="t-"]').forEach(el => {
             const k = el.id.replace('t-', '');
             el.innerText = t(k);
@@ -328,16 +332,16 @@
     function applyAdminLive() {
         document.documentElement.style.setProperty('--wd-orange', document.getElementById('cfg-color').value);
         document.getElementById('f-brand').innerText=document.getElementById('cfg-brand').value;
-        document.getElementById('f-l1').href=document.getElementById('cfg-link1').value;
-        document.getElementById('f-l2').href=document.getElementById('cfg-link2').value;
+        document.getElementById('f-l1').href = document.getElementById('cfg-link1').value;
+        document.getElementById('f-l2').href = document.getElementById('cfg-link2').value;
         document.querySelectorAll('[id^="cfg-"]').forEach(el => { const k=el.id.replace('cfg-',''); if(i18n.de[k]!==undefined) i18n.de[k]=el.value; });
         updateUI();
     }
 
-    function saveDNA() { localStorage.setItem('wgm_v400', JSON.stringify({ c: document.getElementById('cfg-color').value, f: document.getElementById('f-brand').innerText, v: VERSION })); alert("DNA VERSIEGELT"); }
+    function saveDNA() { localStorage.setItem('wgm_v402', JSON.stringify({ c: document.getElementById('cfg-color').value, f: document.getElementById('f-brand').innerText, v: VERSION })); alert("DNA VERSIEGELT"); }
 
     window.onload = () => {
-        const s=localStorage.getItem('wgm_v400'); if(s) { const d=JSON.parse(s); if(d.v===VERSION) { document.documentElement.style.setProperty('--wd-orange', d.c); document.getElementById('f-brand').innerText=d.f; } }
+        const s=localStorage.getItem('wgm_v402'); if(s) { const d=JSON.parse(s); if(d.v===VERSION) { document.documentElement.style.setProperty('--wd-orange', d.c); document.getElementById('f-brand').innerText=d.f; } }
         updateUI();
     };
 </script>
