@@ -314,8 +314,25 @@
     async function connectBT() { try { await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }] }); btOn=true; } catch (e) { btOn=false; } }
 
     document.getElementById('logo-trigger').addEventListener('click', () => { clks++; clearTimeout(tmr); if(clks >= 5) { document.getElementById('login-overlay').style.display='flex'; clks=0; } tmr=setTimeout(()=>clks=0, 2000); });
-    function checkAccess() { if(document.getElementById('master-pin').value === "7805") { document.getElementById('login-overlay').style.display='none'; adminCtx = activeView; go('admin'); } }
-    function closeLogin() { document.getElementById('login-overlay').style.display='none'; }
+    async function checkAccess() {
+    const input = document.getElementById('master-pin').value;
+    const msgUint8 = new TextEncoder().encode(input);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+    // Der digitale Fingerabdruck für die PIN "****"
+    const masterHash = "6bc537b01955b54637f90f3c5553e925b4104d49a622a843584ef2f767a18835";
+
+    if (hashHex === masterHash) {
+        document.getElementById('login-overlay').style.display = 'none';
+        adminCtx = activeView;
+        go('admin');
+    } else {
+        alert("Zugriff verweigert. Die Sittenwächter schauen zu.");
+        document.getElementById('master-pin').value = "";
+    }
+}
 
     function openAdmin() {
         const g=document.getElementById('admin-global-config'), l=document.getElementById('admin-fields-list'), ctx=adminCtx;
