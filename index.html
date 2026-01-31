@@ -8,8 +8,8 @@
     <style>
         :root {
             --wd-orange: #e67e22; --wd-blue: #3b82f6; --wd-dark: #1e293b;
-            --bg-body: #cbd5e1; --bg-shell: #ffffff; --card-bg: #ffffff;
-            --icon-bg: #f8fafc; --label-color: #475569; --app-width: 320px;
+            --bg-body: #cbd5e1; --bg-app: #ffffff; --card-bg: #ffffff;
+            --icon-bg: #f8fafc; --app-width: 320px;
         }
         html, body { 
             height: 100%; margin: 0; padding: 0; background: var(--bg-body); 
@@ -18,7 +18,7 @@
         }
         .app-shell {
             width: var(--app-width); height: 95vh; max-height: 780px;
-            background: var(--bg-shell); color: var(--wd-dark);
+            background: var(--bg-app); color: var(--wd-dark);
             display: flex; flex-direction: column; overflow: hidden;
             border-radius: 40px; position: relative; 
             box-shadow: 0 40px 100px rgba(0,0,0,0.25); 
@@ -74,7 +74,7 @@
         .help-btn.active { color: var(--wd-orange); }
 
         .input-box { margin-bottom: 12px; height: 65px; position: relative; }
-        .label { font-size: 0.6rem; color: var(--label-color); font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
+        .label { font-size: 0.6rem; color: #475569; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
         input, select.in-view { width: 100%; height: 42px; padding: 0 12px; border-radius: 12px; border: 2.5px solid #cbd5e1; font-size: 0.88rem; font-weight: 800; outline: none; background: #fff; box-sizing: border-box; }
         input:focus { border: 3.5px solid var(--wd-orange) !important; box-shadow: 0 0 12px rgba(230, 126, 34, 0.2); }
 
@@ -166,21 +166,34 @@
         <div class="btn-row" style="justify-content:center;"><button class="btn-reset" onclick="resetForm('gew')"><i data-lucide="refresh-cw"></i></button></div>
     </div>
 
+    <div id="view-wind" class="view">
+        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_w">ZURÜCK</span></div><div class="help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
+        <div class="input-box"><span class="label" id="t-wMat_l">Material-DNA</span><select id="wMat" class="in-view" onchange="calcW(); jump('wb')" onfocus="foc('wMat')"></select></div>
+        <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" id="t-wb_l" data-u>Breite</span><input type="number" id="wb" value="2000" onfocus="foc('wb')" oninput="calcW()" onchange="jump('wh')"></div><div class="input-box" style="flex:1;"><span class="label" id="t-wh_l" data-u>Höhe</span><input type="number" id="wh" value="1000" onfocus="foc('wh')" oninput="calcW()"></div></div>
+        <div class="res-card"><span id="resW" class="res-num">0 N</span><span class="res-info" id="t-w_res">Windlast bei 120 km/h</span></div>
+        <div class="btn-row" style="justify-content:center;"><button class="btn-reset" onclick="resetForm('wind')"><i data-lucide="refresh-cw"></i></button></div>
+    </div>
+
+    <div id="view-hohl" class="view">
+        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_h">ZURÜCK</span></div><div class="help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
+        <div class="input-box"><span class="label" id="t-hd_l" data-u>Stangen Ø</span><input type="number" id="hd" value="30" onfocus="foc('hd')" onchange="jump('hsd')" oninput="calcH()"></div>
+        <div class="input-box"><span class="label" id="t-hsd_l" data-u>Materialdicke</span><input type="number" id="hsd" value="0.5" onfocus="foc('hsd')" oninput="calcH()"></div>
+        <div class="res-card"><span id="resH" class="res-num">0.0 mm</span><span class="res-info" id="t-h_p">Hohlsaum-Zugabe</span></div>
+        <div class="btn-row" style="justify-content:center;"><button class="btn-reset" onclick="resetForm('hohl')"><i data-lucide="refresh-cw"></i></button></div>
+    </div>
+
     <div id="view-admin" class="view">
         <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span id="t-admin_exit">ADMIN VERLASSEN</span></div></div>
         <div class="admin-scroll">
             <div id="admin-global-config" class="admin-section">
-                <h4>Globale DNA (V4.1.0-PRE)</h4>
-                <label class="label">Hauptfarbe (Akzent)</label><input type="color" id="cfg-color" onchange="applyAdminLive()" style="height:35px; padding:2px; cursor:pointer;">
-                <label class="label" style="margin-top:10px;">Hintergrund (Shell)</label><input type="color" id="cfg-bg-shell" onchange="applyAdminLive()" style="height:35px; padding:2px; cursor:pointer;">
-                <label class="label" style="margin-top:10px;">Label-Farbe</label><input type="color" id="cfg-label-color" onchange="applyAdminLive()" style="height:35px; padding:2px; cursor:pointer;">
+                <h4>Globale DNA (Design & Branding)</h4>
+                <label class="label">Hauptfarbe</label><input type="color" id="cfg-color" onchange="applyAdminLive()" style="height:35px; padding:2px; cursor:pointer;">
                 <label class="label" style="margin-top:10px;">Firma</label><input type="text" id="cfg-brand" oninput="applyAdminLive()">
-                <label class="label" style="margin-top:10px;">Versionsnummer</label><input type="text" id="cfg-ver-num" oninput="applyAdminLive()" placeholder="V4.1.0">
                 <label class="label" style="margin-top:10px;">Impressum URL</label><input type="text" id="cfg-link1" oninput="applyAdminLive()">
                 <label class="label" style="margin-top:10px;">Datenschutz URL</label><input type="text" id="cfg-link2" oninput="applyAdminLive()">
             </div>
             <div id="admin-local-config" class="admin-section">
-                <h4>Modul-Texte</h4>
+                <h4>Modul-Texte (Pre-Fill aktiv)</h4>
                 <div id="admin-fields-list"></div>
             </div>
         </div>
@@ -189,12 +202,13 @@
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <span id="f-ver">V4.1.0 | Master-Final</span>
+        <span id="f-ver">V4.0.2 | Master-Final</span>
         <div class="footer-links"><a id="f-l1" href="https://werbedruckgm.github.io/WGM">Impressum</a> | <a id="f-l2" href="https://werbedruckgm.github.io/WGM">Datenschutz</a></div>
     </footer>
 </div>
 
 <script>
+    const VERSION = "4.0.2";
     const i18n = {
         de: {
             mainH: "Werbetechniker-Tools", admin_exit: "ADMIN VERLASSEN", bt_btn: "BT MESSCHIEBER KOPPELN",
@@ -222,7 +236,7 @@
         'poly': { n: 'Polystyrol', d: 1.05, t: 'p', w: 1.0 }, 'stahl': { n: 'Stahlblech verzinkt', d: 7.8, t: 'p', w: 1.0 }, 'mag': { n: 'Magnetfolie', d: 3.5, t: 'r', w: 1.0 },
         'mesh': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }, 'mesh_p': { n: 'Mesh Wind-Pro', d: 0.25, t: 'r', w: 0.4 }, 'lkw': { n: 'LKW Plane (Frontlit)', d: 0.55, t: 'r', w: 1.0 }, 'block': { n: 'Blockout Banner', d: 0.8, t: 'r', w: 1.0 }
     };
-    let activeView = 'main', helpOn = false, btOn = false, clks = 0, tmr, adminCtx = 'main';
+    let activeView = 'main', clks = 0, helpOn = false, btOn = false, tmr, adminCtx = 'main';
 
     function t(k) { return i18n.de[k] || "!!"; }
 
@@ -230,13 +244,19 @@
         document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
         const al = document.getElementById('admin-label');
         const tit = document.getElementById('app-title');
+        
         if(v === 'admin') {
             al.innerText = (adminCtx === 'main') ? "Admin Toolbox" : "Admin " + t(adminCtx + "_h");
-            al.style.display = 'block'; tit.style.display = 'none'; openAdmin();
+            al.style.display = 'block';
+            tit.style.display = 'none';
+            openAdmin();
         } else {
-            al.style.display = 'none'; tit.style.display = 'block';
+            al.style.display = 'none';
+            tit.style.display = 'block';
         }
-        activeView = v; helpOn = false; document.getElementById('assist-overlay').style.display = 'none';
+        
+        activeView = v; helpOn = false;
+        document.getElementById('assist-overlay').style.display = 'none';
         const target = document.getElementById(v === 'admin' ? 'view-admin' : 'view-' + v);
         target.classList.add('active');
         if(v !== 'main' && v !== 'admin') {
@@ -258,24 +278,37 @@
 
     function updateUI() {
         const u = document.getElementById('uG').value;
-        if(activeView !== 'admin') { document.getElementById('app-title').innerText = (activeView === 'main') ? t('mainH') : t(activeView + '_h'); }
+        if(activeView !== 'admin') {
+            document.getElementById('app-title').innerText = (activeView === 'main') ? t('mainH') : t(activeView + '_h');
+        }
         document.querySelectorAll('[id^="t-"]').forEach(el => {
-            const k = el.id.replace('t-', ''); el.innerText = t(k);
+            const k = el.id.replace('t-', '');
+            el.innerText = t(k);
             if(el.hasAttribute('data-u')) el.innerText += ` (${u})`;
         });
+        if(['wind','gew'].includes(activeView)) {
+            const sel = document.getElementById(activeView === 'wind' ? 'wMat' : 'gMat');
+            if(!sel.options.length) for(let k in materials) sel.add(new Option(materials[k].n, k));
+        }
+        if(activeView === 'gew' && !document.getElementById('gStd').options.length) {
+            [1,2,3,4,5,8,10,15,19,20,30].forEach(v => document.getElementById('gStd').add(new Option(v + " mm", v)));
+        }
         if (window.lucide) lucide.createIcons();
     }
 
     function resetForm(v) {
         const view = document.getElementById('view-' + v);
         view.querySelectorAll('input').forEach(i => i.value = i.defaultValue || "");
-        const res = view.querySelector('.res-num'); if(res) res.innerText = (v === 'nutzen') ? "0" : "0.00";
+        const res = view.querySelector('.res-num'); if(res) res.innerText = (v === 'nutzen' || v === 'wind') ? "0" : "0.00";
+        const first = view.querySelector('input'); if(first) first.focus();
     }
 
     function applyPreset() { document.getElementById('gs').value = document.getElementById('gStd').value; calcG(); }
     function calcR() { let D=parseFloat(document.getElementById('rD').value||0), d=parseFloat(document.getElementById('rd').value||0), s=parseFloat(document.getElementById('rs').value||0); if(D && d && s) document.getElementById('resR').innerText = ((Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s) / 1000).toFixed(2) + " m"; }
     function calcN() { let pW=parseFloat(document.getElementById('pW').value||0), pH=parseFloat(document.getElementById('pH').value||0), sW=parseFloat(document.getElementById('sW').value||0), sH=parseFloat(document.getElementById('sH').value||0), c=parseFloat(document.getElementById('cut').value||0); if(pW && pH && sW && sH) document.getElementById('resN').innerText = Math.floor((pW+c)/(sW+c)) * Math.floor((pH+c)/(sH+c)); }
     function calcG() { const m=materials[document.getElementById('gMat').value]; let b=parseFloat(document.getElementById('gb').value||0), h=parseFloat(document.getElementById('gh').value||0), s=parseFloat(document.getElementById('gs').value||0); if(b && h && s && m) { let kg = (m.t === 'p') ? ((b*h)/1000000)*s*m.d : ((b*h)/1000000)*s; document.getElementById('resG').innerText = kg.toFixed(2)+" kg"; } }
+    function calcW() { const m=materials[document.getElementById('wMat').value]; let b=parseFloat(document.getElementById('wb').value||0), h=parseFloat(document.getElementById('wh').value||0); if(b && h && m) document.getElementById('resW').innerText = Math.round(((b*h)/1000000)*500*m.w)+" N"; }
+    function calcH() { let d=parseFloat(document.getElementById('hd').value||0), s=parseFloat(document.getElementById('hsd').value||0); if(d) document.getElementById('resH').innerText = ((Math.PI*d)+(2*s)+10).toFixed(1)+" mm"; }
 
     function updateMaterialLogic() { const m=materials[document.getElementById('gMat').value]; document.getElementById('row-thickness-preset').style.display=(m.t==='p')?'block':'none'; document.getElementById('gs').value=(m.t==='p')?3:m.d; calcG(); }
     async function connectBT() { try { await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }] }); btOn=true; } catch (e) { btOn=false; } }
@@ -286,44 +319,29 @@
 
     function openAdmin() {
         const g=document.getElementById('admin-global-config'), l=document.getElementById('admin-fields-list'), ctx=adminCtx;
-        const stl=getComputedStyle(document.documentElement);
         g.style.display=(ctx==='main')?'block':'none';
-        document.getElementById('cfg-color').value=stl.getPropertyValue('--wd-orange').trim();
-        document.getElementById('cfg-bg-shell').value=stl.getPropertyValue('--bg-shell').trim();
-        document.getElementById('cfg-label-color').value=stl.getPropertyValue('--label-color').trim();
+        document.getElementById('cfg-color').value=getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim();
         document.getElementById('cfg-brand').value=document.getElementById('f-brand').innerText;
-        document.getElementById('cfg-ver-num').value=document.getElementById('f-ver').innerText;
         document.getElementById('cfg-link1').value=document.getElementById('f-l1').href;
         document.getElementById('cfg-link2').value=document.getElementById('f-l2').href;
         l.innerHTML='';
-        const list=(ctx==='main')?['rollen_h','nutzen_h','gew_h']:[ctx+'_h','back_'+ctx.charAt(0)];
+        const list=(ctx==='main')?['rollen_h','nutzen_h','gew_h','wind_h','hohl_h']:[ctx+'_h','back_'+ctx.charAt(0)];
         list.forEach(k=>{ if(i18n.de[k]) l.innerHTML+=`<label class="label">${k}</label><input type="text" id="cfg-${k}" value="${i18n.de[k]}" oninput="applyAdminLive()" style="margin-bottom:12px;">`; });
     }
 
     function applyAdminLive() {
-        const r = document.documentElement;
-        r.style.setProperty('--wd-orange', document.getElementById('cfg-color').value);
-        r.style.setProperty('--bg-shell', document.getElementById('cfg-bg-shell').value);
-        r.style.setProperty('--label-color', document.getElementById('cfg-label-color').value);
+        document.documentElement.style.setProperty('--wd-orange', document.getElementById('cfg-color').value);
         document.getElementById('f-brand').innerText=document.getElementById('cfg-brand').value;
-        document.getElementById('f-ver').innerText=document.getElementById('cfg-ver-num').value;
-        document.getElementById('f-l1').href=document.getElementById('cfg-link1').value;
-        document.getElementById('f-l2').href=document.getElementById('cfg-link2').value;
+        document.getElementById('f-l1').href = document.getElementById('cfg-link1').value;
+        document.getElementById('f-l2').href = document.getElementById('cfg-link2').value;
         document.querySelectorAll('[id^="cfg-"]').forEach(el => { const k=el.id.replace('cfg-',''); if(i18n.de[k]!==undefined) i18n.de[k]=el.value; });
         updateUI();
     }
 
-    function saveDNA() { 
-        const dna = { c: document.getElementById('cfg-color').value, b: document.getElementById('cfg-bg-shell').value, l: document.getElementById('cfg-label-color').value, f: document.getElementById('f-brand').innerText, v: document.getElementById('f-ver').innerText };
-        localStorage.setItem('wgm_v410', JSON.stringify(dna)); alert("DNA VERSIEGELT"); 
-    }
+    function saveDNA() { localStorage.setItem('wgm_v402', JSON.stringify({ c: document.getElementById('cfg-color').value, f: document.getElementById('f-brand').innerText, v: VERSION })); alert("DNA VERSIEGELT"); }
 
     window.onload = () => {
-        const s=localStorage.getItem('wgm_v410'); if(s) { 
-            const d=JSON.parse(s); const r=document.documentElement;
-            r.style.setProperty('--wd-orange', d.c); r.style.setProperty('--bg-shell', d.b); r.style.setProperty('--label-color', d.l);
-            document.getElementById('f-brand').innerText=d.f; document.getElementById('f-ver').innerText=d.v; 
-        }
+        const s=localStorage.getItem('wgm_v402'); if(s) { const d=JSON.parse(s); if(d.v===VERSION) { document.documentElement.style.setProperty('--wd-orange', d.c); document.getElementById('f-brand').innerText=d.f; } }
         updateUI();
     };
 </script>
