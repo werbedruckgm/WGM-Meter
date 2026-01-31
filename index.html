@@ -37,7 +37,7 @@
         .help-content p { font-size: 0.75rem; line-height: 1.6; margin-bottom: 12px; color: #334155; }
 
         .top-nav { display: flex; justify-content: space-between; padding: 30px 20px 5px; }
-        select, .admin-input { background: white; border: 1px solid #cbd5e1; padding: 8px; border-radius: 10px; font-weight: 800; font-size: 0.7rem; outline: none; }
+        select { background: white; border: 1px solid #cbd5e1; padding: 8px; border-radius: 10px; font-weight: 800; font-size: 0.7rem; outline: none; }
         
         .logo-area { text-align: center; padding: 10px 20px; }
         .logo-area img { max-width: 150px; height: auto; cursor: pointer; }
@@ -70,7 +70,6 @@
         .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.7rem; margin-bottom: 15px; }
         .btn-action { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; text-transform: uppercase; font-size: 0.75rem; }
         .btn-reset { background: #cbd5e1; color: var(--wd-dark); width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
-        .btn-logout { background: #64748b; color: white; border: none; padding: 8px 12px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.65rem; text-transform: uppercase; }
 
         .admin-scroll { flex: 1; overflow-y: auto; padding-right: 5px; }
         .admin-section { margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
@@ -104,7 +103,7 @@
         <select id="uG" onchange="updateAllUnits()"><option value="mm">mm</option><option value="inc">inc</option></select>
         <select id="lG" onchange="changeLang()">
             <option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="es">ES</option>
-            <option value="it">IT</option><option value="nl">NL</option><option value="pl">PL</option><option value="ru">RU</option>
+            <option value="it">IT</option>
         </select>
     </div>
 
@@ -163,53 +162,59 @@
     </div>
 
     <div id="admin-global" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; align-items:center;"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div></div>
+        <div class="view-header"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div></div>
         <div class="admin-scroll">
             <div class="admin-section"><h4>Design DNA</h4><div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label">Akzent</span><input type="color" id="cfg-c-o" onchange="applyLive()"></div><div class="input-box" style="flex:1;"><span class="label">Buttons</span><input type="color" id="cfg-c-bl" onchange="applyLive()"></div></div></div>
-            <div class="admin-section"><h4>UI & Footer Editor</h4>
+            <div class="admin-section"><h4>UI & Footer</h4>
                 <div class="input-box"><span class="label">App Titel</span><input type="text" id="cfg-b-main" oninput="applyLive()"></div>
                 <div class="input-box"><span class="label">Firma</span><input type="text" id="cfg-f-br" oninput="applyLive()"></div>
-                <div class="input-box"><span class="label">Status</span><input type="text" id="cfg-f-st" oninput="applyLive()"></div>
                 <div style="display:flex; gap:5px;"><input type="text" id="cfg-f-l1t" placeholder="L1 Text" oninput="applyLive()" style="flex:1;"><input type="text" id="cfg-f-l1u" placeholder="L1 URL" oninput="applyLive()" style="flex:1;"></div>
                 <div style="display:flex; gap:5px; margin-top:5px;"><input type="text" id="cfg-f-l2t" placeholder="L2 Text" oninput="applyLive()" style="flex:1;"><input type="text" id="cfg-f-l2u" placeholder="L2 URL" oninput="applyLive()" style="flex:1;"></div>
             </div>
         </div>
-        <button class="btn-action" onclick="saveContext('global')">GLOBAL DNA SPEICHERN</button>
+        <button class="btn-action" onclick="saveContext('global')">SPEICHERN</button>
     </div>
 
-    <div id="admin-rollen" class="view"><div class="view-header"><div class="back-btn" onclick="go('rollen')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Rollen DNA</h4><div class="input-box"><span class="label">Titel</span><input type="text" id="cfg-b-r" oninput="applyLive()"></div><div class="input-box"><span class="label">Hilfe</span><textarea id="cfg-h-r" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('rollen')">ROLLEN DNA SPEICHERN</button></div>
-    <div id="admin-nutzen" class="view"><div class="view-header"><div class="back-btn" onclick="go('nutzen')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Nutzen DNA</h4><div class="input-box"><span class="label">Titel</span><input type="text" id="cfg-b-n" oninput="applyLive()"></div><div class="input-box"><span class="label">Hilfe</span><textarea id="cfg-h-n" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('nutzen')">NUTZEN DNA SPEICHERN</button></div>
-    <div id="admin-gew" class="view"><div class="view-header"><div class="back-btn" onclick="go('gew')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Gewicht DNA</h4><div class="input-box"><span class="label">Titel</span><input type="text" id="cfg-b-g" oninput="applyLive()"></div><div class="input-box"><span class="label">Hilfe</span><textarea id="cfg-h-g" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('gew')">GEWICHT DNA SPEICHERN</button></div>
-    <div id="admin-wind" class="view"><div class="view-header"><div class="back-btn" onclick="go('wind')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Windlast DNA</h4><div class="input-box"><span class="label">Titel</span><input type="text" id="cfg-b-w" oninput="applyLive()"></div><div class="input-box"><span class="label">Hilfe</span><textarea id="cfg-h-w" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('wind')">WIND DNA SPEICHERN</button></div>
-    <div id="admin-hohl" class="view"><div class="view-header"><div class="back-btn" onclick="go('hohl')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Hohlsaum DNA</h4><div class="input-box"><span class="label">Titel</span><input type="text" id="cfg-b-h" oninput="applyLive()"></div><div class="input-box"><span class="label">Hilfe</span><textarea id="cfg-h-h" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('hohl')">HOHL DNA SPEICHERN</button></div>
+    <div id="admin-rollen" class="view"><div class="view-header"><div class="back-btn" onclick="go('rollen')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Rollen DNA</h4><input type="text" id="cfg-b-r" oninput="applyLive()"><textarea id="cfg-h-r" oninput="applyLive()" style="height:100px; margin-top:10px;"></textarea></div></div><button class="btn-action" onclick="saveContext('rollen')">SPEICHERN</button></div>
+    <div id="admin-nutzen" class="view"><div class="view-header"><div class="back-btn" onclick="go('nutzen')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Nutzen DNA</h4><input type="text" id="cfg-b-n" oninput="applyLive()"><textarea id="cfg-h-n" oninput="applyLive()" style="height:100px; margin-top:10px;"></textarea></div></div><button class="btn-action" onclick="saveContext('nutzen')">SPEICHERN</button></div>
+    <div id="admin-gew" class="view"><div class="view-header"><div class="back-btn" onclick="go('gew')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Gewicht DNA</h4><input type="text" id="cfg-b-g" oninput="applyLive()"><textarea id="cfg-h-g" oninput="applyLive()" style="height:100px; margin-top:10px;"></textarea></div></div><button class="btn-action" onclick="saveContext('gew')">SPEICHERN</button></div>
+    <div id="admin-wind" class="view"><div class="view-header"><div class="back-btn" onclick="go('wind')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Wind DNA</h4><input type="text" id="cfg-b-w" oninput="applyLive()"><textarea id="cfg-h-w" oninput="applyLive()" style="height:100px; margin-top:10px;"></textarea></div></div><button class="btn-action" onclick="saveContext('wind')">SPEICHERN</button></div>
+    <div id="admin-hohl" class="view"><div class="view-header"><div class="back-btn" onclick="go('hohl')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Hohlsaum DNA</h4><input type="text" id="cfg-b-h" oninput="applyLive()"><textarea id="cfg-h-h" oninput="applyLive()" style="height:100px; margin-top:10px;"></textarea></div></div><button class="btn-action" onclick="saveContext('hohl')">SPEICHERN</button></div>
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V3.7.5 | Final Versiegelung</div>
+        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V3.7.6 | Visual Integrity</div>
         <div class="footer-links"><a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a></div>
     </footer>
 </div>
 
 <script>
-    const VERSION = "3.7.5";
+    const VERSION = "3.7.6";
     const i18n = {
         de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_cut: "Schnittbreite", n_sb: "Schild B", n_sh: "Schild H", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gewicht", mat: "Material", gb: "Breite", gh: "Höhe", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windkraft", wb: "Breite", wh: "Höhe", h_h: "Hohlsaum-Profi", h_p: "Zugabe", hd: "Stangen Ø", hsd: "Materialdicke", g_std: "Standard-Stärken", w_t: "ABWEICHUNG VOM STANDARD!", help_title: "ANLEITUNG" }
     };
     const materials = {
-        'alu': { n: 'Aluminium', d: 2.7, t: 'p', s: 2, w: 1.0 }, 'alu_v': { n: 'Alu-Verbund', d: 1.2, t: 'p', s: 3, w: 1.0 }, 'glas': { n: 'Glas', d: 2.5, t: 'p', s: 4, w: 1.0 }, 'v2a': { n: 'Edelstahl', d: 7.9, t: 'p', s: 2, w: 1.0 }, 'pvc_h': { n: 'Forex', d: 0.55, t: 'p', s: 3, w: 1.0 }, 'sieb': { n: 'Siebdruckplatte', d: 0.75, t: 'p', s: 9, w: 1.0 }, 'mdf': { n: 'MDF Platte', d: 0.75, t: 'p', s: 10, w: 1.0 }, 'mplx': { n: 'Multiplex', d: 0.7, t: 'p', s: 15, w: 1.0 }, 'pc': { n: 'Polycarbonat', d: 1.2, t: 'p', s: 5, w: 1.0 }, 'mesh_s': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }, 'mesh_w': { n: 'Mesh Wind-Pro', d: 0.25, t: 'r', w: 0.4 }, 'lkw': { n: 'LKW Plane', d: 0.9, t: 'r', w: 1.0 }
+        'alu': { n: 'Aluminium', d: 2.7, t: 'p', s: 2, w: 1.0 }, 'alu_v': { n: 'Alu-Verbund', d: 1.2, t: 'p', s: 3, w: 1.0 }, 'glas': { n: 'Glas', d: 2.5, t: 'p', s: 4, w: 1.0 }, 'v2a': { n: 'Edelstahl', d: 7.9, t: 'p', s: 2, w: 1.0 }, 'pvc_h': { n: 'Forex', d: 0.55, t: 'p', s: 3, w: 1.0 }, 'sieb': { n: 'Siebdruckplatte', d: 0.75, t: 'p', s: 9, w: 1.0 }, 'mdf': { n: 'MDF Platte', d: 0.75, t: 'p', s: 10, w: 1.0 }, 'mplx': { n: 'Multiplex', d: 0.7, t: 'p', s: 15, w: 1.0 }, 'mesh_s': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }
     };
     const thicknessPresets = [1, 2, 3, 4, 5, 8, 10, 15, 20, 30];
-    let clks = 0, tmr, activeView = 'main', iconRetry = 0;
+    let activeView = 'main', clks = 0, tmr;
 
-    function renderIcons() {
-        if (window.lucide) { lucide.createIcons(); iconRetry = 0; } 
-        else if (iconRetry < 10) { iconRetry++; setTimeout(renderIcons, 200); }
+    // DIE ENTSCHEIDENDE FUNKTION: Rekursive Validierung der Ikonen [cite: 2026-01-31]
+    function ensureIcons(retries = 15) {
+        if (window.lucide) {
+            lucide.createIcons();
+            // Validierung: Sind SVGs im DOM?
+            const rendered = document.querySelectorAll('svg.lucide').length;
+            const target = document.querySelectorAll('i[data-lucide]').length;
+            if (rendered < target && retries > 0) {
+                setTimeout(() => ensureIcons(retries - 1), 100);
+            }
+        } else if (retries > 0) {
+            setTimeout(() => ensureIcons(retries - 1), 200);
+        }
     }
 
-    function t(key) {
-        const l = document.getElementById('lG').value;
-        return (i18n[l] && i18n[l][key]) ? i18n[l][key] : (i18n.de[key] || "!!MISSING!!");
-    }
+    function t(k) { const l = document.getElementById('lG').value; return (i18n[l] && i18n[l][k]) ? i18n[l][k] : (i18n.de[k] || "!!"); }
 
     document.getElementById('logo-trigger').addEventListener('click', () => {
         clks++; clearTimeout(tmr); if(clks >= 5) { document.getElementById('login-overlay').style.display='flex'; clks=0; }
@@ -220,7 +225,7 @@
         if(document.getElementById('master-pin').value === "7805") {
             document.getElementById('login-overlay').style.display='none';
             go((activeView === 'main') ? 'admin-global' : 'admin-' + activeView); loadAdminFields();
-        } else { alert("ZUGRIFF VERWEIGERT."); }
+        } else { alert("PIN FALSCH."); }
     }
 
     function go(v) {
@@ -228,10 +233,10 @@
         const targetId = (v.startsWith('admin-')) ? v : (v === 'main' ? 'main' : 'view-' + v);
         if(!v.startsWith('admin-')) activeView = v;
         if(v === 'main') document.getElementById('dynamic-main-title').innerText = t('mainH');
-        else if(!v.startsWith('admin-')) document.getElementById('dynamic-main-title').innerText = t(v === 'rollen' ? 'r_h' : v === 'nutzen' ? 'n_h' : v === 'gew' ? 'g_h' : v === 'wind' ? 'w_h' : v === 'hohl' ? 'h_h' : 'mainH');
+        else if(!v.startsWith('admin-')) document.getElementById('dynamic-main-title').innerText = t(v+'_h');
         document.getElementById(targetId).classList.add('active');
         if(v === 'gew' || v === 'wind') updateMaterialLogic();
-        renderIcons();
+        ensureIcons();
     }
 
     function updateMaterialLogic() {
@@ -256,12 +261,12 @@
         calcG(); calcW();
     }
 
-    function calcR() { const u = document.getElementById('uG').value; let D = parseFloat(document.getElementById('rD').value||0), d = parseFloat(document.getElementById('rd').value||0), s = parseFloat(document.getElementById('rs').value||0); if(D && d && s) { let res = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s); document.getElementById('resR').innerText = (u==='mm' ? (res/1000).toFixed(2)+" m" : (res/12).toFixed(2)+" ft"); } }
+    function calcR() { let D = parseFloat(document.getElementById('rD').value||0), d = parseFloat(document.getElementById('rd').value||0), s = parseFloat(document.getElementById('rs').value||0); if(D && d && s) { let res = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s); document.getElementById('resR').innerText = (res/1000).toFixed(2)+" m"; } }
     function calcN() { let pW = parseFloat(document.getElementById('pW').value), pH = parseFloat(document.getElementById('pH').value), sW = parseFloat(document.getElementById('sW').value), sH = parseFloat(document.getElementById('sH').value), gap = parseFloat(document.getElementById('cut').value)||0; if(pW && pH && sW && sH) document.getElementById('resN').innerText = Math.floor((pW+gap)/(sW+gap)) * Math.floor((pH+gap)/(sH+gap)); }
     function calcG() { 
-        const u = document.getElementById('uG').value, m = materials[document.getElementById('gMat').value];
+        const m = materials[document.getElementById('gMat').value];
         let b = parseFloat(document.getElementById('gb').value||0), h = parseFloat(document.getElementById('gh').value||0), s = parseFloat(document.getElementById('gs').value||0);
-        if(b && h && s) { let kg = (m.t === 'p') ? ((b * h) / 1000000) * s * m.d : ((b * h) / 1000000) * s; document.getElementById('resG').innerText = (u === 'inc' ? (kg * 2.204).toFixed(2) + " lbs" : kg.toFixed(2) + " kg"); }
+        if(b && h && s) { let kg = (m.t === 'p') ? ((b * h) / 1000000) * s * m.d : ((b * h) / 1000000) * s; document.getElementById('resG').innerText = kg.toFixed(2) + " kg"; }
     }
     function calcW() {
         const m = materials[document.getElementById('gMat').value]; let b = parseFloat(document.getElementById('wb').value||0), h = parseFloat(document.getElementById('wh').value||0);
@@ -269,13 +274,11 @@
     }
     function calcH() { let d=parseFloat(document.getElementById('hd').value), s=parseFloat(document.getElementById('hsd').value); if(d) document.getElementById('resH').innerText = ((Math.PI*d)+(2*s)+10).toFixed(1) + " mm"; }
 
-    async function connectBluetooth() { try { const device = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }, { namePrefix: 'Mahr' }] }); alert("CONNECTED: " + device.name); } catch (e) { alert("BT ERROR: " + e.message); } }
+    async function connectBluetooth() { try { const device = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }, { namePrefix: 'Mahr' }] }); alert("CONNECTED: " + device.name); } catch (e) { alert("BT ERROR"); } }
     function resetBtSequence() { document.querySelectorAll('input').forEach(e=>e.classList.remove('bt-active')); }
-    function ash(k) { document.getElementById('admin-help-body').innerText = adminInfo[k] || "Info n.v."; document.getElementById('admin-help-popup').style.display = 'flex'; }
-    function closeAdminHelp() { document.getElementById('admin-help-popup').style.display = 'none'; }
+    function closeLogin() { document.getElementById('login-overlay').style.display = 'none'; }
     function closeHelp() { document.getElementById('help-popup').style.display = 'none'; }
     function openHelp(m) { document.getElementById('help-title').innerText = "INFO"; document.getElementById('help-body').innerHTML = t('help_'+m); document.getElementById('help-popup').style.display = 'flex'; }
-    function closeLogin() { document.getElementById('login-overlay').style.display = 'none'; }
 
     function loadAdminFields() {
         const root = getComputedStyle(document.documentElement);
@@ -283,11 +286,8 @@
         document.getElementById('cfg-b-main').value = i18n.de.mainH;
         ['r','n','g','w','h'].forEach(k => { const b = document.getElementById('cfg-b-'+k), h = document.getElementById('cfg-h-'+k); if(b) b.value = i18n.de[k+'_h']; if(h) h.value = (i18n.de['help_'+k] || "").replace(/<[^>]*>/g, '').replace(/<br>/g, '\n'); });
         document.getElementById('cfg-f-br').value = document.getElementById('f-brand').innerText;
-        document.getElementById('cfg-f-st').value = document.getElementById('f-status').innerText;
         document.getElementById('cfg-f-l1t').value = document.getElementById('f-l1').innerText;
         document.getElementById('cfg-f-l1u').value = document.getElementById('f-l1').getAttribute('href');
-        document.getElementById('cfg-f-l2t').value = document.getElementById('f-l2').innerText;
-        document.getElementById('cfg-f-l2u').value = document.getElementById('f-l2').getAttribute('href');
     }
 
     function applyLive() {
@@ -297,11 +297,6 @@
         i18n.de.mainH = document.getElementById('cfg-b-main').value;
         ['r','n','g','w','h'].forEach(k => { const b = document.getElementById('cfg-b-'+k), h = document.getElementById('cfg-h-'+k); if(b) i18n.de[k+'_h'] = b.value; if(h) i18n.de['help_'+k] = h.value; });
         document.getElementById('f-brand').innerText = document.getElementById('cfg-f-br').value;
-        document.getElementById('f-status').innerText = document.getElementById('cfg-f-st').value;
-        document.getElementById('f-l1').innerText = document.getElementById('cfg-f-l1t').value;
-        document.getElementById('f-l1').setAttribute('href', document.getElementById('cfg-f-l1u').value);
-        document.getElementById('f-l2').innerText = document.getElementById('cfg-f-l2t').value;
-        document.getElementById('f-l2').setAttribute('href', document.getElementById('cfg-f-l2u').value);
         changeLang();
     }
 
@@ -309,11 +304,33 @@
         const data = {
             c: [getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim(), getComputedStyle(document.documentElement).getPropertyValue('--wd-blue').trim()],
             b: [i18n.de.mainH, i18n.de.r_h, i18n.de.n_h, i18n.de.g_h, i18n.de.w_h, i18n.de.h_h],
-            f: [document.getElementById('f-brand').innerText, document.getElementById('f-status').innerText, document.getElementById('f-l1').innerText, document.getElementById('f-l1').getAttribute('href'), document.getElementById('f-l2').innerText, document.getElementById('f-l2').getAttribute('href')],
-            h: [i18n.de.help_r, i18n.de.help_n, i18n.de.help_g, i18n.de.help_w, i18n.de.help_h],
+            f: [document.getElementById('f-brand').innerText, document.getElementById('f-l1').innerText, document.getElementById('f-l1').getAttribute('href')],
             v: VERSION
         };
-        localStorage.setItem('wgm_v375_dna', JSON.stringify(data)); alert("MASTER DNA GESPEICHERT.");
+        localStorage.setItem('wgm_master_v376', JSON.stringify(data)); alert("GESPEICHERT.");
     }
 
     function init() {
+        const saved = localStorage.getItem('wgm_master_v376');
+        if(saved) {
+            const s = JSON.parse(saved);
+            if(s.v === VERSION) {
+                const r = document.documentElement.style; if(s.c[0]) r.setProperty('--wd-orange', s.c[0]); if(s.c[1]) r.setProperty('--wd-blue', s.c[1]);
+                if(s.b) { i18n.de.mainH = s.b[0]; i18n.de.r_h = s.b[1]; i18n.de.n_h = s.b[2]; i18n.de.g_h = s.b[3]; i18n.de.w_h = s.b[4]; i18n.de.h_h = s.b[5]; }
+            } else { localStorage.clear(); location.reload(); return; }
+        }
+        changeLang(); updateMaterialLogic(); ensureIcons();
+    }
+
+    function changeLang() {
+        document.getElementById('dynamic-main-title').innerText = t('mainH');
+        ['r','n','g','w','h'].forEach(k => { const h = document.getElementById('t-'+k+'_h'), p = document.getElementById('t-'+k+'_p'); if(h) h.innerText = t(k+'_h'); if(p) p.innerText = t(k+'_p'); });
+        ['back1','back2','back3','back4','back5','r_d1','r_d2','r_s','res_l','bt','n_pb','n_ph','n_cut','n_sb','n_sh','n_res','mat1','mat2','g_std','gb','gh','g_res','wb','wh','w_res','hd','hsd','h_p'].forEach(k => { const el = document.getElementById('t-'+k); if(el) el.innerText = t(k); });
+        ensureIcons();
+    }
+    
+    function updateAllUnits() { calcR(); calcN(); calcG(); calcW(); calcH(); }
+    window.onload = init;
+</script>
+</body>
+</html>
