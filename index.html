@@ -25,32 +25,34 @@
         }
         @media (max-width: 380px) { .app-shell { width: 94vw; height: 96vh; } }
         
-        #login-overlay, #help-popup { 
+        /* Overlays */
+        #login-overlay, #help-popup, #egg-popup { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(255,255,255,0.98); display: none; 
             flex-direction: column; justify-content: center; align-items: center; 
             z-index: 2000; backdrop-filter: blur(15px); 
         }
         
-        .help-content { border: 2px solid var(--wd-orange); padding: 20px; border-radius: 25px; width: 85%; max-height: 85%; overflow-y: auto; }
+        .help-content { border: 2px solid var(--wd-orange); padding: 25px; border-radius: 30px; width: 82%; max-height: 85%; overflow-y: auto; text-align: left; }
+        .help-content h3 { color: var(--wd-orange); text-transform: uppercase; font-weight: 900; border-bottom: 2px solid var(--wd-orange); padding-bottom: 8px; margin-bottom: 15px; }
 
+        /* Navigation & Logo */
         .top-nav { display: flex; justify-content: space-between; padding: 30px 20px 5px; }
-        select, .admin-input { 
-            background: white; border: 1px solid #cbd5e1; padding: 8px; 
-            border-radius: 10px; font-weight: 800; font-size: 0.75rem; outline: none; 
-        }
+        select, .admin-input { background: white; border: 1px solid #cbd5e1; padding: 8px; border-radius: 10px; font-weight: 800; font-size: 0.75rem; outline: none; }
 
         .logo-area { text-align: center; padding: 10px 20px; }
         .logo-area img { max-width: 150px; height: auto; cursor: pointer; margin-bottom: 5px; }
         .logo-area .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; margin: 12px 0; }
         .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 0; font-weight: 900; text-transform: uppercase; color: #475569; }
 
+        /* Views */
         .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
         .view.active { display: flex; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Cards */
         .card { 
-            background: white; border-radius: 20px; padding: 14px; 
+            background: white; border-radius: 22px; padding: 14px; 
             display: flex; align-items: center; gap: 14px; cursor: pointer; 
             margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); 
             border: 1px solid #f1f5f9; transition: transform 0.2s;
@@ -60,18 +62,20 @@
         .card-text h2 { margin: 0; font-size: 0.9rem; font-weight: 900; text-transform: uppercase; }
         .card-text p { margin: 2px 0 0; font-size: 0.7rem; color: #64748b; font-weight: 600; }
 
+        /* Inputs */
         .input-box { margin-bottom: 12px; }
-        .label { font-size: 0.65rem; color: #475569; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; display: block; }
-        input[type="number"], input[type="text"], select.in-view { width: 100%; padding: 12px; border-radius: 14px; border: 1px solid #cbd5e1; font-size: 0.9rem; font-weight: 700; box-sizing: border-box; }
+        .label { font-size: 0.62rem; color: #475569; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; display: block; }
+        input[type="number"], input[type="text"], input[type="password"], select.in-view { width: 100%; padding: 12px; border-radius: 14px; border: 1px solid #cbd5e1; font-size: 0.9rem; font-weight: 700; box-sizing: border-box; outline: none; }
 
+        /* Results */
         .res-card { background: var(--wd-orange); padding: 18px; border-radius: 24px; text-align: center; margin: 15px 0; color: white; box-shadow: 0 10px 25px rgba(230, 126, 34, 0.3); }
         .res-num { font-size: 2.2rem; font-weight: 900; display: block; }
-        .res-info { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+        .res-info { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9; }
 
         .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.75rem; }
-        .btn-action { background: var(--wd-blue); color: white; border: none; padding: 14px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; }
+        .btn-action { background: var(--wd-blue); color: white; border: none; padding: 14px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        /* Admin Styles */
+        /* Admin Konsole */
         .admin-section { margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
         .admin-section h4 { font-size: 0.8rem; text-transform: uppercase; color: var(--wd-orange); margin-bottom: 12px; border-left: 4px solid var(--wd-orange); padding-left: 8px; }
         .color-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
@@ -79,6 +83,7 @@
 
         footer { text-align: center; padding: 15px 20px 30px; font-size: 0.65rem; color: #64748b; margin-top: auto; }
         footer strong { color: #334155; }
+        .footer-links { margin-top: 5px; }
         .footer-links a { color: var(--wd-blue); text-decoration: none; font-weight: 800; margin: 0 5px; }
     </style>
 </head>
@@ -87,30 +92,34 @@
 <div class="app-shell">
     <div id="login-overlay">
         <h3 style="color:var(--wd-orange); font-weight:900;">ADMIN LOGIN</h3>
-        <input type="password" id="master-pin" class="admin-input" placeholder="****" style="text-align:center; font-size:1.5rem; width:120px; letter-spacing:5px; margin: 20px 0;">
-        <button class="btn-action" onclick="checkAccess()" style="width:120px;">LOGIN</button>
+        <input type="password" id="master-pin" placeholder="****" style="text-align:center; font-size:1.5rem; width:140px; letter-spacing:5px; margin: 20px 0;">
+        <button class="btn-action" onclick="checkAccess()" style="width:140px;">LOGIN</button>
         <p onclick="closeLogin()" style="margin-top:20px; font-size:0.6rem; cursor:pointer; font-weight:800; color:#94a3b8;">ABBRECHEN</p>
     </div>
 
     <div id="help-popup">
-        <div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()">VERSTANDEN</button></div>
+        <div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()" style="margin-top:20px;">VERSTANDEN</button></div>
     </div>
 
     <div class="top-nav">
         <select id="uG" onchange="updateAllUnits()"><option value="mm">mm</option><option value="inc">inc</option></select>
-        <select id="lG" onchange="changeLang()"><option value="de">DE</option><option value="en">EN</option></select>
+        <select id="lG" onchange="changeLang()">
+            <option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="es">ES</option>
+            <option value="it">IT</option><option value="nl">NL</option><option value="pl">PL</option><option value="ru">RU</option>
+            <option value="da">DA</option><option value="no">NO</option><option value="ja">JP</option>
+        </select>
     </div>
 
     <div class="logo-area">
         <img src="wgm-applogo.jpg" id="logo-trigger" alt="WERBEDRUCK GM">
         <div class="divider"></div>
-        <h1 data-t="mainH">Werbetechniker-Tools</h1>
+        <h1 data-t="mainH" id="app-main-title">Werbetechniker-Tools</h1>
     </div>
 
     <main id="main" class="view active">
         <div class="card" onclick="go('rollen')">
             <div class="icon"><i data-lucide="ruler"></i></div>
-            <div class="card-text"><h2 data-t="r_h">Rollen-Meter</h2><p data-t="r_p">Längen berechnen</p></div>
+            <div class="card-text"><h2 data-t="r_h" id="card-t-r">Rollen-Meter</h2><p data-t="r_p">Längen berechnen</p></div>
         </div>
         <div class="card" onclick="go('nutzen')">
             <div class="icon"><i data-lucide="layout-grid"></i></div>
@@ -120,6 +129,14 @@
             <div class="icon"><i data-lucide="weight"></i></div>
             <div class="card-text"><h2 data-t="g_h">Gewichts-Detektor</h2><p data-t="g_p">Materialgewicht</p></div>
         </div>
+        <div class="card" onclick="go('wind')">
+            <div class="icon"><i data-lucide="wind"></i></div>
+            <div class="card-text"><h2 data-t="w_h">Windlast-Prüfer</h2><p data-t="w_p">Statik-Check</p></div>
+        </div>
+        <div class="card" onclick="go('hohl')">
+            <div class="icon"><i data-lucide="maximize"></i></div>
+            <div class="card-text"><h2 data-t="h_h">Hohlsaum-Profi</h2><p data-t="h_p">Banner-Zulage</p></div>
+        </div>
     </main>
 
     <div id="view-rollen" class="view">
@@ -127,56 +144,102 @@
             <div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div>
             <div class="info-btn" onclick="openHelp('r')" style="color:var(--wd-blue); cursor:pointer;"><i data-lucide="info"></i></div>
         </div>
-        <div class="input-box"><span class="label" data-t="r_d1" data-u>Rollendurchmesser</span><input type="number" id="rD" oninput="calcR()"></div>
+        <div class="input-box"><span class="label" data-t="r_d1" data-u>Rollendurchmesser</span><input type="number" id="rD" placeholder="..." oninput="calcR()"></div>
         <div class="input-box"><span class="label" data-t="r_d2" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" oninput="calcR()"></div>
         <div class="input-box"><span class="label" data-t="r_s" data-u>Stärke</span><input type="number" id="rs" value="0.22" step="0.01" oninput="calcR()"></div>
-        <div class="res-card"><span class="res-info" data-t="res_l">Material auf der Rolle</span><span id="resR" class="res-num">0.00 m</span></div>
+        <div class="res-card"><span id="resR" class="res-num">0.00 m</span><span class="res-info" data-t="res_l">Material auf der Rolle</span></div>
+        <button class="btn-action" onclick="alert('BT Scan...')"><i data-lucide="bluetooth"></i> <span data-t="bt">Mess-Gerät verbinden</span></button>
+    </div>
+
+    <div id="view-nutzen" class="view">
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:15px;">
+            <div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div>
+            <div class="info-btn" onclick="openHelp('n')" style="color:var(--wd-blue); cursor:pointer;"><i data-lucide="info"></i></div>
+        </div>
+        <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Platte B</span><input type="number" id="pW" value="3000" oninput="calcN()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Platte H</span><input type="number" id="pH" value="1500" oninput="calcN()"></div></div>
+        <div class="input-box"><span class="label" data-t="n_cut" data-u>Schnittbreite</span><input type="number" id="cut" value="1.5" step="0.1" oninput="calcN()"></div>
+        <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_sb" data-u>Schild B</span><input type="number" id="sW" oninput="calcN()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_sh" data-u>Schild H</span><input type="number" id="sH" oninput="calcN()"></div></div>
+        <div class="res-card"><span id="resN" class="res-num">0</span><span class="res-info" data-t="n_res">Mögliche Nutzen</span></div>
+    </div>
+
+    <div id="view-gew" class="view">
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:15px;">
+            <div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div>
+            <div class="info-btn" onclick="openHelp('g')" style="color:var(--wd-blue); cursor:pointer;"><i data-lucide="info"></i></div>
+        </div>
+        <div class="input-box"><span class="label" data-t="mat">Material</span><select id="gMat" class="in-view" onchange="calcG()"><option value="2.7">Aluminium</option><option value="1.2">Alu-Verbund (Dibond)</option><option value="1.19">Acryl (Plexiglas)</option><option value="0.6">PVC Hartschaum</option><option value="7.85">Stahl</option><option value="0.51">PVC Banner (510g)</option></select></div>
+        <div class="input-box"><span class="label" data-t="r_s" data-u>Stärke</span><input type="number" id="gs" value="3" oninput="calcG()"></div>
+        <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Breite</span><input type="number" id="gb" value="1000" oninput="calcG()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Höhe</span><input type="number" id="gh" value="1000" oninput="calcG()"></div></div>
+        <div class="res-card"><span id="resG" class="res-num">0.00 kg</span><span class="res-info" data-t="g_res">Gesamtgewicht</span></div>
+    </div>
+
+    <div id="view-wind" class="view">
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:15px;">
+            <div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div>
+            <div class="info-btn" onclick="openHelp('w')" style="color:var(--wd-blue); cursor:pointer;"><i data-lucide="info"></i></div>
+        </div>
+        <div class="input-box"><span class="label" data-t="w_mat">Oberfläche</span><select id="wMat" class="in-view" onchange="calcW()"><option value="1.0">Geschlossen (Schilder)</option><option value="0.65">Mesh Standard</option><option value="0.80">Mesh Fein</option></select></div>
+        <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Breite</span><input type="number" id="wb" value="2000" oninput="calcW()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Höhe</span><input type="number" id="wh" value="1000" oninput="calcW()"></div></div>
+        <div class="res-card"><span id="resW" class="res-num">0 N</span><span class="res-info" data-t="w_res">Windlast bei 120km/h</span></div>
+    </div>
+
+    <div id="view-hohl" class="view">
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:15px;">
+            <div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div>
+            <div class="info-btn" onclick="openHelp('h')" style="color:var(--wd-blue); cursor:pointer;"><i data-lucide="info"></i></div>
+        </div>
+        <div class="input-box"><span class="label" data-t="h_d" data-u>Stangendurchmesser</span><input type="number" id="hd" value="30" oninput="calcH()"></div>
+        <div class="input-box"><span class="label" data-t="h_s" data-u>Materialstärke</span><input type="number" id="hs" value="0.5" oninput="calcH()"></div>
+        <div class="res-card"><span id="resH" class="res-num">0.0 mm</span><span class="res-info" data-t="h_p">Banner-Zulage pro Seite</span></div>
     </div>
 
     <div id="view-admin" class="view">
         <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:15px;">
             <div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div>
-            <div style="font-weight:900; font-size:0.7rem; color:var(--wd-orange);">MASTER CONSOLE</div>
+            <div style="font-weight:900; font-size:0.7rem; color:var(--wd-orange);">MASTER CONSOLE V2.2.7</div>
         </div>
         
         <div class="admin-section">
-            <h4>Farben & Branding</h4>
+            <h4>1. Visuelles Branding</h4>
             <div class="color-row"><span class="label">Akzent (Orange)</span><input type="color" id="cfg-color-orange" onchange="applyLive()"></div>
             <div class="color-row"><span class="label">Aktion (Blau)</span><input type="color" id="cfg-color-blue" onchange="applyLive()"></div>
             <div class="color-row"><span class="label">Hintergrund</span><input type="color" id="cfg-color-bg" onchange="applyLive()"></div>
         </div>
 
         <div class="admin-section">
-            <h4>Fußzeile (Footer)</h4>
+            <h4>2. Hauptmenü Texte (DE)</h4>
+            <div class="input-box"><span class="label">App Titel</span><input type="text" id="cfg-txt-mainH" oninput="applyLive()"></div>
+            <div class="input-box"><span class="label">Button Rollen-Meter</span><input type="text" id="cfg-txt-rh" oninput="applyLive()"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>3. Fußzeile (Footer)</h4>
             <div class="input-box"><span class="label">Firmenname</span><input type="text" id="cfg-foot-brand" oninput="applyLive()"></div>
-            <div class="input-box"><span class="label">Status/Version Zeile</span><input type="text" id="cfg-foot-status" oninput="applyLive()"></div>
+            <div class="input-box"><span class="label">Statuszeile</span><input type="text" id="cfg-foot-status" oninput="applyLive()"></div>
             <div style="display:flex; gap:5px;">
-                <div class="input-box" style="flex:1;"><span class="label">Link 1 Text</span><input type="text" id="cfg-link1-txt" oninput="applyLive()"></div>
-                <div class="input-box" style="flex:1;"><span class="label">Link 1 URL</span><input type="text" id="cfg-link1-url" oninput="applyLive()"></div>
-            </div>
-            <div style="display:flex; gap:5px;">
-                <div class="input-box" style="flex:1;"><span class="label">Link 2 Text</span><input type="text" id="cfg-link2-txt" oninput="applyLive()"></div>
-                <div class="input-box" style="flex:1;"><span class="label">Link 2 URL</span><input type="text" id="cfg-link2-url" oninput="applyLive()"></div>
+                <input type="text" id="cfg-l1-t" placeholder="Link 1 Text" oninput="applyLive()" style="flex:1;" class="admin-input">
+                <input type="text" id="cfg-l1-u" placeholder="URL" oninput="applyLive()" style="flex:1;" class="admin-input">
             </div>
         </div>
 
-        <button class="btn-action" onclick="saveToMaster()">EINSTELLUNGEN SPEICHERN</button>
+        <button class="btn-action" onclick="saveToMaster()">MASTER-SAVE</button>
     </div>
 
     <footer id="app-footer">
         <strong id="foot-brand">Werbedruck GM</strong>
-        <div id="foot-status" class="ver">V2.2.6 | STATUS: OPERATIV</div>
+        <div id="foot-status" class="ver">V2.2.7 | 31.01.2026</div>
         <div class="footer-links">
-            <a id="link1-el" href="#">Impressum</a> | <a id="link2-el" href="#">Datenschutz</a>
+            <a id="l1-el" href="#">Impressum</a> | <a id="l2-el" href="#">Datenschutz</a>
         </div>
     </footer>
 </div>
 
 <script>
-    let i18n = {
-        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", help_title: "ANLEITUNG", help_r: "Geben Sie die Durchmesser ein." },
-        en: { mainH: "Signmaker Pro", back: "BACK", r_h: "Roll Calc", r_p: "Calculate length", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", help_title: "GUIDE", help_r: "Enter diameters." }
+    const i18n = {
+        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Mess-Gerät verbinden", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_sb: "Schild B", n_sh: "Schild H", n_cut: "Schnittbreite", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gesamtgewicht", mat: "Material", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windlast", w_mat: "Oberfläche", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage", h_res: "Hohlsaum", h_d: "Stangendurchmesser", help_title: "ANLEITUNG", help_r: "Geben Sie Rollendurchmesser und Stärke an.", help_n: "Berechnet die maximale Anzahl an Schildern pro Platte.", help_g: "Ermittelt das Gewicht basierend auf Materialdichte.", help_w: "Statische Windlastberechnung bei 120km/h.", help_h: "Zulage für Hohlsaum (Umfang + Puffer)." },
+        en: { mainH: "Signmaker Tools", back: "BACK", bt: "Connect Tool", r_h: "Roll Meter", r_p: "Calculate Length", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", n_h: "Nesting Pro", n_p: "Layouts", n_res: "Yield", n_pb: "Sheet W", n_ph: "Sheet H", n_sb: "Sign W", n_sh: "Sign H", n_cut: "Cut Width", g_h: "Weight Detector", g_p: "Material Mass", g_res: "Total Weight", mat: "Material", w_h: "Wind Load", w_p: "Statics Check", w_res: "Wind Force", w_mat: "Surface", h_h: "Hem Pro", h_p: "Banner Allowance", h_res: "Allowance", h_d: "Pole Diameter", help_title: "GUIDE" }
     };
+    ["fr", "es", "it", "nl", "pl", "da", "no", "ru", "ja"].forEach(l => { if(!i18n[l]) i18n[l] = i18n.en; });
 
     let clicks = 0, timer;
     document.getElementById('logo-trigger').addEventListener('click', () => {
@@ -195,77 +258,118 @@
 
     function go(v) {
         document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
-        if(v === 'main') document.getElementById('main').classList.add('active');
-        else document.getElementById('view-' + v).classList.add('active');
+        const t = (v === 'main' || v === 'admin') ? document.getElementById(v) : document.getElementById('view-' + v);
+        if(t) t.classList.add('active');
         lucide.createIcons();
     }
 
+    /* BERECHNUNGEN */
+    function calcR() {
+        const u = document.getElementById('uG').value;
+        let D = parseFloat(document.getElementById('rD').value||0), d = parseFloat(document.getElementById('rd').value||0), s = parseFloat(document.getElementById('rs').value||0);
+        if(D && d && s) {
+            let res = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s);
+            document.getElementById('resR').innerText = (u==='mm' ? (res/1000).toFixed(2)+" m" : (res/12).toFixed(2)+" ft");
+        }
+    }
+    function calcN() {
+        let pW = parseFloat(document.getElementById('pW').value), pH = parseFloat(document.getElementById('pH').value), sW = parseFloat(document.getElementById('sW').value), sH = parseFloat(document.getElementById('sH').value), gap = parseFloat(document.getElementById('cut').value)||0;
+        if(pW && pH && sW && sH) document.getElementById('resN').innerText = Math.floor((pW+gap)/(sW+gap)) * Math.floor((pH+gap)/(sH+gap));
+    }
+    function calcG() {
+        const u = document.getElementById('uG').value;
+        let b=parseFloat(document.getElementById('gb').value), h=parseFloat(document.getElementById('gh').value), s=parseFloat(document.getElementById('gs').value), d=parseFloat(document.getElementById('gMat').value);
+        if(b && h && s) {
+            let kg = ((b*h)/1000000)*s*d;
+            document.getElementById('resG').innerText = (u==='inc' ? (kg*2.204).toFixed(2)+" lbs" : kg.toFixed(2)+" kg");
+        }
+    }
+    function calcW() {
+        let b=parseFloat(document.getElementById('wb').value), h=parseFloat(document.getElementById('wh').value), factor=parseFloat(document.getElementById('wMat').value);
+        if(b && h) document.getElementById('resW').innerText = Math.round(((b*h)/1000000)*500*factor) + " N";
+    }
+    function calcH() {
+        let d=parseFloat(document.getElementById('hd').value), s=parseFloat(document.getElementById('hs').value);
+        if(d) document.getElementById('resH').innerText = ((Math.PI*d)+(2*s)+10).toFixed(1) + " mm";
+    }
+
+    /* ADMIN LOGIK */
     function loadAdminFields() {
         document.getElementById('cfg-color-orange').value = getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim();
         document.getElementById('cfg-color-blue').value = getComputedStyle(document.documentElement).getPropertyValue('--wd-blue').trim();
         document.getElementById('cfg-color-bg').value = getComputedStyle(document.documentElement).getPropertyValue('--bg-body').trim();
-        
+        document.getElementById('cfg-txt-mainH').value = i18n.de.mainH;
+        document.getElementById('cfg-txt-rh').value = i18n.de.r_h;
         document.getElementById('cfg-foot-brand').value = document.getElementById('foot-brand').innerText;
         document.getElementById('cfg-foot-status').value = document.getElementById('foot-status').innerText;
-        document.getElementById('cfg-link1-txt').value = document.getElementById('link1-el').innerText;
-        document.getElementById('cfg-link1-url').value = document.getElementById('link1-el').href;
-        document.getElementById('cfg-link2-txt').value = document.getElementById('link2-el').innerText;
-        document.getElementById('cfg-link2-url').value = document.getElementById('link2-el').href;
     }
 
     function applyLive() {
         document.documentElement.style.setProperty('--wd-orange', document.getElementById('cfg-color-orange').value);
         document.documentElement.style.setProperty('--wd-blue', document.getElementById('cfg-color-blue').value);
         document.documentElement.style.setProperty('--bg-body', document.getElementById('cfg-color-bg').value);
-        
+        i18n.de.mainH = document.getElementById('cfg-txt-mainH').value;
+        i18n.de.r_h = document.getElementById('cfg-txt-rh').value;
         document.getElementById('foot-brand').innerText = document.getElementById('cfg-foot-brand').value;
         document.getElementById('foot-status').innerText = document.getElementById('cfg-foot-status').value;
-        document.getElementById('link1-el').innerText = document.getElementById('cfg-link1-txt').value;
-        document.getElementById('link1-el').href = document.getElementById('cfg-link1-url').value;
-        document.getElementById('link2-el').innerText = document.getElementById('cfg-link2-txt').value;
-        document.getElementById('link2-el').href = document.getElementById('cfg-link2-url').value;
+        document.getElementById('l1-el').innerText = document.getElementById('cfg-l1-t').value || "Impressum";
+        document.getElementById('l1-el').href = document.getElementById('cfg-l1-u').value || "#";
+        changeLang();
     }
 
     function saveToMaster() {
-        const settings = {
-            colors: { orange: document.getElementById('cfg-color-orange').value, blue: document.getElementById('cfg-color-blue').value, bg: document.getElementById('cfg-color-bg').value },
-            footer: { 
-                brand: document.getElementById('cfg-foot-brand').value, 
-                status: document.getElementById('cfg-foot-status').value,
-                l1t: document.getElementById('cfg-link1-txt').value, l1u: document.getElementById('cfg-link1-url').value,
-                l2t: document.getElementById('cfg-link2-txt').value, l2u: document.getElementById('cfg-link2-url').value
-            }
+        const s = {
+            c: [document.getElementById('cfg-color-orange').value, document.getElementById('cfg-color-blue').value, document.getElementById('cfg-color-bg').value],
+            t: [i18n.de.mainH, i18n.de.r_h],
+            f: [document.getElementById('cfg-foot-brand').value, document.getElementById('cfg-foot-status').value, document.getElementById('cfg-l1-t').value, document.getElementById('cfg-l1-u').value]
         };
-        localStorage.setItem('wgm_master_v2', JSON.stringify(settings));
-        alert("Kern-Konfiguration aktualisiert.");
+        localStorage.setItem('wgm_v227_master', JSON.stringify(s));
+        alert("MASTER-DNA GESPEICHERT.");
     }
 
     function init() {
-        const saved = localStorage.getItem('wgm_master_v2');
+        const saved = localStorage.getItem('wgm_v227_master');
         if(saved) {
             const s = JSON.parse(saved);
-            document.documentElement.style.setProperty('--wd-orange', s.colors.orange);
-            document.documentElement.style.setProperty('--wd-blue', s.colors.blue);
-            document.documentElement.style.setProperty('--bg-body', s.colors.bg);
-            document.getElementById('foot-brand').innerText = s.footer.brand;
-            document.getElementById('foot-status').innerText = s.footer.status;
-            document.getElementById('link1-el').innerText = s.footer.l1t;
-            document.getElementById('link1-el').href = s.footer.l1u;
-            document.getElementById('link2-el').innerText = s.footer.l2t;
-            document.getElementById('link2-el').href = s.footer.l2u;
+            document.documentElement.style.setProperty('--wd-orange', s.c[0]);
+            document.documentElement.style.setProperty('--wd-blue', s.c[1]);
+            document.documentElement.style.setProperty('--bg-body', s.c[2]);
+            i18n.de.mainH = s.t[0]; i18n.de.r_h = s.t[1];
+            document.getElementById('foot-brand').innerText = s.f[0];
+            document.getElementById('foot-status').innerText = s.f[1];
+            document.getElementById('l1-el').innerText = s.f[2] || "Impressum";
+            document.getElementById('l1-el').href = s.f[3] || "#";
         }
         changeLang();
     }
 
-    function calcR() {
-        let D = parseFloat(document.getElementById('rD').value || 0), d = parseFloat(document.getElementById('rd').value || 0), s = parseFloat(document.getElementById('rs').value || 0);
-        if(D && d && s) {
-            let res = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s);
-            document.getElementById('resR').innerText = (res/1000).toFixed(2) + " m";
-        }
+    function changeLang() {
+        const l = document.getElementById('lG').value;
+        document.querySelectorAll('[data-t]').forEach(el => {
+            const k = el.getAttribute('data-t');
+            el.innerText = i18n[l][k] || i18n.de[k];
+        });
+        updateAllUnits();
     }
-    function changeLang() { /* Standard Logic */ lucide.createIcons(); }
+
+    function updateAllUnits() {
+        const u = document.getElementById('uG').value, l = document.getElementById('lG').value;
+        document.querySelectorAll('[data-u]').forEach(el => {
+            const k = el.getAttribute('data-t');
+            el.innerText = (i18n[l][k] || i18n.de[k]) + " (" + u + ")";
+        });
+        calcR(); calcN(); calcG(); calcW(); calcH();
+    }
+
+    function openHelp(m) {
+        const l = document.getElementById('lG').value;
+        document.getElementById('help-title').innerText = i18n[l].help_title;
+        document.getElementById('help-body').innerHTML = i18n[l]['help_'+m] || i18n.de['help_'+m];
+        document.getElementById('help-popup').style.display = 'flex';
+    }
+    function closeHelp() { document.getElementById('help-popup').style.display = 'none'; }
     function closeLogin() { document.getElementById('login-overlay').style.display = 'none'; }
+
     window.onload = init;
 </script>
 </body>
