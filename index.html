@@ -15,14 +15,13 @@
             height: 100%; margin: 0; padding: 0; background: var(--bg-body); 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex; justify-content: center; align-items: center; overflow: hidden;
-            transition: all 0.3s ease;
         }
         .app-shell {
             width: var(--app-width); height: 95vh; max-height: 780px;
             background: var(--bg-app); color: var(--wd-dark);
             display: flex; flex-direction: column; overflow: hidden;
             border-radius: 40px; position: relative; 
-            box-shadow: 0 40px 100px rgba(0,0,0,0.25), 0 10px 20px rgba(0,0,0,0.1); 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.25); 
         }
         @media (max-width: 380px) { .app-shell { width: 94vw; height: 96vh; } }
         
@@ -32,304 +31,193 @@
             flex-direction: column; justify-content: center; align-items: center; 
             z-index: 2000; backdrop-filter: blur(15px); 
         }
-        .help-content { border: 2px solid var(--wd-orange); padding: 25px; border-radius: 30px; width: 82%; max-height: 85%; overflow-y: auto; text-align: left; }
-        .help-content h3 { color: var(--wd-orange); text-transform: uppercase; font-weight: 900; border-bottom: 2px solid var(--wd-orange); padding-bottom: 8px; margin-bottom: 15px; font-size: 1rem; }
-        .help-content p { font-size: 0.75rem; line-height: 1.6; margin-bottom: 12px; color: #334155; }
+        .help-content { border: 2px solid var(--wd-orange); padding: 25px; border-radius: 30px; width: 82%; text-align: left; }
+        .help-content h3 { color: var(--wd-orange); text-transform: uppercase; font-weight: 900; border-bottom: 2px solid var(--wd-orange); margin-bottom: 15px; }
 
         .top-nav { display: flex; justify-content: space-between; padding: 30px 20px 5px; }
         select { background: white; border: 1px solid #cbd5e1; padding: 8px; border-radius: 10px; font-weight: 800; font-size: 0.7rem; outline: none; }
         
         .logo-area { text-align: center; padding: 10px 20px; }
-        .logo-area img { max-width: 150px; height: auto; cursor: pointer; }
-        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 10px 0 5px; font-weight: 900; text-transform: uppercase; color: var(--wd-dark); min-height: 1.2rem; }
-        .logo-area .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; margin-top: 5px; }
+        .logo-area img { max-width: 150px; cursor: pointer; }
+        .logo-area h1 { font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin: 10px 0; color: var(--wd-dark); }
+        .divider { height: 3px; background: var(--wd-orange); width: 100%; }
 
         .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
         .view.active { display: flex; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card { background: var(--card-bg); border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 14px; cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #f1f5f9; transition: transform 0.2s; }
+        .card { background: var(--card-bg); border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 14px; cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #f1f5f9; }
         .card:active { transform: scale(0.96); }
-        .icon { width: 44px; height: 44px; background: var(--icon-bg); color: var(--wd-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; border: 1px solid #f1f5f9; flex-shrink: 0; }
+        .icon { width: 44px; height: 44px; background: var(--icon-bg); color: var(--wd-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; }
         
-        .card-text h2 { margin: 0; font-size: 0.85rem; font-weight: 900; text-transform: uppercase; color: var(--wd-dark); }
+        .card-text h2 { margin: 0; font-size: 0.85rem; font-weight: 900; text-transform: uppercase; }
         .card-text p { margin: 2px 0 0; font-size: 0.65rem; color: #64748b; font-weight: 600; }
 
         .input-box { margin-bottom: 12px; position: relative; }
         .label { font-size: 0.6rem; color: #475569; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
-        .info-small { color: var(--wd-blue); cursor: pointer; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; position: absolute; right: 0; top: 0; }
         
-        input, textarea, select.in-view { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; font-size: 0.85rem; font-weight: 700; box-sizing: border-box; outline: none; background: #fff; color: var(--wd-dark); transition: all 0.2s; }
-        input:focus, select:focus, textarea:focus { border: 2px solid var(--wd-orange) !important; box-shadow: 0 0 8px rgba(230, 126, 34, 0.2); }
+        input, textarea, select.in-view { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; font-size: 0.85rem; font-weight: 700; box-sizing: border-box; outline: none; background: #fff; }
+        input:focus, select:focus { border: 2px solid var(--wd-orange) !important; }
         
-        .res-card { background: var(--wd-orange); padding: 15px; border-radius: 20px; text-align: center; margin: 10px 0; color: white; box-shadow: 0 10px 25px rgba(230, 126, 34, 0.3); }
+        .res-card { background: var(--wd-orange); padding: 15px; border-radius: 20px; text-align: center; margin: 10px 0; color: white; }
         .res-num { font-size: 2rem; font-weight: 900; display: block; }
         .res-info { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; opacity: 0.9; }
-        .warn-msg { display: none; color: var(--wd-orange); font-size: 0.52rem; font-weight: 900; margin-top: 4px; text-transform: uppercase; text-align: right; }
 
-        .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.7rem; margin-bottom: 15px; }
-        .btn-action { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; text-transform: uppercase; font-size: 0.75rem; }
-        .btn-reset { background: #cbd5e1; color: var(--wd-dark); width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
+        .back-btn { color: #475569; display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 900; font-size: 0.7rem; margin-bottom: 15px; }
+        .btn-action { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; font-size: 0.75rem; }
+        .btn-reset { background: #cbd5e1; width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
 
-        .admin-scroll { flex: 1; overflow-y: auto; padding-right: 5px; }
+        .admin-scroll { flex: 1; overflow-y: auto; }
         .admin-section { margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-        .admin-section h4 { font-size: 0.7rem; color: var(--wd-orange); text-transform: uppercase; margin-bottom: 12px; border-left: 3px solid var(--wd-orange); padding-left: 8px; }
+        .admin-section h4 { font-size: 0.7rem; color: var(--wd-orange); text-transform: uppercase; margin-bottom: 12px; }
 
         footer { text-align: center; padding: 10px 20px 25px; font-size: 0.6rem; color: #64748b; margin-top: auto; }
-        footer strong { color: var(--wd-dark); display: block; margin-bottom: 2px; }
-        .footer-links { margin-top: 4px; font-weight: 800; }
-        .footer-links a { color: var(--wd-blue); text-decoration: none; margin: 0 4px; }
+        .footer-links a { color: var(--wd-blue); text-decoration: none; font-weight: 800; }
     </style>
 </head>
 <body>
 
 <div class="app-shell">
     <div id="login-overlay">
-        <h3 style="color:var(--wd-orange); font-weight:900;">ADMIN LOGIN</h3>
+        <h3 style="color:var(--wd-orange);">ADMIN LOGIN</h3>
         <input type="password" id="master-pin" placeholder="****" style="text-align:center; font-size:1.5rem; width:120px; letter-spacing:5px; margin: 15px 0;">
         <button class="btn-action" onclick="checkAccess()">LOGIN</button>
-        <p onclick="closeLogin()" style="margin-top:15px; font-size:0.55rem; cursor:pointer; font-weight:800; color:#94a3b8;">ABBRECHEN</p>
+        <p onclick="closeLogin()" style="cursor:pointer; font-weight:800; font-size:0.6rem;">ABBRECHEN</p>
     </div>
 
     <div id="help-popup">
-        <div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()">VERSTANDEN</button></div>
-    </div>
-
-    <div id="admin-help-popup">
-        <div class="help-content"><h3 style="color:var(--wd-blue);">PARAMETER INFO</h3><p id="admin-help-body" style="font-weight:600;"></p><button class="btn-action" onclick="closeAdminHelp()" style="background:var(--wd-blue);">ZURÜCK</button></div>
+        <div class="help-content"><h3 id="help-title">INFO</h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()">VERSTANDEN</button></div>
     </div>
 
     <div class="top-nav">
-        <select id="uG" onchange="updateAllUnits()"><option value="mm">mm</option><option value="inc">inc</option></select>
-        <select id="lG" onchange="changeLang()">
-            <option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="es">ES</option>
-            <option value="it">IT</option>
+        <select id="uG" onchange="updateUI()"><option value="mm">mm</option><option value="inc">inc</option></select>
+        <select id="lG" onchange="updateUI()">
+            <option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option>
         </select>
     </div>
 
     <div class="logo-area">
-        <img src="applogo.jpg" id="logo-trigger" alt="WERBEDRUCK GM">
-        <h1 id="dynamic-main-title">Werbetechniker-Tools</h1>
+        <img src="applogo.jpg" id="logo-trigger" alt="LOGO">
+        <h1 id="main-title" data-t="mainH"></h1>
         <div class="divider"></div>
     </div>
 
-    <main id="main" class="view active">
-        <div class="card" onclick="go('rollen')"><div class="icon"><i data-lucide="ruler"></i></div><div class="card-text"><h2 id="t-r_h">Rollen-Meter</h2><p id="t-r_p">Längen berechnen</p></div></div>
-        <div class="card" onclick="go('nutzen')"><div class="icon"><i data-lucide="layout-grid"></i></div><div class="card-text"><h2 id="t-n_h">Nutzen-Rechner</h2><p id="t-n_p">Schnittpläne</p></div></div>
-        <div class="card" onclick="go('gew')"><div class="icon"><i data-lucide="weight"></i></div><div class="card-text"><h2 id="t-g_h">Gewichts-Detektor</h2><p id="t-g_p">Materialgewicht</p></div></div>
-        <div class="card" onclick="go('wind')"><div class="icon"><i data-lucide="wind"></i></div><div class="card-text"><h2 id="t-w_h">Windlast-Prüfer</h2><p id="t-w_p">Statik-Check</p></div></div>
-        <div class="card" onclick="go('hohl')"><div class="icon"><i data-lucide="maximize"></i></div><div class="card-text"><h2 id="t-h_h">Hohlsaum-Profi</h2><p id="t-h_p">Banner-Zulage</p></div></div>
+    <main id="view-main" class="view active">
+        <div class="card" onclick="go('rollen')"><div class="icon"><i data-lucide="ruler"></i></div><div class="card-text"><h2 data-t="rollen_h"></h2><p data-t="rollen_p"></p></div></div>
+        <div class="card" onclick="go('nutzen')"><div class="icon"><i data-lucide="layout-grid"></i></div><div class="card-text"><h2 data-t="nutzen_h"></h2><p data-t="nutzen_p"></p></div></div>
+        <div class="card" onclick="go('gew')"><div class="icon"><i data-lucide="weight"></i></div><div class="card-text"><h2 data-t="gew_h"></h2><p data-t="gew_p"></p></div></div>
+        <div class="card" onclick="go('wind')"><div class="icon"><i data-lucide="wind"></i></div><div class="card-text"><h2 data-t="wind_h"></h2><p data-t="wind_p"></p></div></div>
+        <div class="card" onclick="go('hohl')"><div class="icon"><i data-lucide="maximize"></i></div><div class="card-text"><h2 data-t="hohl_h"></h2><p data-t="hohl_p"></p></div></div>
     </main>
 
     <div id="view-rollen" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back1">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('r')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
-        <div class="input-box"><span class="label" id="t-r_d1">Rollendurchmesser</span><input type="number" id="rD" oninput="calcR()"></div>
-        <div class="input-box"><span class="label" id="t-r_d2">Kerndurchmesser</span><input type="number" id="rd" value="76" oninput="calcR()"></div>
-        <div class="input-box"><span class="label" id="t-r_s">Stärke</span><input type="number" id="rs" value="0.22" step="0.01" oninput="calcR()"></div>
-        <div class="res-card"><span id="resR" class="res-num">0.00 m</span><span class="res-info" id="t-res_l">Material auf der Rolle</span></div>
-        <div style="display:flex; gap:8px;"><button class="btn-action" style="flex:1;" onclick="connectBluetooth()"><i data-lucide="bluetooth"></i> <span id="t-bt">Hardware</span></button><button class="btn-reset" onclick="resetBtSequence()"><i data-lucide="refresh-ccw"></i></button></div>
+        <div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back"></span></div>
+        <div class="input-box"><span class="label" data-t="r_d1" data-u></span><input type="number" id="rD" oninput="calcR()"></div>
+        <div class="input-box"><span class="label" data-t="r_d2" data-u></span><input type="number" id="rd" value="76" oninput="calcR()"></div>
+        <div class="input-box"><span class="label" data-t="r_s" data-u></span><input type="number" id="rs" value="0.22" oninput="calcR()"></div>
+        <div class="res-card"><span id="resR" class="res-num">0.00 m</span><span class="res-info" data-t="res_l"></span></div>
+        <div style="display:flex; gap:8px;"><button class="btn-action" style="flex:1;" onclick="connectBT()"><i data-lucide="bluetooth"></i> <span data-t="bt"></span></button><button class="btn-reset" onclick="resetBT()"><i data-lucide="refresh-ccw"></i></button></div>
     </div>
 
-    <div id="view-nutzen" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back2">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('n')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
-        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-n_pb">Platte B</span><input type="number" id="pW" value="3000" oninput="calcN()"></div><div class="input-box" style="flex:1;"><span class="label" id="t-n_ph">Platte H</span><input type="number" id="pH" value="1500" oninput="calcN()"></div></div>
-        <div class="input-box"><span class="label" id="t-n_cut">Schnittbreite</span><input type="number" id="cut" value="1.5" oninput="calcN()"></div>
-        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-n_sb">Schild B</span><input type="number" id="sW" oninput="calcN()"></div><div class="input-box" style="flex:1;"><span class="label" id="t-n_sh">Schild H</span><input type="number" id="sH" oninput="calcN()"></div></div>
-        <div class="res-card"><span id="resN" class="res-num">0</span><span class="res-info" id="t-n_res">Nutzen</span></div>
-    </div>
-
-    <div id="view-gew" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back3">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('g')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
-        <div class="input-box"><span class="label" id="t-mat1">Material</span><select id="gMat" class="in-view" onchange="updateMaterialLogic()"></select></div>
-        <div id="row-thickness-preset" class="input-box"><span class="label" id="t-g_std">Standard-Stärken</span><select id="gStd" class="in-view" onchange="applyPreset()"></select></div>
-        <div id="row-thickness-manual" class="input-box"><span class="label" id="label-thickness">Stärke (mm)</span><input type="number" id="gs" value="3" oninput="checkThickness()"><div id="warn-t" class="warn-msg">ABWEICHUNG VOM STANDARD!</div></div>
-        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-gb">Breite</span><input type="number" id="gb" value="1000" oninput="calcG()"></div><div class="input-box" style="flex:1;"><span class="label" id="t-gh">Höhe</span><input type="number" id="gh" value="1000" oninput="calcG()"></div></div>
-        <div class="res-card"><span id="resG" class="res-num">0.00 kg</span><span class="res-info" id="t-g_res">Gesamtgewicht</span></div>
-    </div>
-
-    <div id="view-wind" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back4">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('w')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
-        <div class="input-box"><span class="label" id="t-mat2">Material</span><input type="text" id="wMatDisplay" readonly class="in-view" style="background:#f1f5f9;"></div>
-        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-wb">Breite</span><input type="number" id="wb" value="2000" oninput="calcW()"></div><div class="input-box" style="flex:1;"><span class="label" id="t-wh">Höhe</span><input type="number" id="wh" value="1000" oninput="calcW()"></div></div>
-        <div class="res-card"><span id="resW" class="res-num">0 N</span><span class="res-info" id="t-w_res">Windkraft</span></div>
-    </div>
-
-    <div id="view-hohl" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:12px;"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back5">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('h')" style="color:var(--wd-blue);"><i data-lucide="info"></i></div></div>
-        <div class="input-box"><span class="label" id="t-hd">Stangen Ø</span><input type="number" id="hd" value="30" oninput="calcH()"></div>
-        <div class="input-box"><span class="label" id="t-hsd">Materialdicke</span><input type="number" id="hsd" value="0.5" oninput="calcH()"></div>
-        <div class="res-card"><span id="resH" class="res-num">0.0 mm</span><span class="res-info" id="t-h_p">Zugabe</span></div>
-    </div>
-
-    <div id="admin-global" class="view">
-        <div class="view-header"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div></div>
+    <div id="view-admin-global" class="view">
+        <div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div>
         <div class="admin-scroll">
-            <div class="admin-section"><h4>Design DNA</h4><div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label">Akzent</span><input type="color" id="cfg-c-o" onchange="applyLive()"></div><div class="input-box" style="flex:1;"><span class="label">Buttons</span><input type="color" id="cfg-c-bl" onchange="applyLive()"></div></div></div>
-            <div class="admin-section"><h4>UI & Footer</h4>
-                <div class="input-box"><span class="label">App Titel</span><input type="text" id="cfg-b-main" oninput="applyLive()"></div>
-                <div class="input-box"><span class="label">Firma</span><input type="text" id="cfg-f-br" oninput="applyLive()"></div>
-                <div style="display:flex; gap:5px;"><input type="text" id="cfg-f-l1t" placeholder="L1 Text" oninput="applyLive()" style="flex:1;"><input type="text" id="cfg-f-l1u" placeholder="L1 URL" oninput="applyLive()" style="flex:1;"></div>
-                <div style="display:flex; gap:5px; margin-top:5px;"><input type="text" id="cfg-f-l2t" placeholder="L2 Text" oninput="applyLive()" style="flex:1;"><input type="text" id="cfg-f-l2u" placeholder="L2 URL" oninput="applyLive()" style="flex:1;"></div>
+            <div class="admin-section"><h4>Design</h4><input type="color" id="cfg-c-o" onchange="applyLive()"></div>
+            <div class="admin-section"><h4>Footer</h4>
+                <input type="text" id="cfg-f-br" oninput="applyLive()" placeholder="Firma">
+                <input type="text" id="cfg-f-l1t" oninput="applyLive()" placeholder="Link Text" style="margin-top:5px;">
+                <input type="text" id="cfg-f-l1u" oninput="applyLive()" placeholder="Link URL" style="margin-top:5px;">
             </div>
         </div>
-        <button class="btn-action" onclick="saveContext('global')">SPEICHERN</button>
+        <button class="btn-action" onclick="saveContext()">DNA SPEICHERN</button>
     </div>
 
-    <div id="admin-rollen" class="view"><div class="view-header"><div class="back-btn" onclick="go('rollen')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Rollen DNA</h4><input type="text" id="cfg-b-r" oninput="applyLive()"><textarea id="cfg-h-r" oninput="applyLive()" style="height:100px; margin-top:10px;"></textarea></div></div><button class="btn-action" onclick="saveContext('rollen')">SPEICHERN</button></div>
-    <div id="admin-nutzen" class="view"><div class="view-header"><div class="back-btn" onclick="go('nutzen')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Nutzen DNA</h4><input type="text" id="cfg-b-n" oninput="applyLive()"><textarea id="cfg-h-n" oninput="applyLive()" style="height:100px; margin-top:10px;"></textarea></div></div><button class="btn-action" onclick="saveContext('nutzen')">SPEICHERN</button></div>
-    <div id="admin-gew" class="view"><div class="view-header"><div class="back-btn" onclick="go('gew')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Gewicht DNA</h4><input type="text" id="cfg-b-g" oninput="applyLive()"><textarea id="cfg-h-g" oninput="applyLive()" style="height:100px; margin-top:10px;"></textarea></div></div><button class="btn-action" onclick="saveContext('gew')">SPEICHERN</button></div>
-    <div id="admin-wind" class="view"><div class="view-header"><div class="back-btn" onclick="go('wind')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Wind DNA</h4><input type="text" id="cfg-b-w" oninput="applyLive()"><textarea id="cfg-h-w" oninput="applyLive()" style="height:100px; margin-top:10px;"></textarea></div></div><button class="btn-action" onclick="saveContext('wind')">SPEICHERN</button></div>
-    <div id="admin-hohl" class="view"><div class="view-header"><div class="back-btn" onclick="go('hohl')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Hohlsaum DNA</h4><input type="text" id="cfg-b-h" oninput="applyLive()"><textarea id="cfg-h-h" oninput="applyLive()" style="height:100px; margin-top:10px;"></textarea></div></div><button class="btn-action" onclick="saveContext('hohl')">SPEICHERN</button></div>
-
     <footer id="app-footer">
-        <strong id="f-brand">Werbedruck GM</strong>
-        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V3.7.6 | Visual Integrity</div>
-        <div class="footer-links"><a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a></div>
+        <strong id="f-brand">Werbedruck GM</strong><br>
+        <span id="f-ver">V3.8.0 | Final Integrity</span>
+        <div class="footer-links" style="margin-top:5px;"><a id="f-l1" href="#">Impressum</a></div>
     </footer>
 </div>
 
 <script>
-    const VERSION = "3.7.6";
+    const VERSION = "3.8.0";
     const i18n = {
-        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_cut: "Schnittbreite", n_sb: "Schild B", n_sh: "Schild H", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gewicht", mat: "Material", gb: "Breite", gh: "Höhe", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windkraft", wb: "Breite", wh: "Höhe", h_h: "Hohlsaum-Profi", h_p: "Zugabe", hd: "Stangen Ø", hsd: "Materialdicke", g_std: "Standard-Stärken", w_t: "ABWEICHUNG VOM STANDARD!", help_title: "ANLEITUNG" }
+        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware", rollen_h: "Rollen-Meter", rollen_p: "Längen berechnen", r_d1: "Durchmesser", r_d2: "Kern", r_s: "Stärke", res_l: "Material auf Rolle", nutzen_h: "Nutzen-Rechner", nutzen_p: "Schnittpläne", gew_h: "Gewichts-Detektor", gew_p: "Materialgewicht", wind_h: "Windlast-Prüfer", wind_p: "Statik-Check", hohl_h: "Hohlsaum-Profi", hohl_p: "Zugabe" },
+        en: { mainH: "Signmaker Tools", back: "BACK", bt: "Hardware", rollen_h: "Roll Meter", rollen_p: "Calc Length" }
     };
-    const materials = {
-        'alu': { n: 'Aluminium', d: 2.7, t: 'p', s: 2, w: 1.0 }, 'alu_v': { n: 'Alu-Verbund', d: 1.2, t: 'p', s: 3, w: 1.0 }, 'glas': { n: 'Glas', d: 2.5, t: 'p', s: 4, w: 1.0 }, 'v2a': { n: 'Edelstahl', d: 7.9, t: 'p', s: 2, w: 1.0 }, 'pvc_h': { n: 'Forex', d: 0.55, t: 'p', s: 3, w: 1.0 }, 'sieb': { n: 'Siebdruckplatte', d: 0.75, t: 'p', s: 9, w: 1.0 }, 'mdf': { n: 'MDF Platte', d: 0.75, t: 'p', s: 10, w: 1.0 }, 'mplx': { n: 'Multiplex', d: 0.7, t: 'p', s: 15, w: 1.0 }, 'mesh_s': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }
-    };
-    const thicknessPresets = [1, 2, 3, 4, 5, 8, 10, 15, 20, 30];
+
     let activeView = 'main', clks = 0, tmr;
 
-    // DIE ENTSCHEIDENDE FUNKTION: Rekursive Validierung der Ikonen [cite: 2026-01-31]
-    function ensureIcons(retries = 15) {
-        if (window.lucide) {
-            lucide.createIcons();
-            // Validierung: Sind SVGs im DOM?
-            const rendered = document.querySelectorAll('svg.lucide').length;
-            const target = document.querySelectorAll('i[data-lucide]').length;
-            if (rendered < target && retries > 0) {
-                setTimeout(() => ensureIcons(retries - 1), 100);
-            }
-        } else if (retries > 0) {
-            setTimeout(() => ensureIcons(retries - 1), 200);
-        }
+    function t(k) { 
+        const l = document.getElementById('lG').value;
+        return (i18n[l] && i18n[l][k]) ? i18n[l][k] : (i18n.de[k] || "!!"); 
     }
 
-    function t(k) { const l = document.getElementById('lG').value; return (i18n[l] && i18n[l][k]) ? i18n[l][k] : (i18n.de[k] || "!!"); }
+    function ensureIcons(retries = 20) {
+        if (window.lucide) { 
+            lucide.createIcons(); 
+            if (document.querySelectorAll('svg.lucide').length < document.querySelectorAll('i[data-lucide]').length && retries > 0) {
+                setTimeout(() => ensureIcons(retries - 1), 100);
+            }
+        } else if (retries > 0) setTimeout(() => ensureIcons(retries - 1), 200);
+    }
+
+    function updateUI() {
+        const u = document.getElementById('uG').value;
+        document.querySelectorAll('[data-t]').forEach(el => { el.innerText = t(el.getAttribute('data-t')); });
+        document.querySelectorAll('[data-u]').forEach(el => { el.innerText += ` (${u})`; });
+        document.getElementById('main-title').innerText = (activeView === 'main') ? t('mainH') : t(activeView + '_h');
+        ensureIcons();
+    }
+
+    function go(v) {
+        document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
+        activeView = v;
+        const target = document.getElementById(v === 'main' ? 'view-main' : (v.startsWith('admin') ? 'view-' + v : 'view-' + v));
+        if(target) target.classList.add('active');
+        updateUI();
+    }
 
     document.getElementById('logo-trigger').addEventListener('click', () => {
-        clks++; clearTimeout(tmr); if(clks >= 5) { document.getElementById('login-overlay').style.display='flex'; clks=0; }
+        clks++; clearTimeout(tmr);
+        if(clks >= 5) { document.getElementById('login-overlay').style.display='flex'; clks=0; }
         tmr = setTimeout(()=>clks=0, 1500);
     });
 
     function checkAccess() {
         if(document.getElementById('master-pin').value === "7805") {
             document.getElementById('login-overlay').style.display='none';
-            go((activeView === 'main') ? 'admin-global' : 'admin-' + activeView); loadAdminFields();
-        } else { alert("PIN FALSCH."); }
+            go('admin-global');
+        } else alert("FALSCH");
     }
 
-    function go(v) {
-        document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
-        const targetId = (v.startsWith('admin-')) ? v : (v === 'main' ? 'main' : 'view-' + v);
-        if(!v.startsWith('admin-')) activeView = v;
-        if(v === 'main') document.getElementById('dynamic-main-title').innerText = t('mainH');
-        else if(!v.startsWith('admin-')) document.getElementById('dynamic-main-title').innerText = t(v+'_h');
-        document.getElementById(targetId).classList.add('active');
-        if(v === 'gew' || v === 'wind') updateMaterialLogic();
-        ensureIcons();
-    }
-
-    function updateMaterialLogic() {
-        const sel = document.getElementById('gMat');
-        if(!sel.options.length) {
-            for(let k in materials) sel.add(new Option(materials[k].n, k));
-            const pS = document.getElementById('gStd');
-            thicknessPresets.forEach(v => pS.add(new Option(v + " mm", v)));
-        }
-        const m = materials[sel.value]; const isP = (m.t === 'p');
-        document.getElementById('row-thickness-preset').style.display = isP ? 'block' : 'none';
-        document.getElementById('label-thickness').innerText = isP ? "Stärke (mm)" : "Grammatur (kg/m²)";
-        document.getElementById('gs').value = isP ? m.s : m.d;
-        document.getElementById('wMatDisplay').value = m.n;
-        checkThickness();
-    }
-
-    function applyPreset() { document.getElementById('gs').value = document.getElementById('gStd').value; checkThickness(); }
-    function checkThickness() {
-        const m = materials[document.getElementById('gMat').value]; const c = parseFloat(document.getElementById('gs').value);
-        document.getElementById('warn-t').style.display = (m.t === 'p' && c !== m.s) ? 'block' : 'none';
-        calcG(); calcW();
-    }
-
-    function calcR() { let D = parseFloat(document.getElementById('rD').value||0), d = parseFloat(document.getElementById('rd').value||0), s = parseFloat(document.getElementById('rs').value||0); if(D && d && s) { let res = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s); document.getElementById('resR').innerText = (res/1000).toFixed(2)+" m"; } }
-    function calcN() { let pW = parseFloat(document.getElementById('pW').value), pH = parseFloat(document.getElementById('pH').value), sW = parseFloat(document.getElementById('sW').value), sH = parseFloat(document.getElementById('sH').value), gap = parseFloat(document.getElementById('cut').value)||0; if(pW && pH && sW && sH) document.getElementById('resN').innerText = Math.floor((pW+gap)/(sW+gap)) * Math.floor((pH+gap)/(sH+gap)); }
-    function calcG() { 
-        const m = materials[document.getElementById('gMat').value];
-        let b = parseFloat(document.getElementById('gb').value||0), h = parseFloat(document.getElementById('gh').value||0), s = parseFloat(document.getElementById('gs').value||0);
-        if(b && h && s) { let kg = (m.t === 'p') ? ((b * h) / 1000000) * s * m.d : ((b * h) / 1000000) * s; document.getElementById('resG').innerText = kg.toFixed(2) + " kg"; }
-    }
-    function calcW() {
-        const m = materials[document.getElementById('gMat').value]; let b = parseFloat(document.getElementById('wb').value||0), h = parseFloat(document.getElementById('wh').value||0);
-        if(b && h) document.getElementById('resW').innerText = Math.round(((b * h) / 1000000) * 500 * m.w) + " N";
-    }
-    function calcH() { let d=parseFloat(document.getElementById('hd').value), s=parseFloat(document.getElementById('hsd').value); if(d) document.getElementById('resH').innerText = ((Math.PI*d)+(2*s)+10).toFixed(1) + " mm"; }
-
-    async function connectBluetooth() { try { const device = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }, { namePrefix: 'Mahr' }] }); alert("CONNECTED: " + device.name); } catch (e) { alert("BT ERROR"); } }
-    function resetBtSequence() { document.querySelectorAll('input').forEach(e=>e.classList.remove('bt-active')); }
-    function closeLogin() { document.getElementById('login-overlay').style.display = 'none'; }
-    function closeHelp() { document.getElementById('help-popup').style.display = 'none'; }
-    function openHelp(m) { document.getElementById('help-title').innerText = "INFO"; document.getElementById('help-body').innerHTML = t('help_'+m); document.getElementById('help-popup').style.display = 'flex'; }
-
-    function loadAdminFields() {
-        const root = getComputedStyle(document.documentElement);
-        ['c-o', 'c-bl'].forEach(k => { const el = document.getElementById('cfg-'+k); if(el) el.value = root.getPropertyValue('--wd-'+(k==='c-o'?'orange':'blue')).trim(); });
-        document.getElementById('cfg-b-main').value = i18n.de.mainH;
-        ['r','n','g','w','h'].forEach(k => { const b = document.getElementById('cfg-b-'+k), h = document.getElementById('cfg-h-'+k); if(b) b.value = i18n.de[k+'_h']; if(h) h.value = (i18n.de['help_'+k] || "").replace(/<[^>]*>/g, '').replace(/<br>/g, '\n'); });
-        document.getElementById('cfg-f-br').value = document.getElementById('f-brand').innerText;
-        document.getElementById('cfg-f-l1t').value = document.getElementById('f-l1').innerText;
-        document.getElementById('cfg-f-l1u').value = document.getElementById('f-l1').getAttribute('href');
-    }
-
-    function applyLive() {
-        const r = document.documentElement.style;
-        if(document.getElementById('cfg-c-o')) r.setProperty('--wd-orange', document.getElementById('cfg-c-o').value);
-        if(document.getElementById('cfg-c-bl')) r.setProperty('--wd-blue', document.getElementById('cfg-c-bl').value);
-        i18n.de.mainH = document.getElementById('cfg-b-main').value;
-        ['r','n','g','w','h'].forEach(k => { const b = document.getElementById('cfg-b-'+k), h = document.getElementById('cfg-h-'+k); if(b) i18n.de[k+'_h'] = b.value; if(h) i18n.de['help_'+k] = h.value; });
-        document.getElementById('f-brand').innerText = document.getElementById('cfg-f-br').value;
-        changeLang();
-    }
-
-    function saveContext(ctx) {
-        const data = {
-            c: [getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim(), getComputedStyle(document.documentElement).getPropertyValue('--wd-blue').trim()],
-            b: [i18n.de.mainH, i18n.de.r_h, i18n.de.n_h, i18n.de.g_h, i18n.de.w_h, i18n.de.h_h],
-            f: [document.getElementById('f-brand').innerText, document.getElementById('f-l1').innerText, document.getElementById('f-l1').getAttribute('href')],
-            v: VERSION
-        };
-        localStorage.setItem('wgm_master_v376', JSON.stringify(data)); alert("GESPEICHERT.");
+    function calcR() {
+        let D = parseFloat(document.getElementById('rD').value||0), d = parseFloat(document.getElementById('rd').value||0), s = parseFloat(document.getElementById('rs').value||0);
+        if(D && d && s) document.getElementById('resR').innerText = ((Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s) / 1000).toFixed(2) + " m";
     }
 
     function init() {
-        const saved = localStorage.getItem('wgm_master_v376');
+        const saved = localStorage.getItem('wgm_v380');
         if(saved) {
             const s = JSON.parse(saved);
-            if(s.v === VERSION) {
-                const r = document.documentElement.style; if(s.c[0]) r.setProperty('--wd-orange', s.c[0]); if(s.c[1]) r.setProperty('--wd-blue', s.c[1]);
-                if(s.b) { i18n.de.mainH = s.b[0]; i18n.de.r_h = s.b[1]; i18n.de.n_h = s.b[2]; i18n.de.g_h = s.b[3]; i18n.de.w_h = s.b[4]; i18n.de.h_h = s.b[5]; }
-            } else { localStorage.clear(); location.reload(); return; }
-        }
-        changeLang(); updateMaterialLogic(); ensureIcons();
+            document.documentElement.style.setProperty('--wd-orange', s.c);
+            document.getElementById('f-brand').innerText = s.f;
+        } else localStorage.clear();
+        updateUI();
     }
 
-    function changeLang() {
-        document.getElementById('dynamic-main-title').innerText = t('mainH');
-        ['r','n','g','w','h'].forEach(k => { const h = document.getElementById('t-'+k+'_h'), p = document.getElementById('t-'+k+'_p'); if(h) h.innerText = t(k+'_h'); if(p) p.innerText = t(k+'_p'); });
-        ['back1','back2','back3','back4','back5','r_d1','r_d2','r_s','res_l','bt','n_pb','n_ph','n_cut','n_sb','n_sh','n_res','mat1','mat2','g_std','gb','gh','g_res','wb','wh','w_res','hd','hsd','h_p'].forEach(k => { const el = document.getElementById('t-'+k); if(el) el.innerText = t(k); });
-        ensureIcons();
+    function saveContext() {
+        const data = { c: document.getElementById('cfg-c-o').value, f: document.getElementById('cfg-f-br').value, v: VERSION };
+        localStorage.setItem('wgm_v380', JSON.stringify(data)); alert("DNA GESPEICHERT");
     }
-    
-    function updateAllUnits() { calcR(); calcN(); calcG(); calcW(); calcH(); }
+
+    function applyLive() {
+        document.documentElement.style.setProperty('--wd-orange', document.getElementById('cfg-c-o').value);
+        document.getElementById('f-brand').innerText = document.getElementById('cfg-f-br').value;
+        updateUI();
+    }
+
+    function closeLogin() { document.getElementById('login-overlay').style.display='none'; }
     window.onload = init;
 </script>
 </body>
