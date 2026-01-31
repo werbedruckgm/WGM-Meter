@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>WGM Master-Tool | WERBEDRUCK GM</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --wd-orange: #e67e22; --wd-blue: #3b82f6; --wd-dark: #1e293b;
+            --bg-app: #ffffff; --bg-body: #cbd5e1; --app-width: 320px;
+        }
+        html, body { 
+            height: 100%; margin: 0; padding: 0; background: var(--bg-body); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
+            transition: background 0.3s ease;
+        }
+        .app-shell {
+            width: var(--app-width); height: 95vh; max-height: 780px;
+            background: var(--bg-app); color: var(--wd-dark);
+            display: flex; flex-direction: column; overflow: hidden;
+            border-radius: 40px; position: relative; 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.25), 0 10px 20px rgba(0,0,0,0.1); 
+        }
+        @media (max-width: 380px) { .app-shell { width: 94vw; height: 96vh; } }
+        
+        #login-overlay, #help-popup { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(255,255,255,0.98); display: none; 
+            flex-direction: column; justify-content: center; align-items: center; 
+            z-index: 2000; backdrop-filter: blur(15px); 
+        }
+        
+        .help-content { border: 2px solid var(--wd-orange); padding: 20px; border-radius: 25px; width: 85%; max-height: 85%; overflow-y: auto; }
+
+        .top-nav { display: flex; justify-content: space-between; padding: 30px 20px 5px; }
+        select, .admin-input { 
+            background: white; border: 1px solid #cbd5e1; padding: 8px; 
+            border-radius: 10px; font-weight: 800; font-size: 0.75rem; outline: none; 
+        }
+
+        .logo-area { text-align: center; padding: 10px 20px; }
+        .logo-area img { max-width: 150px; height: auto; cursor: pointer; margin-bottom: 5px; }
+        .logo-area .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; margin: 12px 0; }
+        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 0; font-weight: 900; text-transform: uppercase; color: #475569; }
+
+        .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
+        .view.active { display: flex; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card { 
+            background: white; border-radius: 20px; padding: 14px; 
+            display: flex; align-items: center; gap: 14px; cursor: pointer; 
+            margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); 
+            border: 1px solid #f1f5f9; transition: transform 0.2s;
+        }
+        .card:active { transform: scale(0.96); }
+        .icon { width: 44px; height: 44px; background: #f8fafc; color: var(--wd-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; border: 1px solid #f1f5f9; }
+        .card-text h2 { margin: 0; font-size: 0.9rem; font-weight: 900; text-transform: uppercase; }
+        .card-text p { margin: 2px 0 0; font-size: 0.7rem; color: #64748b; font-weight: 600; }
+
+        .input-box { margin-bottom: 12px; }
+        .label { font-size: 0.65rem; color: #475569; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; display: block; }
+        input[type="number"], input[type="text"], select.in-view { width: 100%; padding: 12px; border-radius: 14px; border: 1px solid #cbd5e1; font-size: 0.9rem; font-weight: 700; box-sizing: border-box; }
+
+        .res-card { background: var(--wd-orange); padding: 18px; border-radius: 24px; text-align: center; margin: 15px 0; color: white; box-shadow: 0 10px 25px rgba(230, 126, 34, 0.3); }
+        .res-num { font-size: 2.2rem; font-weight: 900; display: block; }
+        .res-info { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.75rem; }
+        .btn-action { background: var(--wd-blue); color: white; border: none; padding: 14px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; }
+
+        /* Admin Styles */
+        .admin-section { margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .admin-section h4 { font-size: 0.8rem; text-transform: uppercase; color: var(--wd-orange); margin-bottom: 12px; border-left: 4px solid var(--wd-orange); padding-left: 8px; }
+        .color-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        input[type="color"] { border: none; width: 40px; height: 40px; cursor: pointer; background: none; }
+
+        footer { text-align: center; padding: 15px 20px 30px; font-size: 0.65rem; color: #64748b; margin-top: auto; }
+        footer strong { color: #334155; }
+        .footer-links a { color: var(--wd-blue); text-decoration: none; font-weight: 800; margin: 0 5px; }
+    </style>
+</head>
+<body>
+
+<div class="app-shell">
+    <div id="login-overlay">
+        <h3 style="color:var(--wd-orange); font-weight:900;">ADMIN LOGIN</h3>
+        <input type="password" id="master-pin" class="admin-input" placeholder="****" style="text-align:center; font-size:1.5rem; width:120px; letter-spacing:5px; margin: 20px 0;">
+        <button class="btn-action" onclick="checkAccess()" style="width:120px;">LOGIN</button>
+        <p onclick="closeLogin()" style="margin-top:20px; font-size:0.6rem; cursor:pointer; font-weight:800; color:#94a3b8;">ABBRECHEN</p>
+    </div>
+
+    <div id="help-popup">
+        <div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()">VERSTANDEN</button></div>
+    </div>
+
+    <div class="top-nav">
+        <select id="uG" onchange="updateAllUnits()"><option value="mm">mm</option><option value="inc">inc</option></select>
+        <select id="lG" onchange="changeLang()"><option value="de">DE</option><option value="en">EN</option></select>
+    </div>
+
+    <div class="logo-area">
+        <img src="wgm-applogo.jpg" id="logo-trigger" alt="WERBEDRUCK GM">
+        <div class="divider"></div>
+        <h1 data-t="mainH">Werbetechniker-Tools</h1>
+    </div>
+
+    <main id="main" class="view active">
+        <div class="card" onclick="go('rollen')">
+            <div class="icon"><i data-lucide="ruler"></i></div>
+            <div class="card-text"><h2 data-t="r_h">Rollen-Meter</h2><p data-t="r_p">Längen berechnen</p></div>
+        </div>
+        <div class="card" onclick="go('nutzen')">
+            <div class="icon"><i data-lucide="layout-grid"></i></div>
+            <div class="card-text"><h2 data-t="n_h">Nutzen-Rechner</h2><p data-t="n_p">Schnittpläne</p></div>
+        </div>
+        <div class="card" onclick="go('gew')">
+            <div class="icon"><i data-lucide="weight"></i></div>
+            <div class="card-text"><h2 data-t="g_h">Gewichts-Detektor</h2><p data-t="g_p">Materialgewicht</p></div>
+        </div>
+    </main>
+
+    <div id="view-rollen" class="view">
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:15px;">
+            <div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div>
+            <div class="info-btn" onclick="openHelp('r')" style="color:var(--wd-blue); cursor:pointer;"><i data-lucide="info"></i></div>
+        </div>
+        <div class="input-box"><span class="label" data-t="r_d1" data-u>Rollendurchmesser</span><input type="number" id="rD" oninput="calcR()"></div>
+        <div class="input-box"><span class="label" data-t="r_d2" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" oninput="calcR()"></div>
+        <div class="input-box"><span class="label" data-t="r_s" data-u>Stärke</span><input type="number" id="rs" value="0.22" step="0.01" oninput="calcR()"></div>
+        <div class="res-card"><span class="res-info" data-t="res_l">Material auf der Rolle</span><span id="resR" class="res-num">0.00 m</span></div>
+    </div>
+
+    <div id="view-admin" class="view">
+        <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:15px;">
+            <div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div>
+            <div style="font-weight:900; font-size:0.7rem; color:var(--wd-orange);">MASTER CONSOLE</div>
+        </div>
+        
+        <div class="admin-section">
+            <h4>Farben & Branding</h4>
+            <div class="color-row"><span class="label">Akzent (Orange)</span><input type="color" id="cfg-color-orange" onchange="applyLive()"></div>
+            <div class="color-row"><span class="label">Aktion (Blau)</span><input type="color" id="cfg-color-blue" onchange="applyLive()"></div>
+            <div class="color-row"><span class="label">Hintergrund</span><input type="color" id="cfg-color-bg" onchange="applyLive()"></div>
+        </div>
+
+        <div class="admin-section">
+            <h4>Fußzeile (Footer)</h4>
+            <div class="input-box"><span class="label">Firmenname</span><input type="text" id="cfg-foot-brand" oninput="applyLive()"></div>
+            <div class="input-box"><span class="label">Status/Version Zeile</span><input type="text" id="cfg-foot-status" oninput="applyLive()"></div>
+            <div style="display:flex; gap:5px;">
+                <div class="input-box" style="flex:1;"><span class="label">Link 1 Text</span><input type="text" id="cfg-link1-txt" oninput="applyLive()"></div>
+                <div class="input-box" style="flex:1;"><span class="label">Link 1 URL</span><input type="text" id="cfg-link1-url" oninput="applyLive()"></div>
+            </div>
+            <div style="display:flex; gap:5px;">
+                <div class="input-box" style="flex:1;"><span class="label">Link 2 Text</span><input type="text" id="cfg-link2-txt" oninput="applyLive()"></div>
+                <div class="input-box" style="flex:1;"><span class="label">Link 2 URL</span><input type="text" id="cfg-link2-url" oninput="applyLive()"></div>
+            </div>
+        </div>
+
+        <button class="btn-action" onclick="saveToMaster()">EINSTELLUNGEN SPEICHERN</button>
+    </div>
+
+    <footer id="app-footer">
+        <strong id="foot-brand">Werbedruck GM</strong>
+        <div id="foot-status" class="ver">V2.2.6 | STATUS: OPERATIV</div>
+        <div class="footer-links">
+            <a id="link1-el" href="#">Impressum</a> | <a id="link2-el" href="#">Datenschutz</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+    let i18n = {
+        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", help_title: "ANLEITUNG", help_r: "Geben Sie die Durchmesser ein." },
+        en: { mainH: "Signmaker Pro", back: "BACK", r_h: "Roll Calc", r_p: "Calculate length", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", help_title: "GUIDE", help_r: "Enter diameters." }
+    };
+
+    let clicks = 0, timer;
+    document.getElementById('logo-trigger').addEventListener('click', () => {
+        clicks++; clearTimeout(timer);
+        if(clicks >= 5) { document.getElementById('login-overlay').style.display = 'flex'; clicks = 0; }
+        timer = setTimeout(() => clicks = 0, 1500);
+    });
+
+    function checkAccess() {
+        if(document.getElementById('master-pin').value === "7805") {
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('master-pin').value = "";
+            go('admin'); loadAdminFields();
+        } else { alert("ZUGRIFF VERWEIGERT."); }
+    }
+
+    function go(v) {
+        document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
+        if(v === 'main') document.getElementById('main').classList.add('active');
+        else document.getElementById('view-' + v).classList.add('active');
+        lucide.createIcons();
+    }
+
+    function loadAdminFields() {
+        document.getElementById('cfg-color-orange').value = getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim();
+        document.getElementById('cfg-color-blue').value = getComputedStyle(document.documentElement).getPropertyValue('--wd-blue').trim();
+        document.getElementById('cfg-color-bg').value = getComputedStyle(document.documentElement).getPropertyValue('--bg-body').trim();
+        
+        document.getElementById('cfg-foot-brand').value = document.getElementById('foot-brand').innerText;
+        document.getElementById('cfg-foot-status').value = document.getElementById('foot-status').innerText;
+        document.getElementById('cfg-link1-txt').value = document.getElementById('link1-el').innerText;
+        document.getElementById('cfg-link1-url').value = document.getElementById('link1-el').href;
+        document.getElementById('cfg-link2-txt').value = document.getElementById('link2-el').innerText;
+        document.getElementById('cfg-link2-url').value = document.getElementById('link2-el').href;
+    }
+
+    function applyLive() {
+        document.documentElement.style.setProperty('--wd-orange', document.getElementById('cfg-color-orange').value);
+        document.documentElement.style.setProperty('--wd-blue', document.getElementById('cfg-color-blue').value);
+        document.documentElement.style.setProperty('--bg-body', document.getElementById('cfg-color-bg').value);
+        
+        document.getElementById('foot-brand').innerText = document.getElementById('cfg-foot-brand').value;
+        document.getElementById('foot-status').innerText = document.getElementById('cfg-foot-status').value;
+        document.getElementById('link1-el').innerText = document.getElementById('cfg-link1-txt').value;
+        document.getElementById('link1-el').href = document.getElementById('cfg-link1-url').value;
+        document.getElementById('link2-el').innerText = document.getElementById('cfg-link2-txt').value;
+        document.getElementById('link2-el').href = document.getElementById('cfg-link2-url').value;
+    }
+
+    function saveToMaster() {
+        const settings = {
+            colors: { orange: document.getElementById('cfg-color-orange').value, blue: document.getElementById('cfg-color-blue').value, bg: document.getElementById('cfg-color-bg').value },
+            footer: { 
+                brand: document.getElementById('cfg-foot-brand').value, 
+                status: document.getElementById('cfg-foot-status').value,
+                l1t: document.getElementById('cfg-link1-txt').value, l1u: document.getElementById('cfg-link1-url').value,
+                l2t: document.getElementById('cfg-link2-txt').value, l2u: document.getElementById('cfg-link2-url').value
+            }
+        };
+        localStorage.setItem('wgm_master_v2', JSON.stringify(settings));
+        alert("Kern-Konfiguration aktualisiert.");
+    }
+
+    function init() {
+        const saved = localStorage.getItem('wgm_master_v2');
+        if(saved) {
+            const s = JSON.parse(saved);
+            document.documentElement.style.setProperty('--wd-orange', s.colors.orange);
+            document.documentElement.style.setProperty('--wd-blue', s.colors.blue);
+            document.documentElement.style.setProperty('--bg-body', s.colors.bg);
+            document.getElementById('foot-brand').innerText = s.footer.brand;
+            document.getElementById('foot-status').innerText = s.footer.status;
+            document.getElementById('link1-el').innerText = s.footer.l1t;
+            document.getElementById('link1-el').href = s.footer.l1u;
+            document.getElementById('link2-el').innerText = s.footer.l2t;
+            document.getElementById('link2-el').href = s.footer.l2u;
+        }
+        changeLang();
+    }
+
+    function calcR() {
+        let D = parseFloat(document.getElementById('rD').value || 0), d = parseFloat(document.getElementById('rd').value || 0), s = parseFloat(document.getElementById('rs').value || 0);
+        if(D && d && s) {
+            let res = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s);
+            document.getElementById('resR').innerText = (res/1000).toFixed(2) + " m";
+        }
+    }
+    function changeLang() { /* Standard Logic */ lucide.createIcons(); }
+    function closeLogin() { document.getElementById('login-overlay').style.display = 'none'; }
+    window.onload = init;
+</script>
+</body>
+</html>
