@@ -192,7 +192,7 @@
         </div>
 
         <div class="admin-section">
-            <h4>2. Menü & Buttons</h4>
+            <h4>2. Menü & Buttons (DE)</h4>
             <div class="input-box"><span class="label">App Titel</span><input type="text" id="cfg-btn-mainH" oninput="applyLive()"></div>
             <div class="input-box"><span class="label">Label: Rollen</span><input type="text" id="cfg-btn-rh" oninput="applyLive()"></div>
             <div class="input-box"><span class="label">Label: Nutzen</span><input type="text" id="cfg-btn-nh" oninput="applyLive()"></div>
@@ -216,7 +216,7 @@
         </div>
 
         <div class="admin-section">
-            <h4>4. Fach-Info Texte (Klartext)</h4>
+            <h4>4. Fach-Info Texte (Plain Text)</h4>
             <div class="input-box"><span class="label">Info: Rollen-Meter</span><textarea id="cfg-h-r" oninput="applyLive()" style="height:50px;"></textarea></div>
             <div class="input-box"><span class="label">Info: Nutzen-Rechner</span><textarea id="cfg-h-n" oninput="applyLive()" style="height:50px;"></textarea></div>
             <div class="input-box"><span class="label">Info: Gewichts-Detektor</span><textarea id="cfg-h-g" oninput="applyLive()" style="height:50px;"></textarea></div>
@@ -229,7 +229,7 @@
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <div id="f-status" class="ver">V2.3.3 | 31.01.2026</div>
+        <div id="f-status" class="ver">V2.3.4 | 31.01.2026</div>
         <div class="footer-links">
             <a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a>
         </div>
@@ -238,7 +238,14 @@
 
 <script>
     const i18n = {
-        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_sb: "Schild B", n_sh: "Schild H", n_cut: "Schnittbreite", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gesamtgewicht", mat: "Material", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windkraft", w_mat: "Oberfläche", h_h: "Hohlsaum-Profi", h_p: "Zulage", help_title: "ANLEITUNG", help_r: "Rollendurchmesser-Logik...", help_n: "Nutzen-Optimierung...", help_g: "Gewichtsanalyse...", help_w: "Windlast-Statik...", help_h: "Hohlsaum-Zugabe..." },
+        de: { 
+            mainH: "Werbetechniker-Tools", back: "ZURÜCK", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_sb: "Schild B", n_sh: "Schild H", n_cut: "Schnittbreite", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gesamtgewicht", mat: "Material", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windkraft", w_mat: "Oberfläche", h_h: "Hohlsaum-Profi", h_p: "Zulage", help_title: "ANLEITUNG", 
+            help_r: "Messen Sie Außendurchmesser (D) und Kerndurchmesser (d). Die präzise Angabe der Materialstärke (s) ermöglicht die Berechnung der Restmeter über die Volumen-Differenz des Wickelkörpers.", 
+            help_n: "Kalkuliert die maximale Anzahl an Nutzen auf einer Platte unter Berücksichtigung der Schnittbreite (Verschnitt). Geben Sie Plattenmaß und Endformat an.", 
+            help_g: "Ermittelt das statische Gewicht basierend auf Materialdichte und Volumen. Unverzichtbar für die statische Planung von Schildersystemen.", 
+            help_w: "Berechnet die Kraft in Newton (N), die bei 120 km/h auf das Objekt wirkt. Berücksichtigt Material-Koeffizienten für Mesh oder geschlossene Flächen.", 
+            help_h: "Berechnet das Zugabe-Maß für Hohlräume an Bannersäumen. Die Formel addiert Stangenumfang, Materialstärke und einen Sicherheitspuffer." 
+        },
         en: { mainH: "Signmaker Tools", back: "BACK", r_h: "Roll Meter", r_p: "Calc Length", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", n_h: "Yield Pro", n_p: "Nesting", n_res: "Yield", n_pb: "Sheet W", n_ph: "Sheet H", n_sb: "Sign W", n_sh: "Sign H", n_cut: "Gap", g_h: "Weight Calc", g_p: "Mass", g_res: "Total Weight", mat: "Material", w_h: "Wind Load", w_p: "Statics", w_res: "Wind Force", w_mat: "Surface", h_h: "Hem Master", h_p: "Allowance", help_title: "GUIDE" }
     };
     ["fr", "es", "it", "nl", "pl", "da", "no", "ru", "ja"].forEach(l => { if(!i18n[l]) i18n[l] = i18n.en; });
@@ -357,17 +364,17 @@
 
     function saveToMaster() {
         const s = {
-            colors: { o: document.getElementById('cfg-c-o').value, bl: document.getElementById('cfg-c-bl').value, d: document.getElementById('cfg-c-d').value, bo: document.getElementById('cfg-c-bo').value, ap: document.getElementById('cfg-c-ap').value, ca: document.getElementById('cfg-c-ca').value },
+            colors: { o: document.getElementById('cfg-c-o').value, bl: document.getElementById('cfg-c-bl').value, d: document.getElementById('cfg-c-d').value, bo: document.getElementById('cfg-c-bo').value, ap: document.getElementById('cfg-c-app').value, ca: document.getElementById('cfg-c-ca').value },
             btns: [i18n.de.mainH, i18n.de.r_h, i18n.de.n_h, i18n.de.g_h, i18n.de.w_h, i18n.de.h_h],
             footer: [document.getElementById('cfg-f-brand').value, document.getElementById('cfg-f-status').value, document.getElementById('cfg-f-l1t').value, document.getElementById('cfg-f-l1u').value, document.getElementById('cfg-f-l2t').value, document.getElementById('cfg-f-l2u').value],
             help: [i18n.de.help_r, i18n.de.help_n, i18n.de.help_g, i18n.de.help_w, i18n.de.help_h]
         };
-        localStorage.setItem('wgm_master_v233', JSON.stringify(s));
+        localStorage.setItem('wgm_v234_master', JSON.stringify(s));
         alert("MASTER-DNA GESPEICHERT.");
     }
 
     function init() {
-        const saved = localStorage.getItem('wgm_master_v233');
+        const saved = localStorage.getItem('wgm_v234_master');
         if(saved) {
             const s = JSON.parse(saved);
             const root = document.documentElement.style;
@@ -387,7 +394,9 @@
             document.getElementById('f-l2').innerText = s.footer[4];
             document.getElementById('f-l2').setAttribute('href', s.footer[5]);
             
-            i18n.de.help_r = s.help[0]; i18n.de.help_n = s.help[1]; i18n.de.help_g = s.help[2]; i18n.de.help_w = s.help[3]; i18n.de.help_h = s.help[4];
+            if(s.help) {
+                i18n.de.help_r = s.help[0]; i18n.de.help_n = s.help[1]; i18n.de.help_g = s.help[2]; i18n.de.help_w = s.help[3]; i18n.de.help_h = s.help[4];
+            }
         }
         changeLang();
     }
