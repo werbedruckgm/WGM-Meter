@@ -25,14 +25,13 @@
         }
         @media (max-width: 380px) { .app-shell { width: 94vw; height: 96vh; } }
         
-        /* ADMIN GATE - FIX STRETCHING */
         #login-overlay { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(255,255,255,0.98); display: none; 
             flex-direction: column; justify-content: center; align-items: center; 
             z-index: 3000; backdrop-filter: blur(15px); 
         }
-        #login-overlay .btn-action { max-width: 160px; height: 48px; flex: none; }
+        #login-overlay .btn-action { max-width: 160px; height: 48px; flex: none; font-size: 0.8rem; }
 
         .assist-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 215px;
@@ -58,7 +57,7 @@
         .view.active { display: flex; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* FLOATING MENU CARDS */
+        /* FLOATING CARDS V3.9.9 */
         .card { 
             background: var(--card-bg); height: 78px; border-radius: 22px; padding: 0 16px; 
             display: flex; align-items: center; gap: 14px; cursor: pointer; margin-bottom: 12px; 
@@ -86,7 +85,7 @@
 
         .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.68rem; }
         .btn-row { display: flex; gap: 10px; margin-top: 5px; height: 48px; width: 100%; }
-        .btn-action { background: var(--wd-blue); color: white; border: none; flex: 1; border-radius: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-transform: uppercase; font-size: 0.6rem; height: 48px; }
+        .btn-action { background: var(--wd-blue); color: white; border: none; flex: 1; border-radius: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-transform: uppercase; font-size: 0.58rem; height: 48px; }
         .btn-reset { width: 48px; height: 48px; background: #f1f5f9; color: #475569; border: 1.5px solid #cbd5e1; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex: none; }
 
         .admin-scroll { flex: 1; overflow-y: auto; padding-right: 5px; }
@@ -193,34 +192,35 @@
                 <div id="admin-fields-list"></div>
             </div>
         </div>
-        <button class="btn-action" style="margin-top:20px; height:48px; flex:none;" onclick="saveDNA()">DNA VERSIEGELN</button>
+        <button class="btn-action" style="margin-top:20px; height:48px; flex:none; font-size:0.8rem;" onclick="saveDNA()">DNA VERSIEGELN</button>
     </div>
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <span id="f-ver">V3.9.8 | Master-Final</span>
+        <span id="f-ver">V3.9.9 | Master-Final</span>
         <div class="footer-links"><a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a></div>
     </footer>
 </div>
 
 <script>
-    const VERSION = "3.9.8";
+    const VERSION = "3.9.9";
     const i18n = {
         de: {
             mainH: "Werbetechniker-Tools", admin_exit: "ADMIN VERLASSEN", bt_btn: "BT MESSCHIEBER KOPPELN",
             rollen_h: "Rollen-Meter", nutzen_h: "Nutzen-Rechner", gew_h: "Gewichts-Rechner", wind_h: "Windlast-Rechner", hohl_h: "Hohlsaum-Rechner",
+            rollen_p: "Material auf der Rolle berechnen", nutzen_p: "Plattennutzung optimieren", gew_p: "Gewicht für Versand/Montage", wind_p: "Windlast nach DIN-Werten", hohl_p: "Hohlsaum für Banner-Stangen",
             back_r: "ZURÜCK", back_n: "ZURÜCK", back_g: "ZURÜCK", back_w: "ZURÜCK", back_h: "ZURÜCK",
             rD_l: "Durchmesser Außen", rd_l: "Kerndurchmesser", rs_l: "Materialstärke", res_l: "Material auf der Rolle",
             pW_l: "Plattenbreite", pH_l: "Plattenhöhe", cut_l: "Schnittbreite", sW_l: "Schildbreite", sH_l: "Schildhöhe", n_res: "Nutzen pro Platte",
             mat_l: "Datenbank (19 Werkstoffe)", gStd_l: "Presets", gb_l: "Breite", gh_l: "Höhe", g_res: "Gesamtgewicht", gs_l: "Stärke / Gramm",
             wMat_l: "Material-DNA", wb_l: "Breite", wh_l: "Höhe", w_res: "Windlast bei 120 km/h",
             hd_l: "Stangen Ø", hsd_l: "Materialdicke", h_p: "Hohlsaum-Zugabe",
-            h_rD: "Erfassen Sie den Gesamtdurchmesser von Außenkante zu Außenkante.", h_rd: "Hülsendurchmesser mit Rückseiten-Gabeln messen.",
-            h_rs: "Exakte Stärke einer einzelnen Lage inklusive Träger.", h_pW: "Breite der Rohplatte.", h_pH: "Höhe der Rohplatte.",
-            h_cut: "Schnittverlust (Fräser/Säge).", h_sW: "Breite des Schildes.", h_sH: "Höhe des Schildes.",
-            h_mat: "Werkstoff aus Datenbank wählen.", h_gStd: "Preset für Plattenstärke.", h_gs: "Stärke (mm) oder Gramm (kg/m²).",
-            h_gb: "Gesamtbreite.", h_gh: "Gesamthöhe.", h_wMat: "Material für Windlast-Faktor.",
-            h_wb: "Windbreite.", h_wh: "Windhöhe.", h_hd: "Stangendurchmesser.", h_hsd: "Bannerdicke."
+            h_rD: "Gesamtdurchmesser der Rolle messen.", h_rd: "Innendurchmesser der Hülse messen.",
+            h_rs: "Stärke inkl. Trägermaterial erfassen.", h_pW: "Breite der unbeschnittenen Platte.", h_pH: "Höhe der unbeschnittenen Platte.",
+            h_cut: "Säge- oder Fräsverlust pro Schnitt.", h_sW: "Gewünschte Breite des Endprodukts.", h_sH: "Gewünschte Höhe des Endprodukts.",
+            h_mat: "Material für Dichteberechnung wählen.", h_gStd: "Häufige Plattenstärken als Schnellwahl.", h_gs: "Plattenstärke in mm oder Grammatur in kg/m².",
+            h_gb: "Netto-Breite des Objekts.", h_gh: "Netto-Höhe des Objekts.", h_wMat: "Werkstoff-Koeffizient für Winddruck.",
+            h_wb: "Schildbreite für Windangriff.", h_wh: "Schildhöhe für Windangriff.", h_hd: "Durchmesser der Haltestange.", h_hsd: "Gesamtdicke des Banners."
         }
     };
     const materials = {
@@ -231,7 +231,7 @@
         'poly': { n: 'Polystyrol', d: 1.05, t: 'p', w: 1.0 }, 'stahl': { n: 'Stahlblech verzinkt', d: 7.8, t: 'p', w: 1.0 }, 'mag': { n: 'Magnetfolie', d: 3.5, t: 'r', w: 1.0 },
         'mesh': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }, 'mesh_p': { n: 'Mesh Wind-Pro', d: 0.25, t: 'r', w: 0.4 }, 'lkw': { n: 'LKW Plane (Frontlit)', d: 0.55, t: 'r', w: 1.0 }, 'block': { n: 'Blockout Banner', d: 0.8, t: 'r', w: 1.0 }
     };
-    let activeView = 'main', clks = 0, helpOn = false, btOn = false, tmr;
+    let activeView = 'main', clks = 0, helpOn = false, btOn = false, tmr, currentAdminCtx = 'main';
 
     function t(k) { return i18n.de[k] || "!!"; }
 
@@ -239,7 +239,15 @@
         document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
         activeView = v; helpOn = false;
         document.getElementById('assist-overlay').style.display = 'none';
-        document.getElementById('admin-label').style.display = (v === 'admin') ? 'block' : 'none';
+        
+        const al = document.getElementById('admin-label');
+        if(v === 'admin') {
+            al.innerText = (currentAdminCtx === 'main') ? "Admin Toolbox" : "Admin " + t(currentAdminCtx + "_h");
+            al.style.display = 'block';
+        } else {
+            al.style.display = 'none';
+        }
+
         const target = document.getElementById(v === 'admin' ? 'view-admin' : 'view-' + v);
         target.classList.add('active');
         if(v !== 'main' && v !== 'admin') {
@@ -265,11 +273,6 @@
 
     function updateUI() {
         const u = document.getElementById('uG').value;
-        const al = document.getElementById('admin-label');
-        if(activeView === 'admin') {
-            const ctx = window.adminCtx || 'main';
-            al.innerText = (ctx === 'main') ? "Admin Toolbox" : "Admin " + t(ctx + "_h");
-        }
         document.getElementById('app-title').innerText = (activeView === 'main') ? t('mainH') : t(activeView + '_h');
         document.querySelectorAll('[id^="t-"]').forEach(el => {
             const k = el.id.replace('t-', '');
@@ -304,11 +307,11 @@
     async function connectBT() { try { await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }] }); btOn=true; } catch (e) { btOn=false; } }
 
     document.getElementById('logo-trigger').addEventListener('click', () => { clks++; clearTimeout(tmr); if(clks >= 5) { document.getElementById('login-overlay').style.display='flex'; clks=0; } tmr=setTimeout(()=>clks=0, 2000); });
-    function checkAccess() { if(document.getElementById('master-pin').value === "7805") { document.getElementById('login-overlay').style.display='none'; window.adminCtx = activeView; openAdmin(); } }
+    function checkAccess() { if(document.getElementById('master-pin').value === "7805") { document.getElementById('login-overlay').style.display='none'; currentAdminCtx = activeView; go('admin'); } }
     function closeLogin() { document.getElementById('login-overlay').style.display='none'; }
 
     function openAdmin() {
-        const g=document.getElementById('admin-global-config'), l=document.getElementById('admin-fields-list'), ctx=window.adminCtx;
+        const g=document.getElementById('admin-global-config'), l=document.getElementById('admin-fields-list'), ctx=currentAdminCtx;
         g.style.display=(ctx==='main')?'block':'none';
         document.getElementById('cfg-color').value=getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim();
         document.getElementById('cfg-brand').value=document.getElementById('f-brand').innerText;
@@ -317,7 +320,6 @@
         l.innerHTML='';
         const list=(ctx==='main')?['rollen_h','nutzen_h','gew_h','wind_h','hohl_h']:[ctx+'_h','back_'+ctx.charAt(0)];
         list.forEach(k=>{ if(i18n.de[k]) l.innerHTML+=`<label class="label">${k}</label><input type="text" id="cfg-${k}" value="${i18n.de[k]}" oninput="applyAdminLive()" style="margin-bottom:12px;">`; });
-        go('admin');
     }
 
     function applyAdminLive() {
@@ -329,10 +331,10 @@
         updateUI();
     }
 
-    function saveDNA() { localStorage.setItem('wgm_v398', JSON.stringify({ c: document.getElementById('cfg-color').value, f: document.getElementById('f-brand').innerText, v: VERSION })); alert("DNA VERSIEGELT"); }
+    function saveDNA() { localStorage.setItem('wgm_v399', JSON.stringify({ c: document.getElementById('cfg-color').value, f: document.getElementById('f-brand').innerText, v: VERSION })); alert("DNA VERSIEGELT"); }
 
     window.onload = () => {
-        const s=localStorage.getItem('wgm_v398'); if(s) { const d=JSON.parse(s); if(d.v===VERSION) { document.documentElement.style.setProperty('--wd-orange', d.c); document.getElementById('f-brand').innerText=d.f; } }
+        const s=localStorage.getItem('wgm_v399'); if(s) { const d=JSON.parse(s); if(d.v===VERSION) { document.documentElement.style.setProperty('--wd-orange', d.c); document.getElementById('f-brand').innerText=d.f; } }
         updateUI();
     };
 </script>
