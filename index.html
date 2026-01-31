@@ -105,7 +105,6 @@
         <select id="lG" onchange="changeLang()">
             <option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="es">ES</option>
             <option value="it">IT</option><option value="nl">NL</option><option value="pl">PL</option><option value="ru">RU</option>
-            <option value="da">DA</option><option value="no">NO</option><option value="ja">JP</option>
         </select>
     </div>
 
@@ -164,15 +163,13 @@
     </div>
 
     <div id="admin-global" class="view">
-        <div class="view-header" style="display:flex; justify-content:space-between; align-items:center;"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div><button class="btn-logout" onclick="go('main')">LOGOUT</button></div>
+        <div class="view-header" style="display:flex; justify-content:space-between; align-items:center;"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div></div>
         <div class="admin-scroll">
-            <div class="admin-section"><h4>Design DNA</h4>
-                <div class="admin-grid" style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label-row"><span class="label">Akzent</span><i data-lucide="info" class="info-small" onclick="ash('c-o')"></i></span><input type="color" id="cfg-c-o" onchange="applyLive()"></div><div class="input-box" style="flex:1;"><span class="label-row"><span class="label">Buttons</span><i data-lucide="info" class="info-small" onclick="ash('c-bl')"></i></span><input type="color" id="cfg-c-bl" onchange="applyLive()"></div></div>
-            </div>
-            <div class="admin-section"><h4>UI & Footer Master</h4>
-                <div class="input-box"><span class="label-row"><span class="label">App Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-main')"></i></span><input type="text" id="cfg-b-main" oninput="applyLive()"></div>
-                <div class="input-box"><span class="label-row"><span class="label">Firma Footer</span><i data-lucide="info" class="info-small" onclick="ash('f-br')"></i></span><input type="text" id="cfg-f-br" oninput="applyLive()"></div>
-                <div class="input-box"><span class="label-row"><span class="label">Status</span><i data-lucide="info" class="info-small" onclick="ash('f-st')"></i></span><input type="text" id="cfg-f-st" oninput="applyLive()"></div>
+            <div class="admin-section"><h4>Design DNA</h4><div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label">Akzent</span><input type="color" id="cfg-c-o" onchange="applyLive()"></div><div class="input-box" style="flex:1;"><span class="label">Buttons</span><input type="color" id="cfg-c-bl" onchange="applyLive()"></div></div></div>
+            <div class="admin-section"><h4>UI & Footer Editor</h4>
+                <div class="input-box"><span class="label">App Titel</span><input type="text" id="cfg-b-main" oninput="applyLive()"></div>
+                <div class="input-box"><span class="label">Firma</span><input type="text" id="cfg-f-br" oninput="applyLive()"></div>
+                <div class="input-box"><span class="label">Status</span><input type="text" id="cfg-f-st" oninput="applyLive()"></div>
                 <div style="display:flex; gap:5px;"><input type="text" id="cfg-f-l1t" placeholder="L1 Text" oninput="applyLive()" style="flex:1;"><input type="text" id="cfg-f-l1u" placeholder="L1 URL" oninput="applyLive()" style="flex:1;"></div>
                 <div style="display:flex; gap:5px; margin-top:5px;"><input type="text" id="cfg-f-l2t" placeholder="L2 Text" oninput="applyLive()" style="flex:1;"><input type="text" id="cfg-f-l2u" placeholder="L2 URL" oninput="applyLive()" style="flex:1;"></div>
             </div>
@@ -180,40 +177,34 @@
         <button class="btn-action" onclick="saveContext('global')">GLOBAL DNA SPEICHERN</button>
     </div>
 
-    <div id="admin-rollen" class="view"><div class="view-header"><div class="back-btn" onclick="go('rollen')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Rollen DNA</h4><div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-r')"></i></span><input type="text" id="cfg-b-r" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfe</span><i data-lucide="info" class="info-small" onclick="ash('h-r')"></i></span><textarea id="cfg-h-r" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('rollen')">ROLLEN DNA SPEICHERN</button></div>
-
-    <div id="admin-nutzen" class="view"><div class="view-header"><div class="back-btn" onclick="go('nutzen')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Nutzen DNA</h4><div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-n')"></i></span><input type="text" id="cfg-b-n" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfe</span><i data-lucide="info" class="info-small" onclick="ash('h-n')"></i></span><textarea id="cfg-h-n" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('nutzen')">NUTZEN DNA SPEICHERN</button></div>
-
-    <div id="admin-gew" class="view"><div class="view-header"><div class="back-btn" onclick="go('gew')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Gewicht DNA</h4><div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-g')"></i></span><input type="text" id="cfg-b-g" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfe</span><i data-lucide="info" class="info-small" onclick="ash('h-g')"></i></span><textarea id="cfg-h-g" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('gew')">GEWICHT DNA SPEICHERN</button></div>
-
-    <div id="admin-wind" class="view"><div class="view-header"><div class="back-btn" onclick="go('wind')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Windlast DNA</h4><div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-w')"></i></span><input type="text" id="cfg-b-w" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfe</span><i data-lucide="info" class="info-small" onclick="ash('h-w')"></i></span><textarea id="cfg-h-w" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('wind')">WIND DNA SPEICHERN</button></div>
-
-    <div id="admin-hohl" class="view"><div class="view-header"><div class="back-btn" onclick="go('hohl')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Hohlsaum DNA</h4><div class="input-box"><span class="label-row"><span class="label">Titel</span><i data-lucide="info" class="info-small" onclick="ash('b-h')"></i></span><input type="text" id="cfg-b-h" oninput="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Hilfe</span><i data-lucide="info" class="info-small" onclick="ash('h-h')"></i></span><textarea id="cfg-h-h" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('hohl')">HOHL DNA SPEICHERN</button></div>
+    <div id="admin-rollen" class="view"><div class="view-header"><div class="back-btn" onclick="go('rollen')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Rollen DNA</h4><div class="input-box"><span class="label">Titel</span><input type="text" id="cfg-b-r" oninput="applyLive()"></div><div class="input-box"><span class="label">Hilfe</span><textarea id="cfg-h-r" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('rollen')">ROLLEN DNA SPEICHERN</button></div>
+    <div id="admin-nutzen" class="view"><div class="view-header"><div class="back-btn" onclick="go('nutzen')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Nutzen DNA</h4><div class="input-box"><span class="label">Titel</span><input type="text" id="cfg-b-n" oninput="applyLive()"></div><div class="input-box"><span class="label">Hilfe</span><textarea id="cfg-h-n" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('nutzen')">NUTZEN DNA SPEICHERN</button></div>
+    <div id="admin-gew" class="view"><div class="view-header"><div class="back-btn" onclick="go('gew')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Gewicht DNA</h4><div class="input-box"><span class="label">Titel</span><input type="text" id="cfg-b-g" oninput="applyLive()"></div><div class="input-box"><span class="label">Hilfe</span><textarea id="cfg-h-g" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('gew')">GEWICHT DNA SPEICHERN</button></div>
+    <div id="admin-wind" class="view"><div class="view-header"><div class="back-btn" onclick="go('wind')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Windlast DNA</h4><div class="input-box"><span class="label">Titel</span><input type="text" id="cfg-b-w" oninput="applyLive()"></div><div class="input-box"><span class="label">Hilfe</span><textarea id="cfg-h-w" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('wind')">WIND DNA SPEICHERN</button></div>
+    <div id="admin-hohl" class="view"><div class="view-header"><div class="back-btn" onclick="go('hohl')"><i data-lucide="chevron-left"></i> <span>EXIT TOOL</span></div></div><div class="admin-scroll"><div class="admin-section"><h4>Hohlsaum DNA</h4><div class="input-box"><span class="label">Titel</span><input type="text" id="cfg-b-h" oninput="applyLive()"></div><div class="input-box"><span class="label">Hilfe</span><textarea id="cfg-h-h" oninput="applyLive()" style="height:100px;"></textarea></div></div></div><button class="btn-action" onclick="saveContext('hohl')">HOHL DNA SPEICHERN</button></div>
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V3.7.4 | Master GATT</div>
+        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V3.7.5 | Final Versiegelung</div>
         <div class="footer-links"><a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a></div>
     </footer>
 </div>
 
 <script>
-    const VERSION = "3.7.4";
+    const VERSION = "3.7.5";
     const i18n = {
-        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_sb: "Schild B", n_sh: "Schild H", n_cut: "Schnittbreite", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gewicht", mat: "Material", gb: "Breite", gh: "Höhe", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windkraft", wb: "Breite", wh: "Höhe", h_h: "Hohlsaum-Profi", h_p: "Zugabe", hd: "Stangen Ø", hsd: "Materialdicke", g_std: "Standard-Stärken", w_t: "ABWEICHUNG VOM STANDARD!", help_title: "ANLEITUNG" }
+        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_cut: "Schnittbreite", n_sb: "Schild B", n_sh: "Schild H", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gewicht", mat: "Material", gb: "Breite", gh: "Höhe", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windkraft", wb: "Breite", wh: "Höhe", h_h: "Hohlsaum-Profi", h_p: "Zugabe", hd: "Stangen Ø", hsd: "Materialdicke", g_std: "Standard-Stärken", w_t: "ABWEICHUNG VOM STANDARD!", help_title: "ANLEITUNG" }
     };
-    const adminInfo = {
-        'c-o': "Farbe für Akzentlinien und Fokus-Umrandung.", 'c-bl': "Farbe für alle Aktions-Buttons.", 'b-main': "Header-Titel im Menü.", 'f-br': "Firma im Footer.",
-        'b-r': "Beschriftung Rollen-Button.", 'h-r': "Hilfetext Rollen-Tool.", 'b-n': "Beschriftung Nutzen-Button.", 'h-n': "Hilfetext Nutzen-Tool.",
-        'b-g': "Beschriftung Gewicht-Button.", 'h-g': "Hilfetext Gewicht-Tool.", 'b-w': "Beschriftung Wind-Button.", 'h-w': "Hilfetext Wind-Tool.", 'b-h': "Beschriftung Hohlsaum-Button.", 'h-h': "Hilfetext Hohlsaum-Tool."
-    };
-
     const materials = {
-        'alu': { n: 'Aluminium', d: 2.7, t: 'p', s: 2, w: 1.0 }, 'alu_v': { n: 'Alu-Verbund', d: 1.2, t: 'p', s: 3, w: 1.0 }, 'glas': { n: 'Glas', d: 2.5, t: 'p', s: 4, w: 1.0 }, 'v2a': { n: 'Edelstahl', d: 7.9, t: 'p', s: 2, w: 1.0 }, 'pvc_h': { n: 'PVC-Hartschaum', d: 0.55, t: 'p', s: 3, w: 1.0 }, 'sieb': { n: 'Siebdruckplatte', d: 0.75, t: 'p', s: 9, w: 1.0 }, 'mdf': { n: 'MDF Platte', d: 0.75, t: 'p', s: 10, w: 1.0 }, 'mplx': { n: 'Multiplex', d: 0.7, t: 'p', s: 15, w: 1.0 }, 'pc': { n: 'Polycarbonat', d: 1.2, t: 'p', s: 5, w: 1.0 }, 'ps': { n: 'Polystyrol', d: 1.05, t: 'p', s: 2, w: 1.0 }, 'mesh_s': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }, 'mesh_w': { n: 'Mesh Wind-Pro', d: 0.25, t: 'r', w: 0.4 }, 'mesh_p': { n: 'Mesh Premium', d: 0.35, t: 'r', w: 0.65 }, 'mesh_f': { n: 'Mesh PVC-frei', d: 0.23, t: 'r', w: 0.5 }, 'front_s': { n: 'Frontlit Std', d: 0.5, t: 'r', w: 1.0 }, 'front_p': { n: 'Frontlit Prem', d: 0.55, t: 'r', w: 1.0 }, 'back': { n: 'Backlit', d: 0.5, t: 'r', w: 1.0 }, 'block': { n: 'Blockout', d: 0.8, t: 'r', w: 1.0 }, 'lkw': { n: 'LKW Plane', d: 0.9, t: 'r', w: 1.0 }
+        'alu': { n: 'Aluminium', d: 2.7, t: 'p', s: 2, w: 1.0 }, 'alu_v': { n: 'Alu-Verbund', d: 1.2, t: 'p', s: 3, w: 1.0 }, 'glas': { n: 'Glas', d: 2.5, t: 'p', s: 4, w: 1.0 }, 'v2a': { n: 'Edelstahl', d: 7.9, t: 'p', s: 2, w: 1.0 }, 'pvc_h': { n: 'Forex', d: 0.55, t: 'p', s: 3, w: 1.0 }, 'sieb': { n: 'Siebdruckplatte', d: 0.75, t: 'p', s: 9, w: 1.0 }, 'mdf': { n: 'MDF Platte', d: 0.75, t: 'p', s: 10, w: 1.0 }, 'mplx': { n: 'Multiplex', d: 0.7, t: 'p', s: 15, w: 1.0 }, 'pc': { n: 'Polycarbonat', d: 1.2, t: 'p', s: 5, w: 1.0 }, 'mesh_s': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }, 'mesh_w': { n: 'Mesh Wind-Pro', d: 0.25, t: 'r', w: 0.4 }, 'lkw': { n: 'LKW Plane', d: 0.9, t: 'r', w: 1.0 }
     };
+    const thicknessPresets = [1, 2, 3, 4, 5, 8, 10, 15, 20, 30];
+    let clks = 0, tmr, activeView = 'main', iconRetry = 0;
 
-    const thicknessPresets = [1, 2, 3, 4, 5, 8, 10, 15, 19, 20, 30];
-    let clks = 0, tmr, activeView = 'main';
+    function renderIcons() {
+        if (window.lucide) { lucide.createIcons(); iconRetry = 0; } 
+        else if (iconRetry < 10) { iconRetry++; setTimeout(renderIcons, 200); }
+    }
 
     function t(key) {
         const l = document.getElementById('lG').value;
@@ -227,47 +218,41 @@
 
     function checkAccess() {
         if(document.getElementById('master-pin').value === "7805") {
-            document.getElementById('login-overlay').style.display='none'; document.getElementById('master-pin').value="";
+            document.getElementById('login-overlay').style.display='none';
             go((activeView === 'main') ? 'admin-global' : 'admin-' + activeView); loadAdminFields();
-        } else { alert("PIN FALSCH."); }
+        } else { alert("ZUGRIFF VERWEIGERT."); }
     }
 
     function go(v) {
         document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
         const targetId = (v.startsWith('admin-')) ? v : (v === 'main' ? 'main' : 'view-' + v);
-        const target = document.getElementById(targetId);
         if(!v.startsWith('admin-')) activeView = v;
         if(v === 'main') document.getElementById('dynamic-main-title').innerText = t('mainH');
-        else if(!v.startsWith('admin-')) {
-            const k = (v === 'rollen' ? 'r_h' : v === 'nutzen' ? 'n_h' : v === 'gew' ? 'g_h' : v === 'wind' ? 'w_h' : v === 'hohl' ? 'h_h' : 'mainH');
-            document.getElementById('dynamic-main-title').innerText = t(k);
-        }
-        if(target) target.classList.add('active');
+        else if(!v.startsWith('admin-')) document.getElementById('dynamic-main-title').innerText = t(v === 'rollen' ? 'r_h' : v === 'nutzen' ? 'n_h' : v === 'gew' ? 'g_h' : v === 'wind' ? 'w_h' : v === 'hohl' ? 'h_h' : 'mainH');
+        document.getElementById(targetId).classList.add('active');
         if(v === 'gew' || v === 'wind') updateMaterialLogic();
-        lucide.createIcons();
+        renderIcons();
     }
 
     function updateMaterialLogic() {
         const sel = document.getElementById('gMat');
         if(!sel.options.length) {
-            for(let key in materials) sel.add(new Option(materials[key].n, key));
-            const pSel = document.getElementById('gStd');
-            thicknessPresets.forEach(v => pSel.add(new Option(v + " mm", v)));
+            for(let k in materials) sel.add(new Option(materials[k].n, k));
+            const pS = document.getElementById('gStd');
+            thicknessPresets.forEach(v => pS.add(new Option(v + " mm", v)));
         }
-        const m = materials[sel.value];
-        const isPlate = (m.t === 'p');
-        document.getElementById('row-thickness-preset').style.display = isPlate ? 'block' : 'none';
-        document.getElementById('label-thickness').innerText = isPlate ? "Stärke (mm)" : "Grammatur (kg/m²)";
-        document.getElementById('gs').value = isPlate ? m.s : m.d;
+        const m = materials[sel.value]; const isP = (m.t === 'p');
+        document.getElementById('row-thickness-preset').style.display = isP ? 'block' : 'none';
+        document.getElementById('label-thickness').innerText = isP ? "Stärke (mm)" : "Grammatur (kg/m²)";
+        document.getElementById('gs').value = isP ? m.s : m.d;
         document.getElementById('wMatDisplay').value = m.n;
         checkThickness();
     }
 
     function applyPreset() { document.getElementById('gs').value = document.getElementById('gStd').value; checkThickness(); }
     function checkThickness() {
-        const m = materials[document.getElementById('gMat').value];
-        const cur = parseFloat(document.getElementById('gs').value);
-        document.getElementById('warn-t').style.display = (m.t === 'p' && cur !== m.s) ? 'block' : 'none';
+        const m = materials[document.getElementById('gMat').value]; const c = parseFloat(document.getElementById('gs').value);
+        document.getElementById('warn-t').style.display = (m.t === 'p' && c !== m.s) ? 'block' : 'none';
         calcG(); calcW();
     }
 
@@ -276,30 +261,17 @@
     function calcG() { 
         const u = document.getElementById('uG').value, m = materials[document.getElementById('gMat').value];
         let b = parseFloat(document.getElementById('gb').value||0), h = parseFloat(document.getElementById('gh').value||0), s = parseFloat(document.getElementById('gs').value||0);
-        if(b && h && s) {
-            let kg = (m.t === 'p') ? ((b * h) / 1000000) * s * m.d : ((b * h) / 1000000) * s;
-            document.getElementById('resG').innerText = (u === 'inc' ? (kg * 2.204).toFixed(2) + " lbs" : kg.toFixed(2) + " kg");
-        }
+        if(b && h && s) { let kg = (m.t === 'p') ? ((b * h) / 1000000) * s * m.d : ((b * h) / 1000000) * s; document.getElementById('resG').innerText = (u === 'inc' ? (kg * 2.204).toFixed(2) + " lbs" : kg.toFixed(2) + " kg"); }
     }
     function calcW() {
-        const m = materials[document.getElementById('gMat').value];
-        let b = parseFloat(document.getElementById('wb').value||0), h = parseFloat(document.getElementById('wh').value||0);
+        const m = materials[document.getElementById('gMat').value]; let b = parseFloat(document.getElementById('wb').value||0), h = parseFloat(document.getElementById('wh').value||0);
         if(b && h) document.getElementById('resW').innerText = Math.round(((b * h) / 1000000) * 500 * m.w) + " N";
     }
     function calcH() { let d=parseFloat(document.getElementById('hd').value), s=parseFloat(document.getElementById('hsd').value); if(d) document.getElementById('resH').innerText = ((Math.PI*d)+(2*s)+10).toFixed(1) + " mm"; }
 
-    async function connectBluetooth() {
-        try {
-            const device = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }, { namePrefix: 'Mahr' }] });
-            alert("CONNECTED: " + device.name);
-        } catch (e) {
-            if(e.name === 'NotFoundError') alert("KEIN GERÄT GEFUNDEN.");
-            else if(e.name === 'SecurityError') alert("SICHERHEITSSPERRE.");
-            else alert("BT FEHLER: " + e.message);
-        }
-    }
+    async function connectBluetooth() { try { const device = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }, { namePrefix: 'Mahr' }] }); alert("CONNECTED: " + device.name); } catch (e) { alert("BT ERROR: " + e.message); } }
     function resetBtSequence() { document.querySelectorAll('input').forEach(e=>e.classList.remove('bt-active')); }
-    function ash(key) { document.getElementById('admin-help-body').innerText = adminInfo[key] || "Info n.v."; document.getElementById('admin-help-popup').style.display = 'flex'; }
+    function ash(k) { document.getElementById('admin-help-body').innerText = adminInfo[k] || "Info n.v."; document.getElementById('admin-help-popup').style.display = 'flex'; }
     function closeAdminHelp() { document.getElementById('admin-help-popup').style.display = 'none'; }
     function closeHelp() { document.getElementById('help-popup').style.display = 'none'; }
     function openHelp(m) { document.getElementById('help-title').innerText = "INFO"; document.getElementById('help-body').innerHTML = t('help_'+m); document.getElementById('help-popup').style.display = 'flex'; }
@@ -309,10 +281,7 @@
         const root = getComputedStyle(document.documentElement);
         ['c-o', 'c-bl'].forEach(k => { const el = document.getElementById('cfg-'+k); if(el) el.value = root.getPropertyValue('--wd-'+(k==='c-o'?'orange':'blue')).trim(); });
         document.getElementById('cfg-b-main').value = i18n.de.mainH;
-        ['r','n','g','w','h'].forEach(k => { 
-            const b = document.getElementById('cfg-b-'+k), h = document.getElementById('cfg-h-'+k);
-            if(b) b.value = i18n.de[k+'_h']; if(h) h.value = (i18n.de['help_'+k] || "").replace(/<[^>]*>/g, '').replace(/<br>/g, '\n');
-        });
+        ['r','n','g','w','h'].forEach(k => { const b = document.getElementById('cfg-b-'+k), h = document.getElementById('cfg-h-'+k); if(b) b.value = i18n.de[k+'_h']; if(h) h.value = (i18n.de['help_'+k] || "").replace(/<[^>]*>/g, '').replace(/<br>/g, '\n'); });
         document.getElementById('cfg-f-br').value = document.getElementById('f-brand').innerText;
         document.getElementById('cfg-f-st').value = document.getElementById('f-status').innerText;
         document.getElementById('cfg-f-l1t').value = document.getElementById('f-l1').innerText;
@@ -322,14 +291,11 @@
     }
 
     function applyLive() {
-        const root = document.documentElement.style;
-        if(document.getElementById('cfg-c-o')) root.setProperty('--wd-orange', document.getElementById('cfg-c-o').value);
-        if(document.getElementById('cfg-c-bl')) root.setProperty('--wd-blue', document.getElementById('cfg-c-bl').value);
+        const r = document.documentElement.style;
+        if(document.getElementById('cfg-c-o')) r.setProperty('--wd-orange', document.getElementById('cfg-c-o').value);
+        if(document.getElementById('cfg-c-bl')) r.setProperty('--wd-blue', document.getElementById('cfg-c-bl').value);
         i18n.de.mainH = document.getElementById('cfg-b-main').value;
-        ['r','n','g','w','h'].forEach(k => {
-            const b = document.getElementById('cfg-b-'+k), h = document.getElementById('cfg-h-'+k);
-            if(b) i18n.de[k+'_h'] = b.value; if(h) i18n.de['help_'+k] = h.value;
-        });
+        ['r','n','g','w','h'].forEach(k => { const b = document.getElementById('cfg-b-'+k), h = document.getElementById('cfg-h-'+k); if(b) i18n.de[k+'_h'] = b.value; if(h) i18n.de['help_'+k] = h.value; });
         document.getElementById('f-brand').innerText = document.getElementById('cfg-f-br').value;
         document.getElementById('f-status').innerText = document.getElementById('cfg-f-st').value;
         document.getElementById('f-l1').innerText = document.getElementById('cfg-f-l1t').value;
@@ -347,45 +313,7 @@
             h: [i18n.de.help_r, i18n.de.help_n, i18n.de.help_g, i18n.de.help_w, i18n.de.help_h],
             v: VERSION
         };
-        localStorage.setItem('wgm_master_v374', JSON.stringify(data)); alert("MASTER DNA GESPEICHERT.");
+        localStorage.setItem('wgm_v375_dna', JSON.stringify(data)); alert("MASTER DNA GESPEICHERT.");
     }
 
     function init() {
-        const saved = localStorage.getItem('wgm_master_v374');
-        if(saved) {
-            const s = JSON.parse(saved);
-            if(s.v === VERSION) {
-                const root = document.documentElement.style;
-                if(s.c[0]) root.setProperty('--wd-orange', s.c[0]); if(s.c[1]) root.setProperty('--wd-blue', s.c[1]);
-                if(s.b) { i18n.de.mainH = s.b[0]; i18n.de.r_h = s.b[1]; i18n.de.n_h = s.b[2]; i18n.de.g_h = s.b[3]; i18n.de.w_h = s.b[4]; i18n.de.h_h = s.b[5]; }
-                if(s.f) { document.getElementById('f-brand').innerText = s.f[0]; document.getElementById('f-status').innerText = s.f[1]; document.getElementById('f-l1').innerText = s.f[2]; document.getElementById('f-l1').setAttribute('href', s.f[3]); document.getElementById('f-l2').innerText = s.f[4]; document.getElementById('f-l2').setAttribute('href', s.f[5]); }
-                if(s.h) { i18n.de.help_r = s.h[0]; i18n.de.help_n = s.h[1]; i18n.de.help_g = s.h[2]; i18n.de.help_w = s.h[3]; i18n.de.help_h = s.h[4]; }
-            } else { localStorage.clear(); location.reload(); }
-        }
-        changeLang(); updateMaterialLogic();
-    }
-
-    function changeLang() {
-        const l = document.getElementById('lG').value;
-        document.getElementById('dynamic-main-title').innerText = t('mainH');
-        ['r','n','g','w','h'].forEach(k => {
-            const h = document.getElementById('t-'+k+'_h'), p = document.getElementById('t-'+k+'_p');
-            if(h) h.innerText = t(k+'_h'); if(p) p.innerText = t(k+'_p');
-        });
-        ['back1','back2','back3','back4','back5','r_d1','r_d2','r_s','res_l','bt','n_pb','n_ph','n_cut','n_sb','n_sh','n_res','mat1','mat2','g_std','gb','gh','g_res','wb','wh','w_res','hd','hsd','h_p'].forEach(k => {
-            const el = document.getElementById('t-'+k); if(el) el.innerText = t(k);
-        });
-        updateAllUnits(); lucide.createIcons();
-    }
-
-    function updateAllUnits() {
-        const u = document.getElementById('uG').value;
-        ['r_d1','r_d2','r_s','n_pb','n_ph','n_cut','n_sb','n_sh','gb','gh','wb','wh','hd','hsd'].forEach(k => {
-            const el = document.getElementById('t-'+k); if(el) el.innerText = t(k) + " (" + u + ")";
-        });
-        calcR(); calcN(); calcG(); calcW(); calcH();
-    }
-    window.onload = init;
-</script>
-</body>
-</html>
