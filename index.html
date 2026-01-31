@@ -7,8 +7,15 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --wd-orange: #e67e22; --wd-blue: #3b82f6; --wd-dark: #1e293b;
-            --bg-app: #ffffff; --bg-body: #cbd5e1; --app-width: 320px;
+            /* Die editierbare Farb-DNA */
+            --wd-orange: #e67e22; 
+            --wd-blue: #3b82f6; 
+            --wd-dark: #1e293b;
+            --bg-body: #cbd5e1; 
+            --bg-app: #ffffff; 
+            --card-bg: #ffffff;
+            --icon-bg: #f8fafc;
+            --app-width: 320px;
         }
         html, body { 
             height: 100%; margin: 0; padding: 0; background: var(--bg-body); 
@@ -42,26 +49,26 @@
         .logo-area { text-align: center; padding: 10px 20px; }
         .logo-area img { max-width: 150px; height: auto; cursor: pointer; margin-bottom: 5px; }
         .logo-area .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; margin: 12px 0; }
-        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 0; font-weight: 900; text-transform: uppercase; color: #475569; }
+        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 0; font-weight: 900; text-transform: uppercase; color: var(--wd-dark); }
 
         .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
         .view.active { display: flex; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .card { 
-            background: white; border-radius: 22px; padding: 14px; 
+            background: var(--card-bg); border-radius: 22px; padding: 14px; 
             display: flex; align-items: center; gap: 14px; cursor: pointer; 
             margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); 
             border: 1px solid #f1f5f9; transition: transform 0.2s;
         }
         .card:active { transform: scale(0.96); }
-        .icon { width: 44px; height: 44px; background: #f8fafc; color: var(--wd-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; border: 1px solid #f1f5f9; }
-        .card-text h2 { margin: 0; font-size: 0.9rem; font-weight: 900; text-transform: uppercase; }
+        .icon { width: 44px; height: 44px; background: var(--icon-bg); color: var(--wd-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; border: 1px solid #f1f5f9; }
+        .card-text h2 { margin: 0; font-size: 0.9rem; font-weight: 900; text-transform: uppercase; color: var(--wd-dark); }
         .card-text p { margin: 2px 0 0; font-size: 0.7rem; color: #64748b; font-weight: 600; }
 
         .input-box { margin-bottom: 12px; }
         .label { font-size: 0.62rem; color: #475569; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; display: block; }
-        input[type="number"], input[type="text"], input[type="password"], textarea, select.in-view { width: 100%; padding: 12px; border-radius: 14px; border: 1px solid #cbd5e1; font-size: 0.9rem; font-weight: 700; box-sizing: border-box; outline: none; background: #fff; }
+        input[type="number"], input[type="text"], input[type="password"], textarea, select.in-view { width: 100%; padding: 12px; border-radius: 14px; border: 1px solid #cbd5e1; font-size: 0.9rem; font-weight: 700; box-sizing: border-box; outline: none; background: #fff; color: var(--wd-dark); }
         
         .res-card { background: var(--wd-orange); padding: 18px; border-radius: 24px; text-align: center; margin: 15px 0; color: white; box-shadow: 0 10px 25px rgba(230, 126, 34, 0.3); }
         .res-num { font-size: 2.2rem; font-weight: 900; display: block; }
@@ -73,8 +80,12 @@
 
         .admin-section { margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
         .admin-section h4 { font-size: 0.8rem; text-transform: uppercase; color: var(--wd-orange); margin-bottom: 12px; border-left: 4px solid var(--wd-orange); padding-left: 8px; }
+        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        .admin-color-item { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+        .admin-color-item span { font-size: 0.55rem; font-weight: 800; text-transform: uppercase; color: #64748b; }
 
         footer { text-align: center; padding: 15px 20px 30px; font-size: 0.65rem; color: #64748b; margin-top: auto; }
+        footer strong { color: var(--wd-dark); }
     </style>
 </head>
 <body>
@@ -98,8 +109,8 @@
 
     <div class="logo-area">
         <img src="wgm-applogo.jpg" id="logo-trigger" alt="WERBEDRUCK GM">
-        <div class="divider"></div>
         <h1 data-t="mainH">Werbetechniker-Tools</h1>
+        <div class="divider"></div>
     </div>
 
     <main id="main" class="view active">
@@ -165,35 +176,37 @@
 
     <div id="view-admin" class="view">
         <div class="view-header" style="display:flex; justify-content:space-between; margin-bottom:15px;">
-            <div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div>
+            <div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>DASHBOARD</span></div>
             <button class="btn-logout" onclick="go('main')">LOGOUT</button>
         </div>
         
         <div class="admin-section">
-            <h4>1. Design & Branding</h4>
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
-                <span class="label">Orange</span><input type="color" id="cfg-color-orange" onchange="applyLive()">
-                <span class="label">Blau</span><input type="color" id="cfg-color-blue" onchange="applyLive()">
+            <h4>1. Komplette Farb-DNA</h4>
+            <div class="admin-grid">
+                <div class="admin-color-item"><input type="color" id="cfg-c-orange" onchange="applyLive()"><span>Akzent</span></div>
+                <div class="admin-color-item"><input type="color" id="cfg-c-blue" onchange="applyLive()"><span>Aktion</span></div>
+                <div class="admin-color-item"><input type="color" id="cfg-c-dark" onchange="applyLive()"><span>Text</span></div>
+                <div class="admin-color-item"><input type="color" id="cfg-c-body" onchange="applyLive()"><span>Hintergrund</span></div>
+                <div class="admin-color-item"><input type="color" id="cfg-c-app" onchange="applyLive()"><span>App-Body</span></div>
+                <div class="admin-color-item"><input type="color" id="cfg-c-card" onchange="applyLive()"><span>Karten</span></div>
+                <div class="admin-color-item"><input type="color" id="cfg-c-icon" onchange="applyLive()"><span>Icons</span></div>
             </div>
-            <div class="input-box"><span class="label">Firmenname (Footer)</span><input type="text" id="cfg-foot-brand" oninput="applyLive()"></div>
-            <div class="input-box"><span class="label">Statuszeile</span><input type="text" id="cfg-foot-status" oninput="applyLive()"></div>
+            <div class="input-box"><span class="label">Brand (Footer)</span><input type="text" id="cfg-foot-brand" oninput="applyLive()"></div>
         </div>
 
         <div class="admin-section">
-            <h4>2. Anleitungen Editieren (DE)</h4>
-            <div class="input-box"><span class="label">Hilfe: Rollen-Meter</span><textarea id="cfg-help-r" oninput="applyLive()" style="height:60px;"></textarea></div>
-            <div class="input-box"><span class="label">Hilfe: Nutzen-Rechner</span><textarea id="cfg-help-n" oninput="applyLive()" style="height:60px;"></textarea></div>
-            <div class="input-box"><span class="label">Hilfe: Gewichts-Detektor</span><textarea id="cfg-help-g" oninput="applyLive()" style="height:60px;"></textarea></div>
-            <div class="input-box"><span class="label">Hilfe: Windlast-Prüfer</span><textarea id="cfg-help-w" oninput="applyLive()" style="height:60px;"></textarea></div>
-            <div class="input-box"><span class="label">Hilfe: Hohlsaum-Profi</span><textarea id="cfg-help-h" oninput="applyLive()" style="height:60px;"></textarea></div>
+            <h4>2. Info-Texte Editieren</h4>
+            <div class="input-box"><span class="label">Rollen-Anleitung</span><textarea id="cfg-help-r" oninput="applyLive()" style="height:50px;"></textarea></div>
+            <div class="input-box"><span class="label">Nutzen-Anleitung</span><textarea id="cfg-help-n" oninput="applyLive()" style="height:50px;"></textarea></div>
+            <div class="input-box"><span class="label">Gewicht-Anleitung</span><textarea id="cfg-help-g" oninput="applyLive()" style="height:50px;"></textarea></div>
         </div>
 
-        <button class="btn-action" onclick="saveToMaster()">MASTER-SAVE</button>
+        <button class="btn-action" onclick="saveToMaster()">DNA-SPEICHERUNG</button>
     </div>
 
     <footer id="app-footer">
         <strong id="foot-brand">Werbedruck GM</strong>
-        <div id="foot-status" class="ver">V2.2.9 | 31.01.2026</div>
+        <div id="foot-status" class="ver">V2.3.0 | 31.01.2026</div>
         <div class="footer-links"><a id="l1-el" href="#">Impressum</a> | <a id="l2-el" href="#">Datenschutz</a></div>
     </footer>
 </div>
@@ -201,12 +214,12 @@
 <script>
     const i18n = {
         de: { 
-            mainH: "Werbetechniker-Tools", back: "ZURÜCK", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Mögliche Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_sb: "Schild B", n_sh: "Schild H", n_cut: "Schnittbreite", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gesamtgewicht", mat: "Material", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windkraft", w_mat: "Oberfläche", h_h: "Hohlsaum-Profi", h_p: "Zulage", help_title: "ANLEITUNG",
-            help_r: "<p><b>Rollen-Berechnung:</b> Ermittelt Restmeter basierend auf Außendurchmesser, Kern und Stärke.</p>",
-            help_n: "<p><b>Nutzen-Optimierung:</b> Kalkuliert Schnittpläne unter Berücksichtigung der Schnittbreite.</p>",
-            help_g: "<p><b>Gewicht:</b> Ermittelt das statische Gewicht basierend auf Materialdichte.</p>",
-            help_w: "<p><b>Windlast:</b> Kraftberechnung in Newton bei 120 km/h.</p>",
-            help_h: "<p><b>Hohlsaum:</b> Umfangberechnung plus Materialstärke und Puffer.</p>"
+            mainH: "Werbetechniker-Tools", back: "ZURÜCK", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_sb: "Schild B", n_sh: "Schild H", n_cut: "Schnittbreite", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gesamtgewicht", mat: "Material", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windkraft", w_mat: "Oberfläche", h_h: "Hohlsaum-Profi", h_p: "Zulage", help_title: "ANLEITUNG",
+            help_r: "<p><b>Rollen-Analyse:</b> Berechnet die Materiallänge anhand der Wicklungslagen.</p>",
+            help_n: "<p><b>Nutzen:</b> Optimierung der Schnittaufteilung auf Platten.</p>",
+            help_g: "<p><b>Gewicht:</b> Massebestimmung nach Dichte und Volumen.</p>",
+            help_w: "<p><b>Windlast:</b> Kraft in Newton basierend auf Projektionsfläche.</p>",
+            help_h: "<p><b>Hohlsaum:</b> Berechnung der Zugabe für Banner-Konfektion.</p>"
         },
         en: { mainH: "Signmaker Tools", back: "BACK", r_h: "Roll Meter", r_p: "Calc Length", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", n_h: "Yield Pro", n_p: "Nesting", n_res: "Yield", n_pb: "Sheet W", n_ph: "Sheet H", n_sb: "Sign W", n_sh: "Sign H", n_cut: "Gap", g_h: "Weight Calc", g_p: "Mass", g_res: "Total Weight", mat: "Material", w_h: "Wind Load", w_p: "Statics", w_res: "Wind Force", w_mat: "Surface", h_h: "Hem Master", h_p: "Allowance", help_title: "GUIDE" }
     };
@@ -223,7 +236,7 @@
             document.getElementById('login-overlay').style.display = 'none';
             document.getElementById('master-pin').value = "";
             go('admin'); loadAdminFields();
-        } else { alert("FALSCHER CODE."); }
+        } else { alert("ZUGRIFF VERWEIGERT."); }
     }
 
     function go(v) {
@@ -233,7 +246,7 @@
         lucide.createIcons();
     }
 
-    /* BERECHNUNGEN */
+    /* BERECHNUNGEN ANALOG V2.2.9 */
     function calcR() {
         const u = document.getElementById('uG').value;
         let D = parseFloat(document.getElementById('rD').value||0), d = parseFloat(document.getElementById('rd').value||0), s = parseFloat(document.getElementById('rs').value||0);
@@ -263,73 +276,86 @@
         if(d) document.getElementById('resH').innerText = ((Math.PI*d)+(2*s)+10).toFixed(1) + " mm";
     }
 
-    /* ADMIN */
+    /* ADMIN V2.3.0 */
     function loadAdminFields() {
-        document.getElementById('cfg-color-orange').value = getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim();
-        document.getElementById('cfg-color-blue').value = getComputedStyle(document.documentElement).getPropertyValue('--wd-blue').trim();
+        const root = document.documentElement.style;
+        document.getElementById('cfg-c-orange').value = getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim();
+        document.getElementById('cfg-c-blue').value = getComputedStyle(document.documentElement).getPropertyValue('--wd-blue').trim();
+        document.getElementById('cfg-c-dark').value = getComputedStyle(document.documentElement).getPropertyValue('--wd-dark').trim();
+        document.getElementById('cfg-c-body').value = getComputedStyle(document.documentElement).getPropertyValue('--bg-body').trim();
+        document.getElementById('cfg-c-app').value = getComputedStyle(document.documentElement).getPropertyValue('--bg-app').trim();
+        document.getElementById('cfg-c-card').value = getComputedStyle(document.documentElement).getPropertyValue('--card-bg').trim();
+        document.getElementById('cfg-c-icon').value = getComputedStyle(document.documentElement).getPropertyValue('--icon-bg').trim();
+        
         document.getElementById('cfg-foot-brand').value = document.getElementById('foot-brand').innerText;
-        document.getElementById('cfg-foot-status').value = document.getElementById('foot-status').innerText;
         document.getElementById('cfg-help-r').value = i18n.de.help_r;
         document.getElementById('cfg-help-n').value = i18n.de.help_n;
         document.getElementById('cfg-help-g').value = i18n.de.help_g;
-        document.getElementById('cfg-help-w').value = i18n.de.help_w;
-        document.getElementById('cfg-help-h').value = i18n.de.help_h;
     }
 
     function applyLive() {
-        document.documentElement.style.setProperty('--wd-orange', document.getElementById('cfg-color-orange').value);
-        document.documentElement.style.setProperty('--wd-blue', document.getElementById('cfg-color-blue').value);
-        document.getElementById('foot-brand').innerText = document.getElementById('cfg-foot-brand').value;
-        document.getElementById('foot-status').innerText = document.getElementById('cfg-foot-status').value;
+        const root = document.documentElement.style;
+        root.setProperty('--wd-orange', document.getElementById('cfg-c-orange').value);
+        root.setProperty('--wd-blue', document.getElementById('cfg-c-blue').value);
+        root.setProperty('--wd-dark', document.getElementById('cfg-c-dark').value);
+        root.setProperty('--bg-body', document.getElementById('cfg-c-body').value);
+        root.setProperty('--bg-app', document.getElementById('cfg-c-app').value);
+        root.setProperty('--card-bg', document.getElementById('cfg-c-card').value);
+        root.setProperty('--icon-bg', document.getElementById('cfg-c-icon').value);
         
+        document.getElementById('foot-brand').innerText = document.getElementById('cfg-foot-brand').value;
         i18n.de.help_r = document.getElementById('cfg-help-r').value;
         i18n.de.help_n = document.getElementById('cfg-help-n').value;
         i18n.de.help_g = document.getElementById('cfg-help-g').value;
-        i18n.de.help_w = document.getElementById('cfg-help-w').value;
-        i18n.de.help_h = document.getElementById('cfg-help-h').value;
+        changeLang();
     }
 
     function saveToMaster() {
         const s = {
-            c: [document.getElementById('cfg-color-orange').value, document.getElementById('cfg-color-blue').value],
-            f: [document.getElementById('cfg-foot-brand').value, document.getElementById('cfg-foot-status').value],
-            h: [i18n.de.help_r, i18n.de.help_n, i18n.de.help_g, i18n.de.help_w, i18n.de.help_h]
+            colors: {
+                o: document.getElementById('cfg-c-orange').value,
+                bl: document.getElementById('cfg-c-blue').value,
+                d: document.getElementById('cfg-c-dark').value,
+                bo: document.getElementById('cfg-c-body').value,
+                ap: document.getElementById('cfg-c-app').value,
+                ca: document.getElementById('cfg-c-card').value,
+                ic: document.getElementById('cfg-c-icon').value
+            },
+            brand: document.getElementById('cfg-foot-brand').value,
+            help: [i18n.de.help_r, i18n.de.help_n, i18n.de.help_g]
         };
-        localStorage.setItem('wgm_v229_master', JSON.stringify(s));
-        alert("EINSTELLUNGEN GESPEICHERT.");
+        localStorage.setItem('wgm_v230_master', JSON.stringify(s));
+        alert("SYSTEM-DNA AKTUALISIERT.");
     }
 
     function init() {
-        const saved = localStorage.getItem('wgm_v229_master');
+        const saved = localStorage.getItem('wgm_v230_master');
         if(saved) {
             const s = JSON.parse(saved);
-            document.documentElement.style.setProperty('--wd-orange', s.c[0]);
-            document.documentElement.style.setProperty('--wd-blue', s.c[1]);
-            document.getElementById('foot-brand').innerText = s.f[0];
-            document.getElementById('foot-status').innerText = s.f[1];
-            i18n.de.help_r = s.h[0]; i18n.de.help_n = s.h[1]; i18n.de.help_g = s.h[2]; i18n.de.help_w = s.h[3]; i18n.de.help_h = s.h[4];
+            const root = document.documentElement.style;
+            root.setProperty('--wd-orange', s.colors.o);
+            root.setProperty('--wd-blue', s.colors.bl);
+            root.setProperty('--wd-dark', s.colors.d);
+            root.setProperty('--bg-body', s.colors.bo);
+            root.setProperty('--bg-app', s.colors.ap);
+            root.setProperty('--card-bg', s.colors.ca);
+            root.setProperty('--icon-bg', s.colors.ic);
+            document.getElementById('foot-brand').innerText = s.brand;
+            i18n.de.help_r = s.help[0]; i18n.de.help_n = s.help[1]; i18n.de.help_g = s.help[2];
         }
         changeLang();
     }
 
     function changeLang() {
         const l = document.getElementById('lG').value;
-        document.querySelectorAll('[data-t]').forEach(el => {
-            const k = el.getAttribute('data-t');
-            el.innerText = i18n[l][k] || i18n.de[k];
-        });
+        document.querySelectorAll('[data-t]').forEach(el => { el.innerText = i18n[l][el.getAttribute('data-t')] || i18n.de[el.getAttribute('data-t')]; });
         updateAllUnits();
     }
-
     function updateAllUnits() {
         const u = document.getElementById('uG').value, l = document.getElementById('lG').value;
-        document.querySelectorAll('[data-u]').forEach(el => {
-            const k = el.getAttribute('data-t');
-            el.innerText = (i18n[l][k] || i18n.de[k]) + " (" + u + ")";
-        });
+        document.querySelectorAll('[data-u]').forEach(el => { el.innerText = (i18n[l][el.getAttribute('data-t')] || i18n.de[el.getAttribute('data-t')]) + " (" + u + ")"; });
         calcR(); calcN(); calcG(); calcW(); calcH();
     }
-
     function openHelp(m) {
         const l = document.getElementById('lG').value;
         document.getElementById('help-title').innerText = i18n[l].help_title;
