@@ -25,76 +25,79 @@
         }
         @media (max-width: 380px) { .app-shell { width: 94vw; height: 96vh; } }
         
-        #login-overlay, #help-popup { 
+        #login-overlay { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(255,255,255,0.98); display: none; 
             flex-direction: column; justify-content: center; align-items: center; 
             z-index: 2000; backdrop-filter: blur(15px); 
         }
-        .help-content { border: 2px solid var(--wd-orange); padding: 25px; border-radius: 30px; width: 82%; max-height: 85%; overflow-y: auto; text-align: left; }
-        .help-content h3 { color: var(--wd-orange); text-transform: uppercase; font-weight: 900; border-bottom: 2px solid var(--wd-orange); padding-bottom: 8px; margin-bottom: 15px; font-size: 1rem; }
 
-        .top-nav { display: flex; justify-content: flex-end; padding: 30px 20px 5px; }
-        select, .admin-input { background: white; border: 1px solid #cbd5e1; padding: 8px; border-radius: 10px; font-weight: 800; font-size: 0.7rem; outline: none; }
+        /* TOP OVERLAY FÜR INFOTEXTE */
+        .assist-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 215px;
+            background: var(--wd-blue); color: white; z-index: 1500;
+            display: none; flex-direction: column; justify-content: center;
+            padding: 45px 20px 20px; box-sizing: border-box;
+            border-bottom: 4px solid var(--wd-orange);
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+        .assist-overlay p { margin: 0; font-size: 0.72rem; font-weight: 700; line-height: 1.5; }
+
+        .top-nav { display: flex; justify-content: flex-end; padding: 25px 20px 5px; height: 35px; }
+        select { background: white; border: 1px solid #cbd5e1; padding: 6px; border-radius: 8px; font-weight: 800; font-size: 0.65rem; outline: none; }
         
-        .logo-area { text-align: center; padding: 10px 20px; }
-        .logo-area img { max-width: 150px; cursor: pointer; }
-        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 10px 0 5px; font-weight: 900; text-transform: uppercase; color: var(--wd-dark); }
-        .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; margin-top: 5px; }
+        .logo-area { text-align: center; padding: 5px 20px; height: 140px; position: relative; }
+        .logo-area img { max-width: 145px; cursor: pointer; }
+        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 8px 0 5px; font-weight: 900; text-transform: uppercase; }
+        .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; }
 
         .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
         .view.active { display: flex; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .card { background: var(--card-bg); border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 14px; cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #f1f5f9; }
-        .card:active { transform: scale(0.96); }
-        .icon { width: 44px; height: 44px; background: var(--icon-bg); color: var(--wd-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        
-        .card-text h2 { margin: 0; font-size: 0.85rem; font-weight: 900; text-transform: uppercase; color: var(--wd-dark); }
-        .card-text p { margin: 2px 0 0; font-size: 0.65rem; color: #64748b; font-weight: 600; }
+        .card { background: var(--card-bg); height: 78px; border-radius: 22px; padding: 0 16px; display: flex; align-items: center; gap: 14px; cursor: pointer; margin-bottom: 12px; border: 1px solid #f1f5f9; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .icon { width: 44px; height: 44px; background: var(--icon-bg); color: var(--wd-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+        .card-text h2 { margin: 0; font-size: 0.82rem; font-weight: 900; text-transform: uppercase; }
+        .card-text p { margin: 2px 0 0; font-size: 0.62rem; color: #64748b; font-weight: 600; }
 
-        .mod-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .toggle-help-btn { width: 34px; height: 34px; background: var(--icon-bg); color: var(--wd-blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #f1f5f9; }
-        .toggle-help-btn.active { background: var(--wd-blue); color: white; border-color: var(--wd-blue); }
+        .mod-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; height: 35px; }
+        .help-btn { width: 34px; height: 34px; background: var(--icon-bg); color: var(--wd-blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #f1f5f9; }
+        .help-btn.active { background: var(--wd-orange); color: white; border-color: var(--wd-orange); }
 
-        .input-box { margin-bottom: 10px; position: relative; }
+        .input-box { margin-bottom: 12px; height: 65px; position: relative; }
         .label { font-size: 0.6rem; color: #475569; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
-        input, select.in-view { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; font-size: 0.85rem; font-weight: 700; outline: none; background: #fff; color: var(--wd-dark); transition: all 0.2s; }
-        input:focus, select:focus { border: 2.5px solid var(--wd-orange); box-shadow: 0 0 8px rgba(230, 126, 34, 0.2); }
+        input, select.in-view { width: 100%; height: 42px; padding: 0 12px; border-radius: 12px; border: 2px solid #cbd5e1; font-size: 0.88rem; font-weight: 800; outline: none; background: #fff; color: var(--wd-dark); box-sizing: border-box; }
+        input:focus { border: 3.5px solid var(--wd-orange) !important; box-shadow: 0 0 12px rgba(230, 126, 34, 0.2); }
 
-        .assist-box { display: none; background: #f8fafc; border-left: 3px solid var(--wd-blue); padding: 12px; border-radius: 8px; margin-bottom: 15px; animation: slideDown 0.2s ease; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-        .assist-box p { margin: 0; font-size: 0.65rem; color: #334155; font-weight: 600; line-height: 1.5; }
+        .res-card { background: var(--wd-orange); height: 85px; border-radius: 22px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 10px 0; color: white; box-shadow: 0 10px 25px rgba(230, 126, 34, 0.25); }
+        .res-num { font-size: 1.8rem; font-weight: 900; }
+        .res-info { font-size: 0.58rem; font-weight: 800; text-transform: uppercase; opacity: 0.9; }
 
-        .res-card { background: var(--wd-orange); padding: 15px; border-radius: 20px; text-align: center; margin: 10px 0; color: white; box-shadow: 0 10px 25px rgba(230, 126, 34, 0.3); }
-        .res-num { font-size: 1.8rem; font-weight: 900; display: block; }
-        .res-info { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; opacity: 0.9; }
-
-        .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.7rem; }
-        .btn-action { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; text-transform: uppercase; font-size: 0.75rem; }
-        .btn-reset { background: #cbd5e1; width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
+        .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.68rem; }
+        .btn-action { background: var(--wd-blue); color: white; border: none; height: 48px; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 5px; text-transform: uppercase; font-size: 0.75rem; }
 
         .admin-scroll { flex: 1; overflow-y: auto; padding-right: 5px; }
-        .admin-section { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .admin-section h4 { font-size: 0.7rem; color: var(--wd-orange); text-transform: uppercase; margin-bottom: 10px; border-left: 3px solid var(--wd-orange); padding-left: 8px; }
+        .admin-section { margin-bottom: 22px; border-bottom: 1px solid #eee; padding-bottom: 12px; }
+        .admin-section h4 { font-size: 0.68rem; color: var(--wd-orange); text-transform: uppercase; margin-bottom: 10px; border-left: 3px solid var(--wd-orange); padding-left: 8px; }
 
-        footer { text-align: center; padding: 10px 20px 25px; font-size: 0.6rem; color: #64748b; margin-top: auto; }
+        footer { text-align: center; padding: 10px 20px 25px; font-size: 0.58rem; color: #64748b; margin-top: auto; }
         footer strong { color: var(--wd-dark); display: block; margin-bottom: 2px; }
-        .footer-links a { color: var(--wd-blue); text-decoration: none; font-weight: 800; margin: 0 6px; }
+        .footer-links a { color: var(--wd-blue); text-decoration: none; font-weight: 800; margin: 0 8px; }
     </style>
 </head>
 <body>
 
 <div class="app-shell">
-    <div id="login-overlay">
-        <h3 style="color:var(--wd-orange); font-weight:900;">ADMIN LOGIN</h3>
-        <input type="password" id="master-pin" placeholder="****" style="text-align:center; font-size:1.5rem; width:120px; letter-spacing:5px; margin: 15px 0;">
-        <button class="btn-action" onclick="checkAccess()">LOGIN</button>
-        <p onclick="closeLogin()" style="margin-top:15px; font-size:0.55rem; cursor:pointer; font-weight:800; color:#94a3b8;">ABBRECHEN</p>
+    <div id="assist-overlay" class="assist-overlay" onclick="toggleAssist()">
+        <p id="assist-text">Wählen Sie ein Feld aus für Details.</p>
     </div>
 
-    <div id="help-popup">
-        <div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="btn-action" onclick="closeHelp()">VERSTANDEN</button></div>
+    <div id="login-overlay">
+        <h3 style="color:var(--wd-orange); font-weight:900;">ADMIN KONSOLE</h3>
+        <input type="password" id="master-pin" placeholder="****" style="text-align:center; font-size:1.6rem; width:130px; letter-spacing:10px; margin-bottom: 15px;">
+        <button class="btn-action" style="width:160px;" onclick="checkAccess()">ENTSPERREN</button>
+        <p onclick="closeLogin()" style="margin-top:20px; font-size:0.6rem; cursor:pointer; font-weight:900; color:#94a3b8;">ABBRECHEN</p>
     </div>
 
     <div class="top-nav">
@@ -103,7 +106,7 @@
 
     <div class="logo-area">
         <img src="applogo.jpg" id="logo-trigger" alt="WERBEDRUCK GM">
-        <h1 id="app-main-title">Werbetechniker-Tools</h1>
+        <h1 id="app-title">Werbetechniker-Tools</h1>
         <div class="divider"></div>
     </div>
 
@@ -116,226 +119,158 @@
     </main>
 
     <div id="view-rollen" class="view">
-        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_r">ZURÜCK</span></div><div class="toggle-help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
-        <div class="input-box"><span class="label" id="t-rD_l" data-u>Durchmesser Außen</span><input type="number" id="rD" onfocus="foc('rD')" onchange="jump('rd')"></div>
-        <div class="input-box"><span class="label" id="t-rd_l" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" onfocus="foc('rd')" onchange="jump('rs')"></div>
-        <div class="input-box"><span class="label" id="t-rs_l" data-u>Materialstärke</span><input type="number" id="rs" value="0.22" step="0.01" onfocus="foc('rs')" onchange="calcR()"></div>
-        <div class="assist-box" id="assist-box-rollen"><p id="assist-text-rollen"></p></div>
+        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_r">ZURÜCK</span></div><div class="help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
+        <div class="input-box"><span class="label" id="t-rD_l" data-u>Durchmesser Außen</span><input type="number" id="rD" onfocus="foc('rD')" oninput="calcR()" onchange="jump('rd')"></div>
+        <div class="input-box"><span class="label" id="t-rd_l" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" onfocus="foc('rd')" oninput="calcR()" onchange="jump('rs')"></div>
+        <div class="input-box"><span class="label" id="t-rs_l" data-u>Materialstärke</span><input type="number" id="rs" value="0.22" step="0.01" onfocus="foc('rs')" oninput="calcR()"></div>
         <div class="res-card"><span id="resR" class="res-num">0.00 m</span><span class="res-info" id="t-res_l">Material auf der Rolle</span></div>
-        <div style="display:flex; gap:8px;"><button class="btn-action" style="flex:1;" onclick="connectBT()"><i data-lucide="bluetooth"></i> <span>BT Messchieber koppeln</span></button><button class="btn-reset" onclick="resetBT()"><i data-lucide="refresh-ccw"></i></button></div>
-    </div>
-
-    <div id="view-nutzen" class="view">
-        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_n">ZURÜCK</span></div><div class="toggle-help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
-        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-pW_l" data-u>Plattenbreite</span><input type="number" id="pW" value="3000" onfocus="foc('pW')" onchange="jump('pH')"></div><div class="input-box" style="flex:1;"><span class="label" id="t-pH_l" data-u>Plattenhöhe</span><input type="number" id="pH" value="1500" onfocus="foc('pH')" onchange="jump('cut')"></div></div>
-        <div class="input-box"><span class="label" id="t-cut_l" data-u>Schnittbreite</span><input type="number" id="cut" value="1.5" onfocus="foc('cut')" onchange="jump('sW')"></div>
-        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-sW_l" data-u>Schildbreite</span><input type="number" id="sW" onfocus="foc('sW')" onchange="jump('sH')"></div><div class="input-box" style="flex:1;"><span class="label" id="t-sH_l" data-u>Schildhöhe</span><input type="number" id="sH" onfocus="foc('sH')" onchange="calcN()"></div></div>
-        <div class="assist-box" id="assist-box-nutzen"><p id="assist-text-nutzen"></p></div>
-        <div class="res-card"><span id="resN" class="res-num">0</span><span class="res-info" id="t-n_res">Nutzen pro Platte</span></div>
-    </div>
-
-    <div id="view-gew" class="view">
-        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_g">ZURÜCK</span></div><div class="toggle-help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
-        <div class="input-box"><span class="label" id="t-mat_l">Material-Datenbank</span><select id="gMat" class="in-view" onchange="updateMaterialLogic(); jump('gStd')" onfocus="foc('mat')"></select></div>
-        <div id="row-thickness-preset" class="input-box"><span class="label" id="t-gStd_l">Standardstärken</span><select id="gStd" class="in-view" onchange="applyPreset(); jump('gb')" onfocus="foc('gStd')"></select></div>
-        <div class="input-box"><span class="label" id="label-thickness">Stärke / Gramm</span><input type="number" id="gs" onfocus="foc('gs')" onchange="jump('gb')"></div>
-        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-gb_l" data-u>Breite</span><input type="number" id="gb" value="1000" onfocus="foc('gb')" onchange="jump('gh')"></div><div class="input-box" style="flex:1;"><span class="label" id="t-gh_l" data-u>Höhe</span><input type="number" id="gh" value="1000" onfocus="foc('gh')" onchange="calcG()"></div></div>
-        <div class="assist-box" id="assist-box-gew"><p id="assist-text-gew"></p></div>
-        <div class="res-card"><span id="resG" class="res-num">0.00 kg</span><span class="res-info" id="t-g_res">Gesamtgewicht</span></div>
+        <button class="btn-action" onclick="connectBT()"><i data-lucide="bluetooth"></i> <span>BT Messchieber koppeln</span></button>
     </div>
 
     <div id="view-wind" class="view">
-        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_w">ZURÜCK</span></div><div class="toggle-help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
+        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_w">ZURÜCK</span></div><div class="help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
         <div class="input-box"><span class="label" id="t-wMat_l">Material wählen</span><select id="wMat" class="in-view" onchange="calcW(); jump('wb')" onfocus="foc('wMat')"></select></div>
-        <div style="display:flex; gap:8px;"><div class="input-box" style="flex:1;"><span class="label" id="t-wb_l" data-u>Breite</span><input type="number" id="wb" value="2000" onfocus="foc('wb')" onchange="jump('wh')"></div><div class="input-box" style="flex:1;"><span class="label" id="t-wh_l" data-u>Höhe</span><input type="number" id="wh" value="1000" onfocus="foc('wh')" onchange="calcW()"></div></div>
-        <div class="assist-box" id="assist-box-wind"><p id="assist-text-wind"></p></div>
+        <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" id="t-wb_l" data-u>Breite</span><input type="number" id="wb" value="2000" onfocus="foc('wb')" oninput="calcW()" onchange="jump('wh')"></div><div class="input-box" style="flex:1;"><span class="label" id="t-wh_l" data-u>Höhe</span><input type="number" id="wh" value="1000" onfocus="foc('wh')" oninput="calcW()"></div></div>
         <div class="res-card"><span id="resW" class="res-num">0 N</span><span class="res-info" id="t-w_res">Windlast bei 120 km/h</span></div>
     </div>
 
-    <div id="view-hohl" class="view">
-        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span id="t-back_h">ZURÜCK</span></div><div class="toggle-help-btn" onclick="toggleAssist()"><i data-lucide="help-circle"></i></div></div>
-        <div class="input-box"><span class="label" id="t-hd_l" data-u>Stangen Ø</span><input type="number" id="hd" value="30" onfocus="foc('hd')" onchange="jump('hsd')"></div>
-        <div class="input-box"><span class="label" id="t-hsd_l" data-u>Materialdicke</span><input type="number" id="hsd" value="0.5" onfocus="foc('hsd')" onchange="calcH()"></div>
-        <div class="assist-box" id="assist-box-hohl"><p id="assist-text-hohl"></p></div>
-        <div class="res-card"><span id="resH" class="res-num">0.0 mm</span><span class="res-info" id="t-h_p">Hohlsaum-Zugabe</span></div>
-    </div>
-
-    <div id="view-admin-global" class="view">
-        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div></div>
+    <div id="view-admin" class="view">
+        <div class="mod-header"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span id="t-admin_exit">ADMIN VERLASSEN</span></div></div>
         <div class="admin-scroll">
-            <div class="admin-section"><h4>Design DNA</h4><input type="color" id="cfg-c-o" onchange="applyLive()"></div>
-            <div class="admin-section"><h4>Footer Editor</h4><input type="text" id="cfg-f-br" oninput="applyLive()" placeholder="Firma"><input type="text" id="cfg-f-l1t" oninput="applyLive()" placeholder="Link 1 Text" style="margin-top:5px;"><input type="text" id="cfg-f-l1u" oninput="applyLive()" placeholder="Link 1 URL" style="margin-top:5px;"></div>
-            <div class="admin-section"><h4>Modul Titel</h4><div id="admin-titles-list"></div></div>
+            <div id="admin-global-config" class="admin-section">
+                <h4>Globale DNA (Farben & Branding)</h4>
+                <label class="label">Akzentfarbe</label><input type="color" id="cfg-color" onchange="applyAdminLive()" style="height:35px; padding:2px; cursor:pointer;">
+                <label class="label" style="margin-top:10px;">Firma</label><input type="text" id="cfg-brand" oninput="applyAdminLive()">
+                <label class="label" style="margin-top:10px;">Impressum Link</label><input type="text" id="cfg-link1" oninput="applyAdminLive()">
+            </div>
+            <div id="admin-local-config" class="admin-section">
+                <h4>Modul-Administration</h4>
+                <div id="admin-fields-list"></div>
+            </div>
         </div>
-        <button class="btn-action" onclick="saveContext()">DNA MASTER VERSIEGELN</button>
+        <button class="btn-action" style="margin-top:20px;" onclick="saveDNA()">DNA VERSIEGELN</button>
     </div>
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <span id="f-ver">V3.9.1 | Sequential Workflow</span>
+        <span id="f-ver">V3.9.2 | Master-Integrity</span>
         <div class="footer-links"><a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a></div>
     </footer>
 </div>
 
 <script>
-    const VERSION = "3.9.1";
+    const VERSION = "3.9.2";
     const i18n = {
-        de: { 
-            mainH: "Werbetechniker-Tools", back_r: "ZURÜCK", back_n: "ZURÜCK", back_g: "ZURÜCK", back_w: "ZURÜCK", back_h: "ZURÜCK",
+        de: {
+            mainH: "Werbetechniker-Tools", admin_exit: "ADMIN VERLASSEN", back_r: "ZURÜCK", back_w: "ZURÜCK",
             rollen_h: "Rollen-Meter", rollen_p: "Längen berechnen", rD_l: "Durchmesser Außen", rd_l: "Kerndurchmesser", rs_l: "Materialstärke", res_l: "Material auf der Rolle",
-            nutzen_h: "Nutzen-Rechner", nutzen_p: "Schnittpläne", pW_l: "Plattenbreite", pH_l: "Plattenhöhe", cut_l: "Schnittbreite", sW_l: "Schildbreite", sH_l: "Schildhöhe", n_res: "Nutzen pro Platte",
-            gew_h: "Gewichts-Detektor", gew_p: "Materialgewicht", mat_l: "Material-Datenbank", gStd_l: "Standardstärken", gb_l: "Breite", gh_l: "Höhe", g_res: "Gesamtgewicht",
             wind_h: "Windlast-Prüfer", wind_p: "Statik-Check", wMat_l: "Material wählen", wb_l: "Breite", wh_l: "Höhe", w_res: "Windlast bei 120 km/h",
-            hohl_h: "Hohlsaum-Profi", hohl_p: "Banner-Zulage", hd_l: "Stangen Ø", hsd_l: "Materialdicke", h_p: "Hohlsaum-Zugabe",
-            h_rD: "Erfassen Sie den kompletten Abstand von Außenkante zu Außenkante. Betätigen Sie die HID-Taste oder tragen Sie den Wert manuell ein.",
-            h_rd: "Messen Sie den Außendurchmesser der Hülse. Nutzen Sie zwingend die RÜCKSEITIGEN MESSGABELN Ihres Messschiebers.",
-            h_rs: "Messen Sie exakt EINE EINZELNE LAGE des Materials inklusive Trägerpapier. Übertragung per HID-Taste am BT-Gerät.",
-            h_pW: "Breite der Rohplatte vor dem Zuschnitt. Berücksichtigen Sie eventuelle Spannränder.",
-            h_pH: "Höhe der Rohplatte vor dem Zuschnitt.",
-            h_cut: "Materialverlust pro Trennvorgang. Dicke des Sägeblatts oder Fräserdurchmesser eingeben.",
-            h_sW: "Breite des fertigen Nutzens inklusive Beschnitt falls erforderlich.",
-            h_sH: "Höhe des fertigen Nutzens.",
-            h_mat: "Wählen Sie den Werkstoff aus der Material-Datenbank für Dichte und Statikfaktoren.",
-            h_gStd: "Wählen Sie ein Preset, um die Stärkeeingabe zu automatisieren.",
-            h_gs: "Geben Sie die Plattenstärke in mm oder die Grammatur bei Planen in kg/m² ein.",
-            h_gb: "Gesamtbreite des Elements für die Gewichtsermittlung.",
-            h_gh: "Gesamthöhe des Elements.",
-            h_wMat: "Wählen Sie das Material direkt aus der Datenbank, um die spezifischen Windlastkoeffizienten anzuwenden.",
-            h_wb: "Windangriffsbreite des Objekts.",
-            h_wh: "Windangriffshöhe des Objekts.",
-            h_hd: "Außendurchmesser der Stange oder des Rohrs für den Hohlsaum.",
-            h_hsd: "Dicke des Banners für die Umfangsberechnung des Saums."
+            h_rD: "Erfassen Sie den Gesamtdurchmesser von Außenkante zu Außenkante. HID-Taste oder Handeingabe nutzen.",
+            h_rd: "Bestimmen Sie den Hülsendurchmesser mit den RÜCKSEITIGEN MESSGABELN am Anfang der Rolle.",
+            h_rs: "Messen Sie exakt EINE EINZELNE LAGE inklusive Liner. Digitale Übertragung via HID-Taste empfohlen.",
+            h_wMat: "Wählen Sie den Werkstoff aus der Datenbank für korrekte Windlastkoeffizienten.",
+            h_wb: "Windangriffsbreite der Fläche.", h_wh: "Windangriffshöhe der Fläche."
         }
     };
-
     const materials = {
-        'alu': { n: 'Aluminium', d: 2.7, t: 'p', s: 2, w: 1.0 }, 'alu_v': { n: 'Alu-Verbund', d: 1.2, t: 'p', s: 3, w: 1.0 }, 'glas': { n: 'Glas', d: 2.5, t: 'p', s: 4, w: 1.0 }, 'v2a': { n: 'Edelstahl', d: 7.9, t: 'p', s: 2, w: 1.0 }, 'pvc_h': { n: 'Forex / PVC', d: 0.55, t: 'p', s: 3, w: 1.0 }, 'sieb': { n: 'Siebdruckplatte', d: 0.75, t: 'p', s: 9, w: 1.0 }, 'mdf': { n: 'MDF Platte', d: 0.75, t: 'p', s: 10, w: 1.0 }, 'mplx': { n: 'Multiplex', d: 0.7, t: 'p', s: 15, w: 1.0 }, 'pc': { n: 'Polycarbonat', d: 1.2, t: 'p', s: 5, w: 1.0 }, 'ps': { n: 'Polystyrol', d: 1.05, t: 'p', s: 2, w: 1.0 }, 'mesh_s': { n: 'Mesh Standard', d: 0.3, t: 'r', w: 0.6 }, 'mesh_w': { n: 'Mesh Wind-Pro', d: 0.25, t: 'r', w: 0.4 }, 'lkw': { n: 'LKW Plane', d: 0.9, t: 'r', w: 1.0 }
+        'alu': { n: 'Aluminium', d: 2.7, w: 1.0 }, 'alu_v': { n: 'Alu-Verbund', d: 1.2, w: 1.0 }, 'glas': { n: 'Glas', d: 2.5, w: 1.0 }, 'mesh': { n: 'Mesh Standard', d: 0.3, w: 0.6 }, 'lkw': { n: 'LKW Plane', d: 0.9, w: 1.0 }
     };
-
-    let activeView = 'main', clks = 0, tmr, btOn = false, helpActive = false;
+    let activeView = 'main', clks = 0, helpOn = false, btOn = false, tmr;
 
     function t(k) { return i18n.de[k] || "!!"; }
 
-    function ensureIcons(ret = 20) {
-        if (window.lucide) { lucide.createIcons(); } 
-        else if (ret > 0) setTimeout(() => ensureIcons(ret - 1), 100);
-    }
-
-    function foc(id) {
-        if(helpActive) {
-            const box = document.getElementById('assist-text-' + activeView);
-            let txt = t('h_' + id);
-            if(activeView === 'rollen') {
-                if(btOn) txt += " BETÄTIGEN SIE DIE HID-TASTE ZUR ÜBERNAHME.";
-                else txt += " TRAGEN SIE DEN ABGELESENEN WERT MANUELL EIN.";
-            }
-            if(box) box.innerText = txt;
+    function go(v) {
+        document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
+        activeView = v; helpOn = false;
+        document.getElementById('assist-overlay').style.display = 'none';
+        const target = document.getElementById(v === 'admin' ? 'view-admin' : 'view-' + v);
+        target.classList.add('active');
+        if(v !== 'main' && v !== 'admin') {
+            const f = target.querySelector('input, select');
+            if(f) { setTimeout(() => { f.focus(); foc(f.id); }, 100); }
         }
+        updateUI();
     }
 
     function toggleAssist() {
-        helpActive = !helpActive;
-        const box = document.getElementById('assist-box-' + activeView);
-        const btn = document.querySelector('.view.active .toggle-help-btn');
-        if(box) box.style.display = helpActive ? 'block' : 'none';
-        if(btn) btn.classList.toggle('active', helpActive);
-        if(helpActive) {
-            const cur = document.activeElement;
-            if(cur && cur.id) foc(cur.id);
-        }
+        helpOn = !helpOn;
+        document.getElementById('assist-overlay').style.display = helpOn ? 'flex' : 'none';
+        document.querySelectorAll('.help-btn').forEach(b => b.classList.toggle('active', helpOn));
+        if(helpOn) foc(document.activeElement.id);
     }
 
-    function jump(targetId) {
-        const el = document.getElementById(targetId);
-        if(el) el.focus();
-        calcAll();
+    function foc(id) {
+        if(!id) return;
+        let base = t('h_' + id) || "Geben Sie den Wert ein.";
+        if(activeView === 'rollen') base += btOn ? " (HID-TASTE nutzen)" : " (WERT MANUELL eingeben)";
+        document.getElementById('assist-text').innerText = base;
     }
 
-    function go(v) {
-        document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
-        activeView = v;
-        const target = document.getElementById(v === 'main' ? 'view-main' : (v.startsWith('admin') ? 'view-' + v : 'view-' + v));
-        target.classList.add('active');
-        helpActive = false;
-        const abox = document.getElementById('assist-box-' + v); if(abox) abox.style.display = 'none';
-        const abtn = target.querySelector('.toggle-help-btn'); if(abtn) abtn.classList.remove('active');
-        
-        const first = target.querySelector('input, select');
-        if(first) { setTimeout(() => first.focus(), 50); }
-        updateUI();
+    function jump(nextId) {
+        const n = document.getElementById(nextId);
+        if(n) n.focus();
     }
 
     function updateUI() {
         const u = document.getElementById('uG').value;
-        document.getElementById('app-main-title').innerText = (activeView === 'main') ? t('mainH') : t(activeView + '_h');
+        document.getElementById('app-title').innerText = (activeView === 'main') ? t('mainH') : t(activeView + '_h');
         document.querySelectorAll('[id^="t-"]').forEach(el => {
             const k = el.id.replace('t-', '');
             el.innerText = t(k);
             if(el.hasAttribute('data-u')) el.innerText += ` (${u})`;
         });
-        if(activeView === 'gew' || activeView === 'wind') updateMaterialLogic();
-        ensureIcons();
+        if(activeView === 'wind' && !document.getElementById('wMat').options.length) {
+            for(let k in materials) document.getElementById('wMat').add(new Option(materials[k].n, k));
+        }
+        if (window.lucide) lucide.createIcons();
     }
 
-    function updateMaterialLogic() {
-        const selG = document.getElementById('gMat'), selW = document.getElementById('wMat');
-        if(!selG.options.length) {
-            for(let k in materials) {
-                selG.add(new Option(materials[k].n, k));
-                selW.add(new Option(materials[k].n, k));
-            }
-            const pS = document.getElementById('gStd');
-            [1,2,3,4,5,8,10,15,19,20,30].forEach(v => pS.add(new Option(v + " mm", v)));
-        }
-        if(activeView === 'gew') {
-            const m = materials[selG.value];
-            document.getElementById('row-thickness-preset').style.display = (m.t === 'p') ? 'block' : 'none';
-            document.getElementById('label-thickness').innerText = (m.t === 'p') ? "Stärke (mm)" : "Grammatur (kg/m²)";
-            document.getElementById('gs').value = (m.t === 'p') ? m.s : m.d;
-        }
-        calcAll();
-    }
+    function calcR() { let D=parseFloat(document.getElementById('rD').value||0), d=parseFloat(document.getElementById('rd').value||0), s=parseFloat(document.getElementById('rs').value||0); if(D && d && s) document.getElementById('resR').innerText = ((Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s) / 1000).toFixed(2) + " m"; }
+    function calcW() { const m=materials[document.getElementById('wMat').value]; let b=parseFloat(document.getElementById('wb').value||0), h=parseFloat(document.getElementById('wh').value||0); if(b && h && m) document.getElementById('resW').innerText = Math.round(((b*h)/1000000)*500*m.w)+" N"; }
 
-    function applyPreset() { document.getElementById('gs').value = document.getElementById('gStd').value; calcAll(); }
-    function calcAll() { calcR(); calcN(); calcG(); calcW(); calcH(); }
+    async function connectBT() { try { await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }] }); btOn = true; alert("BT STATUS: GEKOPPELT"); } catch (e) { btOn = false; alert("BT FEHLER: Manueller Modus."); } }
 
-    function calcR() { let D = parseFloat(document.getElementById('rD').value||0), d = parseFloat(document.getElementById('rd').value||0), s = parseFloat(document.getElementById('rs').value||0); if(D && d && s) document.getElementById('resR').innerText = ((Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s) / 1000).toFixed(2) + " m"; }
-    function calcN() { let pW=parseFloat(document.getElementById('pW').value||0), pH=parseFloat(document.getElementById('pH').value||0), sW=parseFloat(document.getElementById('sW').value||0), sH=parseFloat(document.getElementById('sH').value||0), c=parseFloat(document.getElementById('cut').value||0); if(pW && pH && sW && sH) document.getElementById('resN').innerText = Math.floor((pW+c)/(sW+c)) * Math.floor((pH+c)/(sH+c)); }
-    function calcG() { const sel = document.getElementById('gMat'); if(!sel.value) return; const m=materials[sel.value]; let b=parseFloat(document.getElementById('gb').value||0), h=parseFloat(document.getElementById('gh').value||0), s=parseFloat(document.getElementById('gs').value||0); if(b && h && s) { let kg = (m.t === 'p') ? ((b*h)/1000000)*s*m.d : ((b*h)/1000000)*s; document.getElementById('resG').innerText = kg.toFixed(2)+" kg"; } }
-    function calcW() { const sel = document.getElementById('wMat'); if(!sel.value) return; const m=materials[sel.value]; let b=parseFloat(document.getElementById('wb').value||0), h=parseFloat(document.getElementById('wh').value||0); if(b && h) document.getElementById('resW').innerText = Math.round(((b*h)/1000000)*500*m.w)+" N"; }
-    function calcH() { let d=parseFloat(document.getElementById('hd').value||0), s=parseFloat(document.getElementById('hsd').value||0); if(d) document.getElementById('resH').innerText = ((Math.PI*d)+(2*s)+10).toFixed(1)+" mm"; }
-
-    async function connectBT() { try { const dev = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: 'Mitutoyo' }] }); btOn = true; alert("BT GEKOPPELT: " + dev.name); } catch (e) { alert("BT FEHLER: Manueller Modus aktiv."); btOn = false; } }
-    function resetBT() { document.querySelectorAll('input').forEach(e=>e.value=''); calcAll(); }
-
-    document.getElementById('logo-trigger').addEventListener('click', () => { clks++; clearTimeout(tmr); if(clks >= 5) { document.getElementById('login-overlay').style.display='flex'; clks=0; } tmr = setTimeout(()=>clks=0, 1500); });
-    function checkAccess() { if(document.getElementById('master-pin').value === "7805") { document.getElementById('login-overlay').style.display='none'; go('admin-global'); loadAdminFields(); } }
+    document.getElementById('logo-trigger').addEventListener('click', () => { clks++; clearTimeout(tmr); if(clks >= 5) { document.getElementById('login-overlay').style.display='flex'; clks=0; } tmr = setTimeout(()=>clks=0, 2000); });
+    function checkAccess() { if(document.getElementById('master-pin').value === "7805") { document.getElementById('login-overlay').style.display='none'; openAdmin(); } }
     function closeLogin() { document.getElementById('login-overlay').style.display='none'; }
-    function closeHelp() { document.getElementById('help-popup').style.display='none'; }
 
-    function loadAdminFields() {
-        const root = getComputedStyle(document.documentElement);
-        document.getElementById('cfg-c-o').value = root.getPropertyValue('--wd-orange').trim();
-        document.getElementById('cfg-f-br').value = document.getElementById('f-brand').innerText;
-        const list = document.getElementById('admin-titles-list'); list.innerHTML = '';
-        ['rollen_h', 'nutzen_h', 'gew_h', 'wind_h', 'hohl_h'].forEach(k => { list.innerHTML += `<label class="label">${k}</label><input type="text" id="cfg-${k}" value="${i18n.de[k]}" oninput="applyLive()" style="margin-bottom:8px;">`; });
+    function openAdmin() {
+        const g = document.getElementById('admin-global-config');
+        const l = document.getElementById('admin-fields-list');
+        const ctx = activeView;
+        g.style.display = (ctx === 'main') ? 'block' : 'none';
+        
+        // PRE-FILL MIT AKTUELLEN WERTEN
+        document.getElementById('cfg-color').value = getComputedStyle(document.documentElement).getPropertyValue('--wd-orange').trim();
+        document.getElementById('cfg-brand').value = document.getElementById('f-brand').innerText;
+        document.getElementById('cfg-link1').value = document.getElementById('f-l1').href;
+
+        l.innerHTML = '';
+        const list = (ctx === 'main') ? ['rollen_h', 'nutzen_h', 'gew_h', 'wind_h', 'hohl_h'] : [ctx + '_h', 'back_' + ctx.charAt(0)];
+        list.forEach(k => {
+            if(i18n.de[k]) l.innerHTML += `<label class="label">${k}</label><input type="text" id="cfg-${k}" value="${i18n.de[k]}" oninput="applyAdminLive()" style="margin-bottom:12px;">`;
+        });
+        go('admin');
     }
 
-    function applyLive() {
-        document.documentElement.style.setProperty('--wd-orange', document.getElementById('cfg-c-o').value);
-        ['rollen_h', 'nutzen_h', 'gew_h', 'wind_h', 'hohl_h'].forEach(k => { i18n.de[k] = document.getElementById('cfg-'+k).value; });
-        document.getElementById('f-brand').innerText = document.getElementById('cfg-f-br').value;
+    function applyAdminLive() {
+        document.documentElement.style.setProperty('--wd-orange', document.getElementById('cfg-color').value);
+        document.getElementById('f-brand').innerText = document.getElementById('cfg-brand').value;
+        document.getElementById('f-l1').href = document.getElementById('cfg-link1').value;
+        document.querySelectorAll('[id^="cfg-"]').forEach(el => { 
+            const k = el.id.replace('cfg-', ''); 
+            if(i18n.de[k] !== undefined) i18n.de[k] = el.value; 
+        });
         updateUI();
     }
 
-    function saveContext() { localStorage.setItem('wgm_v391_dna', JSON.stringify({ c: document.getElementById('cfg-c-o').value, f: document.getElementById('f-brand').innerText, v: VERSION })); alert("DNA GESPEICHERT"); }
+    function saveDNA() { localStorage.setItem('wgm_v392', JSON.stringify({ c: document.getElementById('cfg-color').value, f: document.getElementById('f-brand').innerText, v: VERSION })); alert("DNA MASTER-REKORD VERSIEGELT"); }
 
-    function init() {
-        const s = localStorage.getItem('wgm_v391_dna');
-        if(s) { const d = JSON.parse(s); if(d.v === VERSION) { document.getElementById('f-brand').innerText = d.f; } else localStorage.clear(); }
+    window.onload = () => {
+        const s = localStorage.getItem('wgm_v392');
+        if(s) { const d = JSON.parse(s); if(d.v === VERSION) { document.documentElement.style.setProperty('--wd-orange', d.c); document.getElementById('f-brand').innerText = d.f; } }
         updateUI();
-    }
-    window.onload = init;
+    };
 </script>
 </body>
 </html>
