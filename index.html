@@ -7,76 +7,73 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --wd-orange: #e67e22; --wd-blue: #3b82f6; --wd-dark: #333333;
-            --bg-app: #ffffff; --bg-body: #e5e7eb; --app-width: 320px;
+            --wd-orange: #e67e22; --wd-blue: #3b82f6; --wd-dark: #1e293b;
+            --bg-app: #ffffff; --bg-body: #cbd5e1; --app-width: 320px;
         }
-        /* Maximierter Kontrast durch dunkleren Hintergrund */
         html, body { 
             height: 100%; margin: 0; padding: 0; background: var(--bg-body); 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
-        /* Schwebende App-Shell mit massivem Schatten */
         .app-shell {
             width: var(--app-width); height: 95vh; max-height: 780px;
             background: var(--bg-app); color: var(--wd-dark);
             display: flex; flex-direction: column; overflow: hidden;
             border-radius: 40px; position: relative; 
-            box-shadow: 0 40px 100px rgba(0,0,0,0.25); 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.25), 0 10px 20px rgba(0,0,0,0.1); 
         }
-        @media (max-width: 380px) { .app-shell { width: 92vw; height: 96vh; } }
+        @media (max-width: 380px) { .app-shell { width: 94vw; height: 96vh; } }
 
-        /* Popups */
-        #egg-popup, #help-popup { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
-        .help-content { border: 2px solid var(--wd-orange); padding: 25px; border-radius: 25px; text-align: center; color: var(--wd-dark); width: 80%; max-height: 80%; overflow-y: auto; }
-        .help-content h3 { color: var(--wd-orange); margin-top: 0; font-size: 1rem; border-bottom: 2px solid var(--wd-orange); padding-bottom: 8px; margin-bottom: 15px; }
-        .help-content p { font-size: 0.72rem; line-height: 1.5; text-align: left; margin-bottom: 12px; }
-        .close-help { background: var(--wd-blue); color: white; border: none; padding: 10px; border-radius: 12px; font-weight: 800; font-size: 0.75rem; cursor: pointer; margin-top: 5px; width: 100%; }
+        #egg-popup, #help-popup { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.96); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(12px); }
+        .help-content { border: 2px solid var(--wd-orange); padding: 25px; border-radius: 25px; text-align: center; color: var(--wd-dark); width: 82%; max-height: 85%; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
+        .help-content h3 { color: var(--wd-orange); margin-top: 0; font-size: 1.1rem; border-bottom: 2px solid var(--wd-orange); padding-bottom: 10px; margin-bottom: 15px; text-transform: uppercase; font-weight: 900; }
+        .help-content p { font-size: 0.75rem; line-height: 1.6; text-align: left; margin-bottom: 15px; color: #334155; }
+        .close-help { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 14px; font-weight: 800; font-size: 0.8rem; cursor: pointer; margin-top: 5px; width: 100%; }
 
         .top-nav { display: flex; justify-content: space-between; padding: 30px 20px 5px; }
-        select { background: white; border: 1px solid #ddd; padding: 3px 8px; border-radius: 6px; font-weight: 800; font-size: 0.65rem; color: var(--wd-dark); outline: none; cursor: pointer; }
+        select { background: white; border: 1px solid #cbd5e1; padding: 4px 10px; border-radius: 8px; font-weight: 800; font-size: 0.7rem; color: var(--wd-dark); outline: none; cursor: pointer; }
         
         .logo-area { text-align: center; padding: 10px 20px; }
         .logo-area img { max-width: 150px; height: auto; cursor: pointer; margin-bottom: 5px; }
         .logo-area .divider { height: 3px; background: var(--wd-orange); border-radius: 2px; width: 100%; margin: 10px 0; }
-        .logo-area h1 { font-size: 0.8rem; letter-spacing: 0.5px; margin: 0; font-weight: 800; text-transform: uppercase; color: #555; }
+        .logo-area h1 { font-size: 0.85rem; letter-spacing: 0.5px; margin: 0; font-weight: 900; text-transform: uppercase; color: #475569; }
         
-        .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; }
+        .view { display: none; flex-direction: column; padding: 10px 20px; flex: 1; overflow-y: auto; animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .view.active { display: flex; }
         
-        .view-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; }
-        .info-btn { color: var(--wd-blue); cursor: pointer; }
+        .view-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 1px solid #f1f5f9; margin-bottom: 15px; }
+        .info-btn { color: var(--wd-blue); cursor: pointer; display: flex; align-items: center; }
 
-        /* Menü-Karten mit zwei Zeilen */
-        .card { background: white; border-radius: 18px; padding: 12px 15px; display: flex; align-items: center; gap: 12px; cursor: pointer; color: var(--wd-dark); margin-bottom: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.1s; border: 1px solid #eee; }
+        .card { background: white; border-radius: 20px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; cursor: pointer; color: var(--wd-dark); margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); transition: transform 0.2s; border: 1px solid #f1f5f9; }
         .card:active { transform: scale(0.97); }
-        .icon { width: 40px; height: 40px; background: #f8f9fa; color: var(--wd-blue); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid #eee; }
-        .card-text h2 { margin: 0; font-size: 0.95rem; font-weight: 800; text-transform: uppercase; color: #1e293b; }
-        .card-text p { margin: 0; font-size: 0.7rem; color: #64748b; font-weight: 600; }
+        .icon { width: 44px; height: 44px; background: #f8fafc; color: var(--wd-blue); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid #f1f5f9; }
+        .card-text h2 { margin: 0; font-size: 0.95rem; font-weight: 900; text-transform: uppercase; color: #0f172a; }
+        .card-text p { margin: 2px 0 0; font-size: 0.72rem; color: #64748b; font-weight: 600; }
 
-        .input-box { margin-bottom: 8px; }
-        .label { font-size: 0.6rem; color: #666; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; display: block; }
-        input, select.in-view { width: 100%; padding: 10px; border-radius: 12px; border: 1px solid #ddd; font-size: 0.9rem; font-weight: 700; color: var(--wd-dark); background: #fff; outline: none; box-sizing: border-box; }
+        .input-box { margin-bottom: 10px; }
+        .label { font-size: 0.65rem; color: #475569; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; display: block; }
+        input, select.in-view { width: 100%; padding: 12px; border-radius: 14px; border: 1px solid #cbd5e1; font-size: 0.95rem; font-weight: 700; color: var(--wd-dark); background: #fff; outline: none; box-sizing: border-box; }
 
-        .res-card { background: var(--wd-orange); padding: 15px; border-radius: 20px; text-align: center; margin: 12px 0; color: white; box-shadow: 0 10px 20px rgba(230, 126, 34, 0.2); }
-        .res-num { font-size: 2.2rem; font-weight: 900; display: block; line-height: 1; margin-bottom: 4px; }
-        .res-info { font-size: 0.65rem; font-weight: 800; display: block; text-transform: uppercase; opacity: 0.9; }
+        .res-card { background: var(--wd-orange); padding: 18px; border-radius: 24px; text-align: center; margin: 15px 0; color: white; box-shadow: 0 15px 30px rgba(230, 126, 34, 0.25); }
+        .res-num { font-size: 2.4rem; font-weight: 900; display: block; line-height: 1; margin-bottom: 5px; }
+        .res-info { font-size: 0.7rem; font-weight: 800; display: block; text-transform: uppercase; opacity: 0.95; letter-spacing: 0.5px; }
 
-        .back-btn { color: #555; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 800; font-size: 0.75rem; }
-        .bt-btn { background: var(--wd-blue); color: white; border: none; padding: 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; text-transform: uppercase; width: 100%; margin-bottom: 10px; }
+        .back-btn { color: #475569; display: flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 900; font-size: 0.8rem; }
+        .bt-btn { background: var(--wd-blue); color: white; border: none; padding: 14px; border-radius: 18px; font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; text-transform: uppercase; width: 100%; margin-top: 10px; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3); }
 
-        footer { text-align: center; padding: 10px 20px 25px; font-size: 0.6rem; color: #888; margin-top: auto; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 2px !important; }
-        footer strong { color: #555; display: block !important; font-size: 0.7rem; margin-bottom: 2px; width: 100%; }
-        footer .ver { display: block !important; margin-bottom: 5px; width: 100%; }
-        .footer-links { margin-top: 5px; font-weight: 700; }
-        .footer-links a { color: var(--wd-blue); text-decoration: none; margin: 0 5px; }
+        footer { text-align: center; padding: 15px 20px 30px; font-size: 0.65rem; color: #64748b; margin-top: auto; display: flex !important; flex-direction: column !important; gap: 4px !important; }
+        footer strong { color: #334155; display: block !important; font-size: 0.75rem; }
+        footer .ver { display: block !important; font-weight: 700; color: #94a3b8; }
+        .footer-links { margin-top: 5px; }
+        .footer-links a { color: var(--wd-blue); text-decoration: none; font-weight: 800; margin: 0 8px; }
     </style>
 </head>
 <body>
 
 <div class="app-shell">
-    <div id="egg-popup"><div class="egg-content">Powered by<br><strong style="color:var(--wd-orange); font-size:1.4rem;">Werbedruck-GM</strong><br><br>DER MEISTER</div></div>
-    <div id="help-popup"><div class="help-content"><h3 id="help-title">Hilfe</h3><div id="help-body"></div><button class="close-help" onclick="closeHelp()">VERSTANDEN</button></div></div>
+    <div id="egg-popup"><div class="egg-content">Powered by<br><strong style="color:var(--wd-orange); font-size:1.6rem;">Werbedruck-GM</strong><br><br>DER MEISTER</div></div>
+    <div id="help-popup"><div class="help-content"><h3 id="help-title"></h3><div id="help-body"></div><button class="close-help" onclick="closeHelp()" id="btn-close-help">VERSTANDEN</button></div></div>
 
     <div class="top-nav">
         <select id="uG" onchange="updateAllUnits()"><option value="mm">mm</option><option value="inc">inc</option></select>
@@ -108,12 +105,48 @@
         <div class="input-box"><span class="label" data-t="r_d2" data-u>Kerndurchmesser</span><input type="number" id="rd" value="76" oninput="calcR()"></div>
         <div class="input-box"><span class="label" data-t="r_s" data-u>Stärke</span><input type="number" id="rs" value="0.22" step="0.01" oninput="calcR()"></div>
         <div class="res-card"><span class="res-info" data-t="res_l">Material auf der Rolle</span><span id="resR" class="res-num">0.00 m</span></div>
-        <button class="bt-btn" onclick="alert('Bluetooth Suche aktiviert...')"><i data-lucide="bluetooth"></i> <span data-t="bt">Mess-Gerät verbinden</span></button>
+        <button class="bt-btn" onclick="alert('Bluetooth...')"><i data-lucide="bluetooth"></i> <span data-t="bt">Mess-Gerät verbinden</span></button>
+    </div>
+
+    <div id="view-nutzen" class="view">
+        <div class="view-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('n')"><i data-lucide="info"></i></div></div>
+        <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Platte B</span><input type="number" id="pW" value="3000" oninput="calcN()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Platte H</span><input type="number" id="pH" value="1500" oninput="calcN()"></div></div>
+        <div class="input-box"><span class="label" data-t="n_cut" data-u>Schnittbreite</span><input type="number" id="cut" value="1.5" step="0.1" oninput="calcN()"></div>
+        <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_sb" data-u>Schild B</span><input type="number" id="sW" oninput="calcN()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_sh" data-u>Schild H</span><input type="number" id="sH" oninput="calcN()"></div></div>
+        <div class="res-card"><span id="resN" class="res-num">0</span><span class="res-info" data-t="n_res">Nutzen</span></div>
+    </div>
+
+    <div id="view-gew" class="view">
+        <div class="view-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('g')"><i data-lucide="info"></i></div></div>
+        <div class="input-box"><span class="label" data-t="mat">Material</span><select id="gMat" class="in-view" onchange="calcG()">
+            <option value="2.7">Aluminium</option><option value="1.2">Alu-Verbund (Dibond)</option>
+            <option value="1.19">Acryl (Plexiglas)</option><option value="0.6">PVC Hartschaum</option>
+            <option value="7.85">Stahl</option><option value="0.51">PVC Banner (510g)</option><option value="0.30">Mesh / Netz (300g)</option>
+        </select></div>
+        <div class="input-box"><span class="label" data-t="r_s" data-u>Stärke</span><input type="number" id="gs" value="3" oninput="calcG()"></div>
+        <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Breite</span><input type="number" id="gb" value="1000" oninput="calcG()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Höhe</span><input type="number" id="gh" value="1000" oninput="calcG()"></div></div>
+        <div class="res-card"><span id="resG" class="res-num">0.00 kg</span><span class="res-info" data-t="g_res">Gesamtgewicht</span></div>
+    </div>
+
+    <div id="view-wind" class="view">
+        <div class="view-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('w')"><i data-lucide="info"></i></div></div>
+        <div class="input-box"><span class="label" data-t="w_mat">Oberfläche</span><select id="wMat" class="in-view" onchange="calcW()">
+            <option value="1.0">Geschlossen (Schilder)</option><option value="0.65">Mesh Standard</option><option value="0.80">Mesh Fein</option>
+        </select></div>
+        <div style="display:flex; gap:10px;"><div class="input-box" style="flex:1;"><span class="label" data-t="n_pb" data-u>Breite</span><input type="number" id="wb" value="2000" oninput="calcW()"></div><div class="input-box" style="flex:1;"><span class="label" data-t="n_ph" data-u>Höhe</span><input type="number" id="wh" value="1000" oninput="calcW()"></div></div>
+        <div class="res-card"><span id="resW" class="res-num">0 N</span><span class="res-info" data-t="w_res">Windlast</span></div>
+    </div>
+
+    <div id="view-hohl" class="view">
+        <div class="view-header"><div class="back-btn" onclick="go('main')"><i data-lucide="chevron-left"></i> <span data-t="back">ZURÜCK</span></div><div class="info-btn" onclick="openHelp('h')"><i data-lucide="info"></i></div></div>
+        <div class="input-box"><span class="label" data-t="h_d" data-u>Stangendurchmesser</span><input type="number" id="hd" value="30" oninput="calcH()"></div>
+        <div class="input-box"><span class="label" data-t="h_s" data-u>Materialstärke</span><input type="number" id="hs" value="0.5" oninput="calcH()"></div>
+        <div class="res-card"><span id="resH" class="res-num">0.0 mm</span><span class="res-info" data-t="h_p">Banner-Zulage</span></div>
     </div>
 
     <footer>
         <strong>Werbedruck GM</strong>
-        <div class="ver">V2.2.3 | 31.01.2026</div>
+        <div class="ver">V2.2.5 | 31.01.2026</div>
         <div class="footer-links">
             <a href="https://www.deine-werbewerkstatt.de/Impressum/" target="_blank">Impressum</a> | 
             <a href="https://www.deine-werbewerkstatt.de/datenschutz/" target="_blank">Datenschutz</a>
@@ -123,37 +156,53 @@
 
 <script>
     const i18n = {
-        de: { 
-            mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Mess-Gerät verbinden", 
-            r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", 
-            n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", 
-            g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gesamtgewicht", 
-            w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windlast", 
-            h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage", h_res: "Zugabe pro Seite", 
-            help_title: "ANLEITUNG", help_r: "Messen Sie Durchmesser (D), Kern (d) und Stärke (s). Kompatibel mit Bluetooth HID/BLE Messschiebern."
-        }
+        de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Mess-Gerät verbinden", close: "VERSTANDEN", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", n_pb: "Platte B", n_ph: "Platte H", n_sb: "Schild B", n_sh: "Schild H", n_cut: "Schnittbreite", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gesamtgewicht", mat: "Material", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windlast", w_mat: "Oberfläche", h_h: "Hohlsaum-Profi", h_p: "Banner-Zulage", h_d: "Stangendurchmesser", help_title: "ANLEITUNG", 
+            help_r: "<p><b>Verwendung:</b> Rollendurchmesser, Kern und Stärke messen. Die App berechnet Restmeter.</p><p><b>Hardware:</b> Bluetooth Messschieber (HID/BLE) wie Mitutoyo U-Wave oder Mahr i-wi kompatibel.</p>",
+            help_n: "<p>Optimiert die Aufteilung kleiner Formate auf Plattenware unter Berücksichtigung der Schnittbreite.</p>", help_g: "<p>Ermittelt das Gewicht anhand von Fläche, Stärke und Dichte (kg/dm³).</p>", help_w: "<p>Windlast in Newton. Mesh-Material reduziert die Last durch Durchlässigkeit automatisch.</p>", help_h: "<p>Kalkuliert Banner-Zugabe für Hohlsaum basierend auf Stangendurchmesser.</p>" },
+        en: { mainH: "Signmaker Tools", back: "BACK", bt: "Connect Device", close: "UNDERSTOOD", r_h: "Roll Meter", r_p: "Length calculation", r_d1: "Roll Diameter", r_d2: "Core Diameter", r_s: "Thickness", res_l: "Material on Roll", n_h: "Nesting Pro", n_p: "Layouts", n_res: "Yield", n_pb: "Sheet W", n_ph: "Sheet H", n_sb: "Sign W", n_sh: "Sign H", n_cut: "Cut Width", g_h: "Weight Detector", g_p: "Material Mass", g_res: "Total Weight", mat: "Material", w_h: "Wind Load", w_p: "Statics Check", w_res: "Wind Load", w_mat: "Surface", h_h: "Hem Pro", h_p: "Banner Allowance", h_d: "Pole Diameter", help_title: "INSTRUCTIONS", 
+            help_r: "<p><b>Usage:</b> Measure roll diameter, core, and thickness.</p><p><b>Hardware:</b> Compatible with BT calipers (Mitutoyo U-Wave, Mahr).</p>",
+            help_n: "<p>Optimizes layouts on sheets considering kerf.</p>", help_g: "<p>Calculates weight based on area and density.</p>", help_w: "<p>Wind force in Newton. Mesh permeability reduces load.</p>", help_h: "<p>Pole pocket allowance calculation.</p>" },
+        fr: { mainH: "Outils de signalétique", back: "RETOUR", bt: "Connecter l'appareil", close: "COMPRIS", r_h: "Mètre à rouleau", r_p: "Calcul de longueur", r_d1: "Diamètre rouleau", r_d2: "Diamètre noyau", r_s: "Épaisseur", res_l: "Matériel sur rouleau", n_h: "Nesting Pro", n_p: "Mises en page", n_res: "Rendement", n_pb: "Plaque L", n_ph: "Plaque H", n_sb: "Signe L", n_sh: "Signe H", n_cut: "Largeur coupe", g_h: "Détecteur de poids", g_p: "Masse matériel", g_res: "Poids total", mat: "Matériel", w_h: "Charge du vent", w_p: "Vérification statique", w_res: "Charge vent", w_mat: "Surface", h_h: "Ourlet Pro", h_p: "Marge bannière", h_d: "Diamètre poteau", help_title: "INSTRUCTIONS", help_r: "<p>Mesurez le diamètre et l'épaisseur.</p>", help_n: "<p>Optimise la plaque.</p>", help_g: "<p>Calcule le poids.</p>", help_w: "<p>Force du vent.</p>", help_h: "<p>Calcul d'ourlet.</p>" },
+        es: { mainH: "Herramientas de rotulación", back: "VOLVER", bt: "Conectar dispositivo", close: "ENTENDIDO", r_h: "Metros de rollo", r_p: "Calcular longitud", r_d1: "Diámetro rollo", r_d2: "Diámetro núcleo", r_s: "Espesor", res_l: "Material en rollo", n_h: "Nesting Pro", n_p: "Diseños", n_res: "Rendimiento", n_pb: "Placa An", n_ph: "Placa Al", n_sb: "Signo An", n_sh: "Signo Al", n_cut: "Ancho corte", g_h: "Detector de peso", g_p: "Masa material", g_res: "Peso total", mat: "Material", w_h: "Carga de viento", w_p: "Control estático", w_res: "Carga viento", w_mat: "Superficie", h_h: "Dobladillo Pro", h_p: "Margen pancarta", h_d: "Diámetro poste", help_title: "INSTRUCCIONES", help_r: "<p>Mida diámetro y espesor.</p>", help_n: "<p>Optimiza la placa.</p>", help_g: "<p>Calcula el peso.</p>", help_w: "<p>Carga de viento.</p>", help_h: "<p>Cálculo dobladillo.</p>" },
+        it: { mainH: "Strumenti per insegne", back: "INDIETRO", bt: "Connetti dispositivo", close: "CAPITO", r_h: "Metri rotolo", r_p: "Calcolo lunghezza", r_d1: "Diametro rotolo", r_d2: "Diametro nucleo", r_s: "Spessore", res_l: "Materiale su rotolo", n_h: "Nesting Pro", n_p: "Layout", n_res: "Resa", n_pb: "Piastra L", n_ph: "Piastra A", n_sb: "Segno L", n_sh: "Segno A", n_cut: "Larghezza taglio", g_h: "Rilevatore peso", g_p: "Massa materiale", g_res: "Peso totale", mat: "Materiale", w_h: "Carico vento", w_p: "Verifica statica", w_res: "Carico vento", w_mat: "Superficie", h_h: "Bordo Pro", h_p: "Margine banner", h_d: "Diametro palo", help_title: "ISTRUZIONI", help_r: "<p>Misura diametro.</p>", help_n: "<p>Ottimizza piastra.</p>", help_g: "<p>Calcola peso.</p>", help_w: "<p>Forza vento.</p>", help_h: "<p>Calcolo bordo.</p>" },
+        nl: { mainH: "Reclame Tools", back: "TERUG", bt: "Apparaat verbinden", close: "BEGREPEN", r_h: "Rolmeter", r_p: "Lengte berekenen", r_d1: "Roldiameter", r_d2: "Kerndiameter", r_s: "Dikte", res_l: "Materiaal op rol", n_h: "Nesting Pro", n_p: "Layouts", n_res: "Opbrengst", n_pb: "Plaat B", n_ph: "Plaat H", n_sb: "Bord B", n_sh: "Bord H", n_cut: "Snijbreedte", g_h: "Gewichtsdetector", g_p: "Materiaalmassa", g_res: "Totaal gewicht", mat: "Materiaal", w_h: "Windbelasting", w_p: "Statica check", w_res: "Windbelasting", w_mat: "Oppervlak", h_h: "Zoom Pro", h_p: "Bannermarge", h_d: "Paaldiameter", help_title: "INSTRUCTIES", help_r: "<p>Meet diameter.</p>", help_n: "<p>Optimaliseer plaat.</p>", help_g: "<p>Bereken gewicht.</p>", help_w: "<p>Windkracht.</p>", help_h: "<p>Zoom berekening.</p>" },
+        pl: { mainH: "Narzędzia reklamowe", back: "POWRÓT", bt: "Połącz urządzenie", close: "ROZUMIEM", r_h: "Licznik rolek", r_p: "Oblicz długość", r_d1: "Średnica rolki", r_d2: "Średnica rdzenia", r_s: "Grubość", res_l: "Materiał na rolce", n_h: "Nesting Pro", n_p: "Układy", n_res: "Wydajność", n_pb: "Płyta SZ", n_ph: "Płyta W", n_sb: "Znak SZ", n_sh: "Znak W", n_cut: "Szerokość cięcia", g_h: "Detektor wagi", g_p: "Masa materiału", g_res: "Waga całkowita", mat: "Materiał", w_h: "Obciążenie wiatrem", w_p: "Statyka check", w_res: "Siła wiatru", w_mat: "Powierzchnia", h_h: "Rąbek Pro", h_p: "Naddatek banera", h_d: "Średnica bieguna", help_title: "INSTRUKCJE", help_r: "<p>Zmierz średnicę.</p>", help_n: "<p>Optymalizuj płytę.</p>", help_g: "<p>Oblicz wagę.</p>", help_w: "<p>Siła wiatru.</p>", help_h: "<p>Oblicz rąbek.</p>" },
+        da: { mainH: "Skiltetekniker-værktøj", back: "TILBAGE", bt: "Forbind enhed", close: "FORSTÅET", r_h: "Rullemåler", r_p: "Beregn længde", r_d1: "Rullediameter", r_d2: "Kernediameter", r_s: "Tykkelse", res_l: "Materiale på rulle", n_h: "Nesting Pro", n_p: "Layouts", n_res: "Udbytte", n_pb: "Plade B", n_ph: "Plade H", n_sb: "Skilt B", n_sh: "Skilt H", n_cut: "Skærebredde", g_h: "Vægtdetektor", g_p: "Materialemasse", g_res: "Samlet vægt", mat: "Materiale", w_h: "Vindbelastning", w_p: "Statik check", w_res: "Vindbelastning", w_mat: "Overflade", h_h: "Søm Pro", h_p: "Bannertillæg", h_d: "Stangdiameter", help_title: "VEJLEDNING", help_r: "<p>Mål diameter.</p>", help_n: "<p>Optimer plade.</p>", help_g: "<p>Beregn vægt.</p>", help_w: "<p>Vindkraft.</p>", help_h: "<p>Beregn søm.</p>" },
+        no: { mainH: "Skiltmakerverktøy", back: "TILBAKE", bt: "Koble til enhet", close: "FORSTÅTT", r_h: "Rullemåler", r_p: "Beregn lengde", r_d1: "Rullediameter", r_d2: "Kjernediameter", r_s: "Tykkelse", res_l: "Materiale på rull", n_h: "Nesting Pro", n_p: "Oppsett", n_res: "Antall", n_pb: "Plate B", n_ph: "Plate H", n_sb: "Skilt B", n_sh: "Skilt H", n_cut: "Skjærebredde", g_h: "Vektdetektor", g_p: "Materialmasse", g_res: "Totalvekt", mat: "Materiale", w_h: "Vindbelastning", w_p: "Statikk check", w_res: "Vindlast", w_mat: "Overflate", h_h: "Fald Pro", h_p: "Bannertillegg", h_d: "Stangdiameter", help_title: "BRUKSANVISNING", help_r: "<p>Mål diameter.</p>", help_n: "<p>Optimer plate.</p>", help_g: "<p>Beregn vekt.</p>", help_w: "<p>Vindkraft.</p>", help_h: "<p>Beregn fald.</p>" },
+        ru: { mainH: "Инструменты рекламщика", back: "НАЗАД", bt: "Подключить", close: "ПОНЯТНО", r_h: "Счетчик рулонов", r_p: "Расчет длины", r_d1: "Диаметр рулона", r_d2: "Диаметр ядра", r_s: "Толщина", res_l: "Материал в рулоне", n_h: "Nesting Pro", n_p: "Макеты", n_res: "Выход", n_pb: "Плита Ш", n_ph: "Плита В", n_sb: "Знак Ш", n_sh: "Знак В", n_cut: "Ширина реза", g_h: "Детектор веса", g_p: "Масса материала", g_res: "Общий вес", mat: "Материал", w_h: "Ветровая нагрузка", w_p: "Статика", w_res: "Сила ветра", w_mat: "Поверхность", h_h: "Подгиб Про", h_p: "Припуск баннера", h_d: "Диаметр столба", help_title: "ИНСТРУКЦИЯ", help_r: "<p>Замерьте диаметр.</p>", help_n: "<p>Оптимизация плиты.</p>", help_g: "<p>Расчет веса.</p>", help_w: "<p>Сила ветра.</p>", help_h: "<p>Расчет подгиба.</p>" },
+        ja: { mainH: "サインメーカーツール", back: "戻る", bt: "接続する", close: "了解", r_h: "ロールメーター", r_p: "長さ計算", r_d1: "ロール直径", r_d2: "芯の直径", r_s: "厚さ", res_l: "ロール上の材料", n_h: "ネスティング・プロ", n_p: "レイアウト", n_res: "歩留まり", n_pb: "シート幅", n_ph: "シート高さ", n_sb: "サイン幅", n_sh: "サイン高さ", n_cut: "カット幅", g_h: "重量検出器", g_p: "材料質量", g_res: "総重量", mat: "材料", w_h: "風荷重", w_p: "静力学チェック", w_res: "風荷重", w_mat: "表面", h_h: "ヘム・プロ", h_p: "バナー許容差", h_d: "ポール直径", help_title: "説明書", help_r: "<p>直径と厚さを測定します。</p>", help_n: "<p>配置を最適化します。</p>", help_g: "<p>重量を計算します。</p>", help_w: "<p>風の力を計算します。</p>", help_h: "<p>ヘムを計算します。</p>" }
     };
-    ["en", "fr", "es", "it", "nl", "pl", "da", "no", "ru", "ja"].forEach(l => { if(!i18n[l]) i18n[l] = i18n.de; });
 
     function getT(l, k) { return (i18n[l] && i18n[l][k]) ? i18n[l][k] : (i18n['de'][k] || k); }
+    
     function updateAllUnits() {
         const u = document.getElementById('uG').value, l = document.getElementById('lG').value;
         document.querySelectorAll('[data-u]').forEach(el => { el.innerText = `${getT(l, el.getAttribute('data-t'))} (${u})`; });
-        calcR();
+        calcR(); calcN(); calcG(); calcW(); calcH();
     }
+
     function changeLang() {
         const l = document.getElementById('lG').value;
         document.querySelectorAll('[data-t]').forEach(el => { if(!el.hasAttribute('data-u')) el.innerText = getT(l, el.getAttribute('data-t')); });
+        document.getElementById('btn-close-help').innerText = getT(l, 'close');
         updateAllUnits(); lucide.createIcons();
     }
+
     function openHelp(mod) {
         const l = document.getElementById('lG').value;
         document.getElementById('help-title').innerText = getT(l, 'help_title');
         document.getElementById('help-body').innerHTML = getT(l, 'help_' + mod);
         document.getElementById('help-popup').style.display = 'flex';
     }
+
     function closeHelp() { document.getElementById('help-popup').style.display = 'none'; }
+
     function calcR() { const u=document.getElementById('uG').value; let D=parseFloat(document.getElementById('rD').value||0), d=parseFloat(document.getElementById('rd').value||0), s=parseFloat(document.getElementById('rs').value||0); if(D&&d&&s){ let res=(Math.PI*(Math.pow(D,2)-Math.pow(d,2)))/(4*s); document.getElementById('resR').innerText=(u==='mm'?(res/1000).toFixed(2)+" m":(res/12).toFixed(2)+" ft"); } }
+    function calcN() { let pW=parseFloat(document.getElementById('pW').value), pH=parseFloat(document.getElementById('pH').value), sW=parseFloat(document.getElementById('sW').value), sH=parseFloat(document.getElementById('sH').value), gap=parseFloat(document.getElementById('cut').value)||0; if(pW&&pH&&sW&&sH){ let t=Math.floor((pW+gap)/(sW+gap))*Math.floor((pH+gap)/(sH+gap)); document.getElementById('resN').innerText=t; } }
+    function calcG() { const u=document.getElementById('uG').value; let b=parseFloat(document.getElementById('gb').value||0), h=parseFloat(document.getElementById('gh').value||0), s=parseFloat(document.getElementById('gs').value||0), d=parseFloat(document.getElementById('gMat').value||0); if(b&&h&&s){ let kg=((b*h)/1000000)*s*d; document.getElementById('resG').innerText=(u==='inc'?(kg*2.204).toFixed(2)+" lbs":kg.toFixed(2)+" kg"); } }
+    function calcW() { let b=parseFloat(document.getElementById('wb').value), h=parseFloat(document.getElementById('wh').value), factor=parseFloat(document.getElementById('wMat').value); if(b&&h) document.getElementById('resW').innerText=Math.round(((b*h)/1000000)*500*factor)+" N"; }
+    function calcH() { let d=parseFloat(document.getElementById('hd').value), s=parseFloat(document.getElementById('hs').value); if(d) document.getElementById('resH').innerText=((Math.PI*d)+(2*s)+10).toFixed(1)+" mm"; }
+    
     function go(v) { document.querySelectorAll('.view').forEach(e=>e.classList.remove('active')); const target=v==='main'?document.getElementById('main'):document.getElementById('view-'+v); if(target) target.classList.add('active'); lucide.createIcons(); }
     
     let clks=0, tmr;
@@ -162,6 +211,7 @@
         if (clks===5){ document.getElementById('egg-popup').style.display='flex'; setTimeout(()=>document.getElementById('egg-popup').style.display='none',3000); clks=0; }
         tmr=setTimeout(()=>clks=0, 1000);
     });
+
     initApp();
     function initApp() { document.getElementById('lG').value='de'; changeLang(); }
 </script>
