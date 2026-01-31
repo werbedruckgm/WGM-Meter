@@ -163,7 +163,7 @@
     </div>
 
     <div id="admin-global" class="view">
-        <div class="view-header"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT ADMIN</span></div></div>
+        <div class="view-header" style="display:flex; justify-content:space-between; align-items:center;"><div class="back-btn" onclick="go('main')"><i data-lucide="lock"></i> <span>EXIT GLOBAL</span></div></div>
         <div class="admin-scroll">
             <div class="admin-section"><h4>Design DNA</h4>
                 <div class="admin-grid"><div class="input-box"><span class="label-row"><span class="label">Akzent</span><i data-lucide="info" class="info-small" onclick="ash('c-o')"></i></span><input type="color" id="cfg-c-o" onchange="applyLive()"></div><div class="input-box"><span class="label-row"><span class="label">Buttons</span><i data-lucide="info" class="info-small" onclick="ash('c-bl')"></i></span><input type="color" id="cfg-c-bl" onchange="applyLive()"></div></div>
@@ -191,7 +191,7 @@
 
     <footer id="app-footer">
         <strong id="f-brand">Werbedruck GM</strong>
-        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V3.5.0 | Final</div>
+        <div id="f-status" style="font-weight:700; opacity:0.6; margin:2px 0;">V3.5.1 | Master</div>
         <div class="footer-links"><a id="f-l1" href="#">Impressum</a> | <a id="f-l2" href="#">Datenschutz</a></div>
     </footer>
 </div>
@@ -199,12 +199,12 @@
 <script>
     const i18n = {
         de: { mainH: "Werbetechniker-Tools", back: "ZURÜCK", bt: "Hardware koppeln", r_h: "Rollen-Meter", r_p: "Längen berechnen", r_d1: "Rollendurchmesser", r_d2: "Kerndurchmesser", r_s: "Stärke", res_l: "Material auf der Rolle", n_h: "Nutzen-Rechner", n_p: "Schnittpläne", n_res: "Nutzen", g_h: "Gewichts-Detektor", g_p: "Materialgewicht", g_res: "Gewicht", mat: "Material", w_h: "Windlast-Prüfer", w_p: "Statik-Check", w_res: "Windkraft", w_mat: "Oberfläche", h_h: "Hohlsaum-Profi", h_p: "Zugabe", h_d: "Stangen Ø", h_s: "Materialdicke", help_title: "ANLEITUNG", 
-            help_r: "<b>Rollendurchmesser:</b> Der äußere Ring.<br><b>Kern:</b> Maß der Papprolle.<br><b>Stärke:</b> Dicke einer Folienlage.", help_n: "<b>Platte:</b> Rohmaß eingeben.<br><b>Endformat:</b> Zielmaß eingeben.<br><b>Schnitt:</b> Verlust durch Trennung.", help_g: "<b>Material:</b> Werkstofftyp.<br><b>Dicke:</b> Plattenstärke.<br><b>Format:</b> Breite/Höhe.", help_w: "<b>Fläche:</b> Mesh oder geschlossen.<br><b>Maße:</b> Bannerkanten.", help_h: "<b>Stange:</b> Durchmesser Halterung.<br><b>Banner:</b> Dicke für Saumzugabe."
+            help_r: "<b>Rollendurchmesser:</b> Der äußere Ring.<br><b>Kern:</b> Durchmesser der Papprolle.<br><b>Stärke:</b> Dicke einer Folienlage.", help_n: "<b>Platte:</b> Rohmaß eingeben.<br><b>Endformat:</b> Zielmaß eingeben.<br><b>Schnitt:</b> Verlust durch Trennung.", help_g: "<b>Material:</b> Werkstofftyp.<br><b>Dicke:</b> Plattenstärke.<br><b>Format:</b> Breite/Höhe.", help_w: "<b>Fläche:</b> Mesh oder geschlossen.<br><b>Maße:</b> Bannerkanten.", help_h: "<b>Stange:</b> Durchmesser Halterung.<br><b>Banner:</b> Dicke für Saumzugabe."
         },
-        en: { mainH: "Signmaker Tools", back: "BACK", r_h: "Roll Meter", n_h: "Yield Pro", g_h: "Weight Det.", w_h: "Wind Load", h_h: "Hem Master" }
+        en: { mainH: "Signmaker Tools", back: "BACK", r_h: "Roll Meter" }
     };
     const adminInfo = {
-        'c-o': "Farbe für Akzentlinien und Fokus-Umrandungen.", 'c-bl': "Farbe für Aktions-Buttons.", 'b-main': "Header-Titel im Hauptmenü.", 'f-br': "Firmenname im Footer.", 'f-st': "Statuszeile im Footer.",
+        'c-o': "CI-Akzentfarbe für Linien und Fokus-Umrandungen.", 'c-bl': "Farbe für alle Aktions-Buttons.", 'b-main': "Der Name Ihrer App im Hauptmenü.", 'f-br': "Firmenname in der Fußzeile.", 'f-st': "Statuszeile im Footer.",
         'b-r': "Beschriftung Rollen-Button.", 'p-r': "Untertitel Rollen-Button.", 'h-r': "Hilfetext für das Rollen-Tool.",
         'b-n': "Beschriftung Nutzen-Button.", 'p-n': "Untertitel Nutzen-Button.", 'h-n': "Hilfetext für das Nutzen-Tool.",
         'b-g': "Beschriftung Gewicht-Button.", 'h-g': "Hilfetext für das Gewichts-Tool.",
@@ -230,7 +230,7 @@
         if(document.getElementById('master-pin').value === "7805") {
             document.getElementById('login-overlay').style.display='none'; document.getElementById('master-pin').value="";
             go((activeView === 'main') ? 'admin-global' : 'admin-' + activeView); loadAdminFields();
-        } else { alert("CODE FALSCH."); }
+        } else { alert("ZUGRIFF VERWEIGERT."); }
     }
 
     function go(v) {
@@ -249,7 +249,7 @@
         lucide.createIcons();
     }
 
-    function ash(key) { document.getElementById('admin-help-body').innerText = adminInfo[key] || "Info n.v."; document.getElementById('admin-help-popup').style.display = 'flex'; }
+    function ash(key) { document.getElementById('admin-help-body').innerText = adminInfo[key] || "Info nicht hinterlegt."; document.getElementById('admin-help-popup').style.display = 'flex'; }
     function closeAdminHelp() { document.getElementById('admin-help-popup').style.display = 'none'; }
 
     function calcR() { const u = document.getElementById('uG').value; let D = parseFloat(document.getElementById('rD').value||0), d = parseFloat(document.getElementById('rd').value||0), s = parseFloat(document.getElementById('rs').value||0); if(D && d && s) { let res = (Math.PI * (Math.pow(D, 2) - Math.pow(d, 2))) / (4 * s); document.getElementById('resR').innerText = (u==='mm' ? (res/1000).toFixed(2)+" m" : (res/12).toFixed(2)+" ft"); } }
@@ -260,18 +260,19 @@
 
     function loadAdminFields() {
         const root = getComputedStyle(document.documentElement);
-        ['c-o', 'c-bl'].forEach(k => { const el = document.getElementById('cfg-'+k); if(el) el.value = root.getPropertyValue('--wd-'+(k==='c-o'?'orange':'blue')).trim(); });
+        if(document.getElementById('cfg-c-o')) document.getElementById('cfg-c-o').value = root.getPropertyValue('--wd-orange').trim();
+        if(document.getElementById('cfg-c-bl')) document.getElementById('cfg-c-bl').value = root.getPropertyValue('--wd-blue').trim();
         if(document.getElementById('cfg-b-main')) document.getElementById('cfg-b-main').value = i18n.de.mainH;
         ['r','n','g','w','h'].forEach(k => { 
             const b = document.getElementById('cfg-b-'+k), p = document.getElementById('cfg-p-'+k), h = document.getElementById('cfg-h-'+k);
             if(b) b.value = i18n.de[k+'_h']; if(p) p.value = i18n.de[k+'_p'] || ""; if(h) h.value = (i18n.de['help_'+k] || "").replace(/<[^>]*>/g, '').replace(/<br>/g, '\n');
         });
-        document.getElementById('cfg-f-br').value = document.getElementById('f-brand').innerText;
-        document.getElementById('cfg-f-st').value = document.getElementById('f-status').innerText;
-        document.getElementById('cfg-f-l1t').value = document.getElementById('f-l1').innerText;
-        document.getElementById('cfg-f-l1u').value = document.getElementById('f-l1').getAttribute('href');
-        document.getElementById('cfg-f-l2t').value = document.getElementById('f-l2').innerText;
-        document.getElementById('cfg-f-l2u').value = document.getElementById('f-l2').getAttribute('href');
+        if(document.getElementById('cfg-f-br')) document.getElementById('cfg-f-br').value = document.getElementById('f-brand').innerText;
+        if(document.getElementById('cfg-f-st')) document.getElementById('cfg-f-st').value = document.getElementById('f-status').innerText;
+        if(document.getElementById('cfg-f-l1t')) document.getElementById('cfg-f-l1t').value = document.getElementById('f-l1').innerText;
+        if(document.getElementById('cfg-f-l1u')) document.getElementById('cfg-f-l1u').value = document.getElementById('f-l1').getAttribute('href');
+        if(document.getElementById('cfg-f-l2t')) document.getElementById('cfg-f-l2t').value = document.getElementById('f-l2').innerText;
+        if(document.getElementById('cfg-f-l2u')) document.getElementById('cfg-f-l2u').value = document.getElementById('f-l2').getAttribute('href');
     }
 
     function applyLive() {
@@ -283,12 +284,12 @@
             const b = document.getElementById('cfg-b-'+k), p = document.getElementById('cfg-p-'+k), h = document.getElementById('cfg-h-'+k);
             if(b) i18n.de[k+'_h'] = b.value; if(p) i18n.de[k+'_p'] = p.value; if(h) i18n.de['help_'+k] = h.value;
         });
-        document.getElementById('f-brand').innerText = document.getElementById('cfg-f-br').value;
-        document.getElementById('f-status').innerText = document.getElementById('cfg-f-st').value;
-        document.getElementById('f-l1').innerText = document.getElementById('cfg-f-l1t').value;
-        document.getElementById('f-l1').setAttribute('href', document.getElementById('cfg-f-l1u').value);
-        document.getElementById('f-l2').innerText = document.getElementById('cfg-f-l2t').value;
-        document.getElementById('f-l2').setAttribute('href', document.getElementById('cfg-f-l2u').value);
+        if(document.getElementById('cfg-f-br')) document.getElementById('f-brand').innerText = document.getElementById('cfg-f-br').value;
+        if(document.getElementById('cfg-f-st')) document.getElementById('f-status').innerText = document.getElementById('cfg-f-st').value;
+        if(document.getElementById('cfg-f-l1t')) document.getElementById('f-l1').innerText = document.getElementById('cfg-f-l1t').value;
+        if(document.getElementById('cfg-f-l1u')) document.getElementById('f-l1').setAttribute('href', document.getElementById('cfg-f-l1u').value);
+        if(document.getElementById('cfg-f-l2t')) document.getElementById('f-l2').innerText = document.getElementById('cfg-f-l2t').value;
+        if(document.getElementById('cfg-f-l2u')) document.getElementById('f-l2').setAttribute('href', document.getElementById('cfg-f-l2u').value);
         changeLang();
     }
 
@@ -299,11 +300,11 @@
             f: [document.getElementById('f-brand').innerText, document.getElementById('f-status').innerText, document.getElementById('f-l1').innerText, document.getElementById('f-l1').getAttribute('href'), document.getElementById('f-l2').innerText, document.getElementById('f-l2').getAttribute('href')],
             h: [i18n.de.help_r, i18n.de.help_n, i18n.de.help_g, i18n.de.help_w, i18n.de.help_h]
         };
-        localStorage.setItem('wgm_v350_master', JSON.stringify(data)); alert("SEKTION-DNA GESPEICHERT.");
+        localStorage.setItem('wgm_v351_master', JSON.stringify(data)); alert("MASTER DNA GESPEICHERT.");
     }
 
     function init() {
-        const saved = localStorage.getItem('wgm_v350_master');
+        const saved = localStorage.getItem('wgm_v351_master');
         if(saved) {
             const s = JSON.parse(saved); const root = document.documentElement.style;
             if(s.c[0]) root.setProperty('--wd-orange', s.c[0]); if(s.c[1]) root.setProperty('--wd-blue', s.c[1]);
